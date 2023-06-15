@@ -6,7 +6,7 @@
 고객의 요구사항에 맞게 에이전트 설정을 조정하여 최적의 결과를 제공해 드립니다.
 
 # DataSaker 선행 작업을 진행하였나요?
-현재 Ubuntu 환경에서는 `DataSaker`의 선행 작업이 진행되지 않으셨다면 `DataSaker` 선행 작업을 먼저 진행하여 주시기 바랍니다. <span style='background-color:#ffdce0'>[DataSaker 선행 작업](${MANUAL_UBUNTU_KR})</span>
+현재 Ubuntu 환경에서는 `DataSaker`의 선행 작업이 진행되지 않으셨다면 `DataSaker` 선행 작업을 먼저 진행하여 주시기 바랍니다. [DataSaker 선행 작업](${MANUAL_UBUNTU_KR})
 
 # Log agent 설치하기
 `Log agent`는 현재 Ubuntu 18.04.6 LTS (Bionic Beaver) 환경에서만 지원하고 있습니다.
@@ -44,9 +44,9 @@ agent:
 
 ### **[주의]**
 
-1. <span style='background-color:red'>반드시 하나 이상의 로그 수집 경로(`path`)를 입력하십시오.</span> 로그 수집 경로를 작성하지 않을 경우, `Log agent`가 정상적으로 동작하지 않을 수 있습니다.
-2. 다음과 같이 특정 경로의 모든 로그를 수집하도록 설정할 경우 로그 에이전트에 많은 부하가 발생할 수 있습니다. (`/var/log/*`) <span style='background-color:red'>수집 로그 파일을 개별적으로 작성하는 것을 권장합니다.</span>(`/var/log/containers/sampleApp.log`)
-3. <span style='background-color:red'>로그 파일 이외의 파일이 경로에 설정되지 않도록 설정하십시오.</span> 로그 수집 경로의 파일을 지정하거나 그 이외의 파일을 제외시키십시오. <span style='background-color:red'>로그 수집 설정에 포맷을 반드시 작성해주십시오.</span>(예시: `.log`)
+1. 반드시 하나 이상의 로그 수집 경로(`path`)를 입력하십시오. 로그 수집 경로를 작성하지 않을 경우, `Log agent`가 정상적으로 동작하지 않을 수 있습니다.
+2. 다음과 같이 특정 경로의 모든 로그를 수집하도록 설정할 경우 로그 에이전트에 많은 부하가 발생할 수 있습니다. (`/var/log/*`) 수집 로그 파일을 개별적으로 작성하는 것을 권장합니다.(`/var/log/containers/sampleApp.log`)
+3. 로그 파일 이외의 파일이 경로에 설정되지 않도록 설정하십시오. 로그 수집 경로의 파일을 지정하거나 그 이외의 파일을 제외시키십시오. 로그 수집 설정에 포맷을 반드시 작성해주십시오. (예시: `.log`)
 
 ## 3. 패키지 실행
 

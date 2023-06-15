@@ -34,7 +34,7 @@ To deploy the Datasaker Agent on hosts, add the Datasaker role and your API key 
 | Variable                                   | Description                                                                                                                                                                                                                                                                                                                                                        |
 |--------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |`datasaker_api_key`|Your Datasaker API key.|
-|`datasaker_agents`|Set to Datasaker Agent.<br>`dsk_node_agent` `dsk_trace_agent` `dsk_log_agent` `dsk-postgres-agent` `dsk-plan-postgres-agent`<br>(Default) `dsk_node_agent`|
+|`datasaker_agents`|Set to Datasaker Agent.<br>`dsk-node-agent` `dsk-trace-agent` `dsk-log-agent` `dsk-postgres-agent` `dsk-plan-postgres-agent`<br>(Default) `dsk-node-agent`|
 |`datagate_url`|The site of the Datasaker intake to send Agent data to.<br>(Default) `gate.kr.datasaker.io`|
 |`datagate_trace_url`|Override the `dsk-trace-agent` datagate url. <br>(Default) `datagate_url`|
 |`datagate_trace_port`|Override the `dsk-trace-agent` datagate port. <br>(Default) `31300`|

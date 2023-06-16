@@ -52,19 +52,17 @@ sudo ./installer.sh dsk-plan-mysql-agent
 |agent.data_source_name.DBName|MySQL 데이터베이스 이름을 입력합니다.|
 
 ### 옵션입력
-해당 명령어를 통해 `/etc/datasaker/dsk-plan-mysql-agent/agent-config.yml`의 cluster_id 값을 초기화 할 수 있습니다.
+
 ```shell
-sudo dsk-plan-mysql-agent init ${VAR_CLUSTER_NAME}
+vi /etc/datasaker/dsk-plan-mysql-agent/agent-config.yml
 ```
-해당 명령을 통해 정상적으로 cluster_id값이 설정되었는지 확인 가능합니다.
-```shell
-cat /etc/datasaker/dsk-plan-mysql-agent/agent-config.yml
-```
+
+필요에 따라 다음 내용을 수정합니다.
+
 ```yaml
 agent:
   metadata:
-    agent_name: "dsk-plan-mysql-agent"
-    cluster_id: CLUSTER_ID
+    agent_name: "your_agent_name_what_you_want" # 에이전트 이름 (별칭) default=dsk-plan-mysql-agent
   data_source_name:
     user: 'user'
     password: 'pass'
@@ -106,5 +104,4 @@ sudo dsk-plan-mysql-agent stop
 ## 2. 패키지 제거
 ```bash
 sudo apt remove dsk-plan-mysql-agent
-``` 
-
+```

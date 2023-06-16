@@ -64,7 +64,6 @@ EOF
     -v /var/datasaker/:/var/datasaker/\
     -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro\
     -v ~/.datasaker/mongo-config.yml:/etc/datasaker/agent-config.yml:ro\
-    -e DSK_CLUSTER_ID=${VAR_CLUSTER_ID} \
     -e DSK_LOG_LEVEL=Info\
     --restart=always\
     datasaker/dsk-mongo-agent

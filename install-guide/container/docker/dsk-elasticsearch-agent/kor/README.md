@@ -68,7 +68,6 @@ EOF
       -v /var/datasaker/:/var/datasaker/\
       -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro\
       -v ~/.datasaker/elasticsearch-config.yml:/etc/datasaker/dsk-elasticsearch-agent/agent-config.yml:ro\
-      -e DSK_CLUSTER_ID=${VAR_CLUSTER_ID} \
       -e DSK_LOG_LEVEL=INFO\
       -e DSK_SUB_KIND=elasticsearch-1\
       --restart=always\

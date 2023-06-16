@@ -14,7 +14,7 @@
 
 ## 1. 에이전트 실행에 필요한 구성 YAML 파일을 생성합니다.
 
-사용자가 수집하고자 하는 로그(예: /var/lib/docker/containers/)를 에이전트의 '/var/log/sample/' 경로에 mount할 경우, 다음과 같이 구성 파일을 작성할 수 있습니다.
+사용자가 수집하고자 하는 로그 '/var/lib/docker/containers/'를 에이전트의 '/var/log/sample/' 경로에 mount할 경우, 다음과 같이 구성 파일을 작성할 수 있습니다.
 
 ```shell
 cat << EOF > ~/.datasaker/log-agent-config.yml
@@ -37,8 +37,7 @@ agent:
         address: 'my-sample-serivce:5432'
 EOF
 ```
-
-**[주의]** `agent.collect.paths[]` 설정 항목은 반드시 작성해야 합니다. 작성하지 않을 경우, 로그 에이전트가 정상적으로 동작하지 않을 수 있습니다.
+**[주의]** `agent.collect.paths[]` 설정 항목은 마운트한 볼륨 경로를 기준으로 작성해야 합니다.(예: '/var/log/sample/') 해당 항목을 작성하지 않을 경우, 로그 에이전트가 정상적으로 동작하지 않을 수 있습니다. 
 
 
 로그 에이전트 구성 파일에서 각각의 설정 항목에 대한 설명은 다음과 같습니다.
@@ -46,7 +45,7 @@ EOF
 | **Settings**                        | **Description**                                           | **Default** | **Necessary** |
 |:------------------------------------|:----------------------------------------------------------|:-----------:|:------------:|
 | `agent.metadata.agent_name`      | 로그 에이전트 이름                                                 |     `dsk-log-agent`     |         |
-| `agent.collect.paths[]`      | 로그 수집 대상 경로 (예시 : '/var/lib/docker/containers/my-container.log')                              |     N/A     |    **✓**     |
+| `agent.collect.paths[]`      | 로그 수집 대상 경로 (예 : '/var/log/sample/*.log')                              |     N/A     |    **✓**     |
 | `agent.collect.exclude_paths[]`      | 로그 수집 제외 대상 경로                              |     N/A     |         |
 | `agent.collect.keywords[]`         | 로그 수집 키워드 (키워드가 포함된 로그만 수집합니다.)                                  |     N/A     |              |
 | `agent.collect.tag`              | 사용자 설정 태그                                                    |     N/A     |              |
@@ -54,9 +53,6 @@ EOF
 | `agent.collect.service.category` | 서비스 분류 (`app`, `database`, `syslog`, `etc` 중 하나의 값을 작성하세요.)                 |    `etc`    |              |
 | `agent.collect.service.type`     | 서비스 데이터베이스 종류 및 개발 언어 타입 (`postgres`, `mysql`, `java`, `etc` 중 하나의 값을 작성하세요.)                      |    `etc`    |              |
 | `agent.collect.service.address`  | 데이터베이스 host 및 port 정보  (서비스 분류가 database인 경우 설정하세요. 설정하지 않을 경우, 특정 기능을 사용하지 못할 수 있습니다.) |     N/A     |      ⚠️      |
-
-
-**[주의]** `agent.collect.paths[]` 설정 항목은 로그 에이전트에 마운트한 볼륨 경로를 기준으로 작성해야 합니다. (예시 : `~/datasaker/log/*.log`)
 
 
 ## 2. docker 명령어를 통해 로그 에이전트를 실행합니다.

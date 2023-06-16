@@ -39,7 +39,6 @@ agent:
       args:
         - --collect-all
         - --mongodb.uri=${DSK_MONGO_URI}
-        - --compatible-mode
     scrape_configs:
       - job_name: dsk-mongo-agent
         url: localhost:19216
@@ -47,6 +46,11 @@ agent:
           rule: drop
 EOF
 ```
+
+| Argument | Description |
+| -------- | ----------- |
+| --collect-all | 모든 종류의 메트릭을 수집하도록 설정합니다. |
+| --mongodb.uri | mongodb의 주소를 설정합니다. |
 
 ## 2. Mongo agent 설치
 

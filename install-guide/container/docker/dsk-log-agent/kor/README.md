@@ -12,7 +12,9 @@
 
 # Log agent 설치하기
 
-1. 에이전트 실행에 필요한 구성 YAML 파일을 생성합니다.
+## 1. 에이전트 실행에 필요한 구성 YAML 파일을 생성합니다.
+
+로그 에이전트에 '~/datasaker/log' 경로에 수집할 로그를 mount할 경우, 다음과 같이 구성 파일을 작성할 수 있습니다.
 
 ```shell
 cat << EOF > ~/.datasaker/log-agent-config.yml
@@ -21,11 +23,10 @@ agent:
     agent_name: 'Sample Service Log Agent'
   collect:
     - paths:
-        - '~/datasaker/log/sample/containers/*.log'
-        - '~/datasaker/log/sample/service*.log'
+        - '~/datasaker/log/containers/sample-app-a.log'
+        - '~/datasaker/log/containers/sample-app-b*.log'
       exclude_paths:
-        - '~/datasaker/log/sample//private-container.log'
-        - '~/datasaker/log/sample/service-private*.log'
+        - '~/datasaker/log/containers/sample-app-b-private.log'
       keywords:
         - 'ERROR'
         - 'WARN'
@@ -61,18 +62,15 @@ EOF
 **[주의]** `agent.collect.paths[]` 설정 항목은 로그 에이전트에 마운트한 볼륨 경로를 기준으로 작성해야 합니다. (예시 : `~/datasaker/log/*.log`)
 
 
-2. 로그 에이전트에 필요한 구성 파일들을 mount합니다. (global, agent YAML configiuration files)
+## 2. docker 명령어를 통해 로그 에이전트를 실행합니다.
 
-**[주의]** global 및 agent 구성 파일은 반드시 작성해야 합니다. 작성하지 않을 경우, 로그 에이전트가 정상적으로 동작하지 않을 수 있습니다.
-
-
-3. 로그 에이전트가 수집할 로그 파일을 mount합니다.
-
-4. 도커 환경 로그 에이전트 실행에 필요힌 필수 flag 옵션을 설정합니다.
-
-- `-global.config` : global 설정 파일 경로
-- `-agent.config` : agent 설정 파일 경로
-- `-mount.volume` : 로그 파일을 mount할 경우, true로 설정
+- 로그 에이전트에 필요한 구성 파일들을 mount합니다. (global, agent YAML configiuration files)
+  - **[주의]** global 및 agent 구성 파일은 반드시 작성해야 합니다. 작성하지 않을 경우, 로그 에이전트가 정상적으로 동작하지 않을 수 있습니다.
+- 로그 에이전트가 수집할 로그 파일을 mount합니다.
+- 도커 환경 로그 에이전트 실행에 필요힌 필수 flag 옵션을 설정합니다.
+  - `-global.config` : global 설정 파일 경로
+  - `-agent.config` : agent 설정 파일 경로
+  - `-mount.volume` : 로그 파일을 mount할 경우, true로 설정
 
 다음은 로그 에이전트 실행 예시입니다.
 
@@ -89,23 +87,7 @@ dockr  run -d --name dsk-log-agent \
   -mount.volume=true
 ```
 
-# Log agent 사용 방법
-
-## 1. 반드시 하나 이상의 로그 수집 경로(path)를 입력하십시오.
-
-로그 수집 경로를 작성하지 않을 경우, Log agent가 정상적으로 동작하지 않을 수 있습니다.
-
-
-## 2. 수집하고자 하는 로그 파일이 있는 볼륨을 로그 에이전트에 mount하십시오.
-
-로그 에이전트가 수집할 로그 파일이 있는 볼륨을 mount하십시오. (예: /var/lib/docker/containers/*.log)
-
-```shell
-docker run -d --name dsk-log-agent \
-  ... \
-  -v /var/lib/docker/containers/:~/datasaker/log/:ro \
-  datasaker/dsk-log-agent:latest
-```
+# Log agent 사용 예시
 
 로그 에이전트 구성 파일을 적절하게 사용하여 다양한 방법으로 수집 설정을 할 수 있습니다.
 - 서로 다른 경로의 로그를 하나의 서비스 이름으로 수집할 수 있습니다. (`paths` 항목에 여러 로그 파일 경로를 작성하세요.)

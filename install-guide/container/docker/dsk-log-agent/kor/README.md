@@ -14,7 +14,7 @@
 
 ## 1. 에이전트 실행에 필요한 구성 YAML 파일을 생성합니다.
 
-사용자가 수집하고자 하는 로그 '/var/lib/docker/containers/'를 에이전트의 '/var/log/sample/' 경로에 mount할 경우, 다음과 같이 구성 파일을 작성할 수 있습니다.
+사용자가 수집하고자 하는 로그 `/var/lib/docker/containers/`를 에이전트의 `/var/log/sample/` 경로에 mount할 경우, 다음과 같이 구성 파일을 작성할 수 있습니다.
 
 ```shell
 cat << EOF > ~/.datasaker/log-agent-config.yml

@@ -60,7 +60,10 @@ EOF
 - 로그 에이전트에 필요한 구성 파일을 mount합니다. (global, agent YAML configiuration files)
   - **[주의]** global 및 agent 구성 파일은 반드시 작성해야 합니다. 작성하지 않을 경우, 로그 에이전트가 정상적으로 동작하지 않을 수 있습니다.
 - 사용자가 수집하고자 하는 로그를 에이전트에 mount합니다.
-  - **[주의]** 로그 파일을 mount할 경우, 반드시 `-mount.volume=true` 옵션을 설정해야 합니다.
+  - 다음과 같이 옵션을 설정합니다. `-v [COLLECT LOG PATH]:[LOG AGENT MOUNT PATH]:ro`
+    - 해당 옵션에서 ':' 앞의 경로는 로그를 수집할 경로를 작성하고, ':' 뒤의 경로는 로그를 수집할 에이전트의 경로를 작성합니다.
+    - [LOG AGENT MOUNT PATH] 경로를 기준으로 에이전트 구성 파일의 로그 수집 경로를 작성해야 합니다.
+- 로그 파일을 mount할 경우, 반드시 `-mount.volume=true` 옵션을 설정해야 합니다.
 
 다음은 로그 에이전트 실행 예시입니다.
 

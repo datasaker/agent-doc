@@ -14,7 +14,7 @@
 
 ## 1. 에이전트 실행에 필요한 구성 YAML 파일을 생성합니다.
 
-로그 에이전트에 '~/datasaker/log' 경로에 수집할 로그를 mount할 경우, 다음과 같이 구성 파일을 작성할 수 있습니다.
+사용자가 수집하고자 하는 로그(예: /var/lib/docker/containers/)를 에이전트의 '/var/log/sample/' 경로에 mount할 경우, 다음과 같이 구성 파일을 작성할 수 있습니다.
 
 ```shell
 cat << EOF > ~/.datasaker/log-agent-config.yml
@@ -23,10 +23,9 @@ agent:
     agent_name: 'Sample Service Log Agent'
   collect:
     - paths:
-        - '~/datasaker/log/containers/sample-app-a.log'
-        - '~/datasaker/log/containers/sample-app-b*.log'
+        - '/var/log/sample/*.log'
       exclude_paths:
-        - '~/datasaker/log/containers/sample-app-b-private.log'
+        - '/var/log/sample/private.log'
       keywords:
         - 'ERROR'
         - 'WARN'
@@ -38,8 +37,6 @@ agent:
         address: 'my-sample-serivce:5432'
 EOF
 ```
-
-로그 에이전트 구성 파일은 사용자가 원하는 로그 수집 설정에 맞추어 작성하십시오.
 
 **[주의]** `agent.collect.paths[]` 설정 항목은 반드시 작성해야 합니다. 작성하지 않을 경우, 로그 에이전트가 정상적으로 동작하지 않을 수 있습니다.
 
@@ -64,13 +61,10 @@ EOF
 
 ## 2. docker 명령어를 통해 로그 에이전트를 실행합니다.
 
-- 로그 에이전트에 필요한 구성 파일들을 mount합니다. (global, agent YAML configiuration files)
+- 로그 에이전트에 필요한 구성 파일을 mount합니다. (global, agent YAML configiuration files)
   - **[주의]** global 및 agent 구성 파일은 반드시 작성해야 합니다. 작성하지 않을 경우, 로그 에이전트가 정상적으로 동작하지 않을 수 있습니다.
-- 로그 에이전트가 수집할 로그 파일을 mount합니다.
-- 도커 환경 로그 에이전트 실행에 필요힌 필수 flag 옵션을 설정합니다.
-  - `-global.config` : global 설정 파일 경로
-  - `-agent.config` : agent 설정 파일 경로
-  - `-mount.volume` : 로그 파일을 mount할 경우, true로 설정
+- 사용자가 수집하고자 하는 로그를 에이전트에 mount합니다.
+  - **[주의]** 로그 파일을 mount할 경우, 반드시 `-mount.volume=true` 옵션을 설정해야 합니다.
 
 다음은 로그 에이전트 실행 예시입니다.
 
@@ -79,11 +73,9 @@ dockr  run -d --name dsk-log-agent \
   -v /var/datasaker/:/var/datasaker/ \
   -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro \
   -v ~/.datasaker/log-agent-config.yml:/etc/datasaker/agent-config.yml:ro \
-  -v ~/var/lib/docker/containers/:~/datasaker/log/:ro \
+  -v /var/lib/docker/containers/:/var/log/sample/:ro \
   --restart=always \
   datasaker/dsk-log-agent:latest \
-  -global.config=/etc/datasaker/global-config.yml \
-  -agent.config=/etc/datasaker/agent-config.yml \
   -mount.volume=true
 ```
 
@@ -139,8 +131,6 @@ dockr  run -d --name dsk-log-agent \
   -v ~/var/lib/docker/containers/BANANA-APP-SERVER:~/datasaker/banana/app/:ro \
   --restart=always \
   datasaker/dsk-log-agent:latest \
-  -global.config=/etc/datasaker/global-config.yml \
-  -agent.config=/etc/datasaker/agent-config.yml \
   -mount.volume=true
 ```
 

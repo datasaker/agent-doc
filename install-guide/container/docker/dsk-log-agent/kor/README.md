@@ -12,7 +12,7 @@
 
 # Log agent 설치하기
 
-1. 데이터세이커 로그 에이전트 실행에 필요한 에이전트 구성 YAML 파일을 생성합니다.
+1. 에이전트 실행에 필요한 구성 YAML 파일을 생성합니다.
 
 ```shell
 cat << EOF > ~/.datasaker/log-agent-config.yml
@@ -61,7 +61,10 @@ EOF
 **[주의]** `agent.collect.paths[]` 설정 항목은 로그 에이전트에 마운트한 볼륨 경로를 기준으로 작성해야 합니다. (예시 : `~/datasaker/log/*.log`)
 
 
-2. 데이터세이커 로그 에이전트에 필요한 구성 파일들을 mount합니다. (global, agent configiuration files)
+2. 로그 에이전트에 필요한 구성 파일들을 mount합니다. (global, agent YAML configiuration files)
+
+**[주의]** global 및 agent 구성 파일은 반드시 작성해야 합니다. 작성하지 않을 경우, 로그 에이전트가 정상적으로 동작하지 않을 수 있습니다.
+
 
 3. 로그 에이전트가 수집할 로그 파일을 mount합니다.
 

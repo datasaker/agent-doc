@@ -49,7 +49,7 @@ EOF
 |:------------------------------------|:----------------------------------------------------------|:-----------:|:------------:|
 | `agent.metadata.agent_name`      | 로그 에이전트 이름                                                 |     `dsk-log-agent`     |         |
 | `agent.collect.paths[]`      | 로그 수집 대상 경로 (예시 : '/var/lib/docker/containers/my-container.log')                              |     N/A     |    **✓**     |
-| `agent.collect.exclude_paths[]`      | 로그 수집 제외 대상 경로                              |     N/A     |    **✓**     |
+| `agent.collect.exclude_paths[]`      | 로그 수집 제외 대상 경로                              |     N/A     |         |
 | `agent.collect.keywords[]`         | 로그 수집 키워드 (키워드가 포함된 로그만 수집합니다.)                                  |     N/A     |              |
 | `agent.collect.tag`              | 사용자 설정 태그                                                    |     N/A     |              |
 | `agent.collect.service.name`     | 서비스 이름                                                       |  `default`  |              |
@@ -63,9 +63,13 @@ EOF
 
 2. 데이터세이커 로그 에이전트에 필요한 구성 파일들을 mount합니다. (global, agent configiuration files)
 
-3. 로그 에이전트가 수집할 로그 파일을 mount합니다. (log files)
+3. 로그 에이전트가 수집할 로그 파일을 mount합니다.
 
-4. mount 경로에 맞게 로그 에이전트 flag 옵션을 설정합니다.
+4. 도커 환경 로그 에이전트 실행에 필요힌 필수 flag 옵션을 설정합니다.
+
+- `-global.config` : global 설정 파일 경로
+- `-agent.config` : agent 설정 파일 경로
+- `-mount.volume` : 로그 파일을 mount할 경우, true로 설정
 
 다음은 로그 에이전트 실행 예시입니다.
 
@@ -84,18 +88,12 @@ dockr  run -d --name dsk-log-agent \
 
 # Log agent 사용 방법
 
-## 1. 로그 에이전트 실행 시 반드시 필수 flag 옵션을 설정해주십시오.
-
-- `-global.config` : global 설정 파일 경로
-- `-agent.config` : agent 설정 파일 경로
-- `-mount.volume` : 로그 파일을 mount할 경우, true로 설정
-
-## 2. 반드시 하나 이상의 로그 수집 경로(path)를 입력하십시오.
+## 1. 반드시 하나 이상의 로그 수집 경로(path)를 입력하십시오.
 
 로그 수집 경로를 작성하지 않을 경우, Log agent가 정상적으로 동작하지 않을 수 있습니다.
 
 
-## 3. 수집하고자 하는 로그 파일이 있는 볼륨을 로그 에이전트에 mount하십시오.
+## 2. 수집하고자 하는 로그 파일이 있는 볼륨을 로그 에이전트에 mount하십시오.
 
 로그 에이전트가 수집할 로그 파일이 있는 볼륨을 mount하십시오. (예: /var/lib/docker/containers/*.log)
 

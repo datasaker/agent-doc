@@ -62,6 +62,8 @@ EOF
 ## 2. docker 명령어를 통해 로그 에이전트를 실행합니다.
 
 - 로그 에이전트에 필요한 구성 파일을 mount합니다. (global, agent YAML configiuration files)
+  - `-v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro`
+  - `-v ~/.datasaker/log-agent-config.yml:/etc/datasaker/dsk-log-agent/agent-config.yml:ro`
   - **[주의]** global 및 agent 구성 파일은 반드시 작성해야 합니다. 작성하지 않을 경우, 로그 에이전트가 정상적으로 동작하지 않을 수 있습니다.
 - 사용자가 수집하고자 하는 로그를 에이전트에 mount합니다.
   - 다음과 같이 옵션을 설정합니다. `-v [COLLECT LOG PATH]:[LOG AGENT MOUNT PATH]:ro`
@@ -75,7 +77,7 @@ EOF
 dockr  run -d --name dsk-log-agent \
   -v /var/datasaker/:/var/datasaker/ \
   -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro \
-  -v ~/.datasaker/log-agent-config.yml:/etc/datasaker/agent-config.yml:ro \
+  -v ~/.datasaker/log-agent-config.yml:/etc/datasaker/dsk-log-agent/agent-config.yml:ro \
   -v /var/lib/docker/containers/:/var/log/sample/:ro \
   --restart=always \
   datasaker/dsk-log-agent:latest \
@@ -128,7 +130,7 @@ agent:
 docker  run -d --name dsk-log-agent \
   -v /var/datasaker/:/var/datasaker/ \
   -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro \
-  -v ~/.datasaker/log-agent-config.yml:/etc/datasaker/agent-config.yml:ro \
+  -v ~/.datasaker/log-agent-config.yml:/etc/datasaker/dsk-log-agent/agent-config.yml:ro \
   -v ~/var/lib/docker/containers/APPLE-APP-SERVER:~/datasaker/apple/app/:ro \
   -v ~/var/lib/docker/containers/APPLE-DB-SERVER:~/datasaker/apple/database/:ro \
   -v ~/var/lib/docker/containers/BANANA-APP-SERVER:~/datasaker/banana/app/:ro \

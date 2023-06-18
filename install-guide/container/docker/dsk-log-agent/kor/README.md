@@ -12,9 +12,13 @@
 
 # Log agent 설치하기
 
+에이전트를 통해 로그를 수집하기 위해서는 사용자가 수집하고자 하는 로그 경로를 에이전트에 mount해야 합니다.
+
 ## 1. 에이전트 실행에 필요한 구성 YAML 파일을 생성합니다.
 
-사용자가 수집하고자 하는 로그 `/var/lib/docker/containers/`를 에이전트의 `/var/log/sample/` 경로에 mount할 경우, 다음과 같이 구성 파일을 작성할 수 있습니다.
+에이전트에 로그 볼륨을 mount한 경로를 기준으로 에이전트 구성 YAML 파일을 작성합니다.
+
+사용자가 수집하고자 하는 로그 경로(예: `/var/lib/docker/containers/`)를 에이전트의 특정 경로(예: `/var/log/sample/`)에 mount할 경우, 다음과 같이 구성 파일을 작성할 수 있습니다.
 
 ```shell
 cat << EOF > ~/.datasaker/log-agent-config.yml
@@ -45,7 +49,7 @@ EOF
 | **Settings**                        | **Description**                                           | **Default** | **Necessary** |
 |:------------------------------------|:----------------------------------------------------------|:-----------:|:------------:|
 | `agent.metadata.agent_name`      | 로그 에이전트 이름                                                 |     `dsk-log-agent`     |         |
-| `agent.collect.paths[]`      | 로그 수집 대상 경로 (예 : '/var/log/sample/*.log')                              |     N/A     |    **✓**     |
+| `agent.collect.paths[]`      | 로그 수집 대상 경로 (예 : /var/log/sample/*.log)                              |     N/A     |    **✓**     |
 | `agent.collect.exclude_paths[]`      | 로그 수집 제외 대상 경로                              |     N/A     |         |
 | `agent.collect.keywords[]`         | 로그 수집 키워드 (키워드가 포함된 로그만 수집합니다.)                                  |     N/A     |              |
 | `agent.collect.tag`              | 사용자 설정 태그                                                    |     N/A     |              |
@@ -121,7 +125,7 @@ agent:
 ```
 
 ```shell
-dockr  run -d --name dsk-log-agent \
+docker  run -d --name dsk-log-agent \
   -v /var/datasaker/:/var/datasaker/ \
   -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro \
   -v ~/.datasaker/log-agent-config.yml:/etc/datasaker/agent-config.yml:ro \

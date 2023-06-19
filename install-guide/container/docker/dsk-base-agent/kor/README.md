@@ -43,7 +43,7 @@ docker run -d --name dsk-container-agent\
    --restart=always\
    datasaker/dsk-container-agent
 docker run -d --name dsk-node-agent\
-   -v /var/datasaker/:/var/datasaker/\
+   -v /var/.datasaker/:/var/datasaker/\
    -v /proc/:/host/proc/:ro\
    -v /sys/:/host/sys/:ro\
    -e DSK_CLUSTER_ID=${DSK_CLUSTER_ID} \

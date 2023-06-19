@@ -12,71 +12,130 @@
 
 # Log agent 설치하기
 
-1. 데이터세이커 에이전트에 필요한 구성 파일들을 mount합니다. (global, agent configiuration files)
+에이전트를 통해 로그를 수집하기 위해서는 사용자가 수집하고자 하는 로그 경로를 에이전트에 mount해야 합니다.
 
-2. 로그 에이전트가 수집할 로그 파일을 mount합니다. (log files)
+## 1. 에이전트 실행에 필요한 구성 YAML 파일을 생성합니다.
 
-3. mount 경로에 맞게 로그 에이전트 flag 옵션을 설정합니다.
+에이전트에 로그 볼륨을 mount한 경로를 기준으로 에이전트 구성 YAML 파일을 작성합니다.
+
+사용자가 수집하고자 하는 로그 경로(예: `/var/lib/docker/containers/`)를 에이전트의 특정 경로(예: `/var/log/sample/`)에 mount할 경우, 다음과 같이 구성 파일을 작성할 수 있습니다.
+
+```shell
+cat << EOF > ~/.datasaker/log-agent-config.yml
+agent:
+  metadata:
+    agent_name: 'Sample Service Log Agent'
+  collect:
+    - paths:
+        - '/var/log/sample/*.log'
+      exclude_paths:
+        - '/var/log/sample/private.log'
+      keywords:
+        - 'ERROR'
+        - 'WARN'
+      tag: 'Sample Service'
+      service:
+        name: 'Sample'
+        category: 'database'
+        type: 'postgres'
+        address: 'my-sample-serivce:5432'
+EOF
+```
+**[주의]** `agent.collect.paths[]` 설정 항목은 마운트한 볼륨 경로를 기준으로 작성해야 합니다.(예: '/var/log/sample/') 해당 항목을 작성하지 않을 경우, 로그 에이전트가 정상적으로 동작하지 않을 수 있습니다. 
+
+
+로그 에이전트 구성 파일에서 각각의 설정 항목에 대한 설명은 다음과 같습니다.
+
+| **Settings**                        | **Description**                                           | **Default** | **Necessary** |
+|:------------------------------------|:----------------------------------------------------------|:-----------:|:------------:|
+| `agent.metadata.agent_name`      | 로그 에이전트 이름                                                 |     `dsk-log-agent`     |         |
+| `agent.collect.paths[]`      | 로그 수집 대상 경로 (예 : /var/log/sample/*.log)                              |     N/A     |    **✓**     |
+| `agent.collect.exclude_paths[]`      | 로그 수집 제외 대상 경로                              |     N/A     |         |
+| `agent.collect.keywords[]`         | 로그 수집 키워드 (키워드가 포함된 로그만 수집합니다.)                                  |     N/A     |              |
+| `agent.collect.tag`              | 사용자 설정 태그                                                    |     N/A     |              |
+| `agent.collect.service.name`     | 서비스 이름                                                       |  `default`  |              |
+| `agent.collect.service.category` | 서비스 분류 (`app`, `database`, `syslog`, `etc` 중 하나의 값을 작성하세요.)                 |    `etc`    |              |
+| `agent.collect.service.type`     | 서비스 데이터베이스 종류 및 개발 언어 타입 (`postgres`, `mysql`, `java`, `etc` 중 하나의 값을 작성하세요.)                      |    `etc`    |              |
+| `agent.collect.service.address`  | 데이터베이스 host 및 port 정보  (서비스 분류가 database인 경우 설정하세요. 설정하지 않을 경우, 특정 기능을 사용하지 못할 수 있습니다.) |     N/A     |      ⚠️      |
+
+
+## 2. docker 명령어를 통해 로그 에이전트를 실행합니다.
+
+- 로그 에이전트에 필요한 구성 파일을 mount합니다. (global, agent YAML configiuration files)
+  - `-v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro`
+  - `-v ~/.datasaker/log-agent-config.yml:/etc/datasaker/dsk-log-agent/agent-config.yml:ro`
+  - **[주의]** global 및 agent 구성 파일은 반드시 작성해야 합니다. 작성하지 않을 경우, 로그 에이전트가 정상적으로 동작하지 않을 수 있습니다.
+- 사용자가 수집하고자 하는 로그를 에이전트에 mount합니다.
+  - 다음과 같이 옵션을 설정합니다. `-v [COLLECT LOG PATH]:[LOG AGENT MOUNT PATH]:ro`
+    - 해당 옵션에서 ':' 앞의 경로는 로그를 수집할 경로를 작성하고, ':' 뒤의 경로는 로그를 수집할 에이전트의 경로를 작성합니다.
+    - `[LOG AGENT MOUNT PATH]` 경로를 기준으로 에이전트 구성 파일의 로그 수집 경로를 작성해야 합니다.
+- 로그 파일을 mount할 경우, 반드시 `-mount.volume=true` 옵션을 설정해야 합니다.
 
 다음은 로그 에이전트 실행 예시입니다.
 
 ```shell
 dockr  run -d --name dsk-log-agent \
   -v /var/datasaker/:/var/datasaker/ \
-  -v ~/.datasaker/global-config.yml:/etc/datasaker/global-config.yml:ro \
-  -v ~/.datasaker/agent-config.yml:/etc/datasaker/agent-config.yml:ro \
+  -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro \
+  -v ~/.datasaker/log-agent-config.yml:/etc/datasaker/dsk-log-agent/agent-config.yml:ro \
+  -v /var/lib/docker/containers/:/var/log/sample/:ro \
   --restart=always \
   datasaker/dsk-log-agent:latest \
-  -global.config=/etc/datasaker/global-config.yml \
-  -agent.config=/etc/datasaker/agent-config.yml \
   -mount.volume=true
 ```
 
-# Log agent 사용 방법
+# Log agent 사용 예시
 
-## 1. 로그 에이전트 실행 시 필수 flag 옵션을 설정해주십시오.
+로그 에이전트 구성 파일을 적절하게 사용하여 다양한 방법으로 수집 설정을 할 수 있습니다.
+- 서로 다른 경로의 로그를 하나의 서비스 이름으로 수집할 수 있습니다. (`paths` 항목에 여러 로그 파일 경로를 작성하세요.)
+- 서로 다른 서비스 `category`의 로그 파일을 하나의 서비스 이름으로 수집할 수 있습니다. (서로 다른 `collect`를 작성한 후, `service.name` 항목을 동일하게 작성하세요.)
+- 특정 경로의 모든 로그 파일을 수집할 수 있습니다.(`*`을 사용하여 로그 수집 경로를 설정하세요.) 뿐만 아니라 해당 경로 중 제외시키고 싶은 로그 파일이 있다면, `exclude_paths` 항목에 작성하세요.
 
-- `-global.config` : global 설정 파일 경로
-- `-agent.config` : agent 설정 파일 경로
-- `-mount.volume` : 로그 파일을 mount할 경우, true로 설정
-
-## 2. 반드시 하나 이상의 로그 수집 경로(path)를 입력하십시오.
-
-로그 수집 경로를 작성하지 않을 경우, Log agent가 정상적으로 동작하지 않을 수 있습니다.
+다음은 로그 수집 설정 예시입니다.
 
 ```yaml
-collect:
-  - paths: []         # (필수) 로그 수집 경로
-    exclude_paths: [] # 로그 수집 경로 중 제외시키고자 하는 로그 경로
-    keywords: []      # 로그 수집 키워드 (키워드가 포함된 로그만 수집)
-    tag:              # 사용자 설정 태그
-    service:
-      name:           # 서비스 이름  (기본 설정값: default)
-      category:       # 서비스 분류  [app, database, syslog, etc] (기본 설정값: etc)
-      type:           # 서비스 소스 타입 [postgres, mysql, java] (기본 설정값: etc)
-      address:        # 사용자 설정 - 데이터베이스 host 및 port 정보 (type이 database 인 경우 작성)
+agent:
+  metadata:
+    agent_name: 'Apple & Banana Service Log Agent'
+  collect:
+    - paths:
+        - '~/datasaker/log/apple/app/*.log'
+      keywords: 
+        - '400'
+        - '500'
+      service:
+        name: 'Apple'
+        category: 'app'
+        type: 'java'
+    - paths:
+        - '~/datasaker/log/apple/database/*.log'
+      keywords: 
+        - 'ERROR'
+      service:
+        name: 'Apple'
+        category: 'database'
+        type: 'postgres'
+        address: 'apple-serivce:5432'
+    - paths:
+        - '~/datasaker/log/banana/app/*.log'
+      keywords: 
+        - 'ERROR'
+      service:
+        name: 'Banana'
+        category: 'app'
+        type: 'etc'
 ```
-
-[주의]
-
-다음과 같이 특정 경로의 모든 로그를 수집하도록 설정할 경우 로그 에이전트에 많은 부하가 발생할 수 있습니다. (/var/log/*) 수집 로그 파일을 개별적으로 작성하는 것을 권장합니다.(/var/log/containers/sampleApp.log)
-
-
-## 3. 수집하고자 하는 로그 파일이 있는 볼륨을 로그 에이전트에 mount하십시오.
-
-로그 에이전트가 수집할 로그 파일이 있는 볼륨을 mount하십시오. (예: /var/lib/docker/containers/*.log)
 
 ```shell
-docker run -d --name dsk-log-agent \
-  ... \
-  -v /var/lib/docker/containers/:~/datasaker/log/:ro \
-  datasaker/dsk-log-agent:latest
+docker  run -d --name dsk-log-agent \
+  -v /var/datasaker/:/var/datasaker/ \
+  -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro \
+  -v ~/.datasaker/log-agent-config.yml:/etc/datasaker/dsk-log-agent/agent-config.yml:ro \
+  -v ~/var/lib/docker/containers/APPLE-APP-SERVER:~/datasaker/apple/app/:ro \
+  -v ~/var/lib/docker/containers/APPLE-DB-SERVER:~/datasaker/apple/database/:ro \
+  -v ~/var/lib/docker/containers/BANANA-APP-SERVER:~/datasaker/banana/app/:ro \
+  --restart=always \
+  datasaker/dsk-log-agent:latest \
+  -mount.volume=true
 ```
 
-에이전트 설정 파일에서 로그 수집 경로를 마운트한 경로를 기준으로 다음과 같이 작성합니다.
-
-```yaml
-collect:
-  - paths:
-      - ~/datasaker/log/*.log
-```

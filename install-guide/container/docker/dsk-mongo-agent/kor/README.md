@@ -47,10 +47,10 @@ agent:
 EOF
 ```
 
-| Argument | Description |
-| -------- | ----------- |
+| Argument      | Description              |
+|---------------|--------------------------|
 | --collect-all | 모든 종류의 메트릭을 수집하도록 설정합니다. |
-| --mongodb.uri | mongodb의 주소를 설정합니다. |
+| --mongodb.uri | mongodb의 주소를 설정합니다.      |
 
 ## 2. Mongo agent 설치
 

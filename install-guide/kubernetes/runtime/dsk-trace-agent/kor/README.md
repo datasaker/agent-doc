@@ -49,15 +49,13 @@ Trace agent의 설정 값의 의미와 default값은 다음과 같습니다. 사
 "~/datasaker/config.yaml"에서 해당 값을 추가하거나 수정하세요.
 ```yaml
 traceAgent:
-  enabled: false                    # Trace agent를 활성화를 설정합니다.
-  tolerations: []                   # 워커 노드에 taint가 설정되어 있을 경우 taint를 추가합니다.
-  imgPolicy: Always                 # agent의 Image Policy를 설정합니다. (Always, IfNotPresent, Never)
-  imgVersion: 'latest'              # agent의 Image Version를 설정합니다.
-  logLevel: 'INFO'                  # agent의 log level을 설정합니다. (debug > info > warn > error > panic > fatal)
-  tags:                             # 사용자 설정으로 데이터에 추가할 Tag를 입력하세요. 
-  - key1=value1
-  - key2=value2
-  resource:                         # agent의 resource를 설정합니다. 너무 작게할 경우 정상동작을 못할 수 있습니다.
+  enabled: true
+  tolerations: []
+  imgPolicy: Always
+  imgVersion: 'latest'
+  logLevel: 'INFO'
+  tags: []
+  resource:
     requests:
       cpu: 100m
       memory: 512Mi
@@ -65,20 +63,18 @@ traceAgent:
       cpu: 1000m
       memory: 1000Mi
 ```
-<!--
-  nodeSelector: {}                  # (option) agent가 동작할 node를 설정합니다.
-  affinity: {}                      # (option) agent가 동작할 node를 설정합니다.
-  collector:                        
-    samplingRate: 10                # (option) Trace 데이터를 수집할 확률을 설정 합니다. (0 < sampleRate <= 100)
-```
--->
-<!--
-## 2. Trace agent 동작
-```shell
-helm upgrade datasaker ~/datasaker/agent-helm -n datasaker \
-  -f ~/datasaker/config.yaml
-```
--->
+
+각 설정 값에 대한 자세한 설명은 다음과 같습니다.
+
+| 설정 값        | 설명                                                                     |
+|-------------|------------------------------------------------------------------------|
+| enabled     | Trace agent를 활성화를 설정합니다.                                               |
+| tolerations | 워커 노드에 taint가 설정되어 있을 경우 toleration 설정을 추가합니다.                         |
+| imgPolicy   | agent의 Image Policy를 설정합니다. (Always, IfNotPresent, Never)              |
+| imgVersion  | agent의 Image Version를 설정합니다.                                           |
+| logLevel    | agent의 log level을 설정합니다. (debug > info > warn > error > panic > fatal) |
+| tags        | 사용자 설정으로 데이터에 추가할 Tag 리스트를 입력하세요. key1=value1,key2=value2              |
+| resource    | agent의 resource를 설정합니다. 너무 작게할 경우 정상동작을 못할 수 있습니다.                     |
 
 # Application에 Trace Agent 연동하기
 

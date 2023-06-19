@@ -117,7 +117,6 @@ cat << EOF > ~/.datasaker/plan-postgres-config.yml
 agent:
   metadata:
     agent_name: dsk-plan-postgres-agent
-    cluster_id: dev-self-cluster
   data_source_name:
     user: ${DSK_PG_USER}
     password: ${DSK_PG_SOURCE_PASS}
@@ -125,15 +124,22 @@ agent:
     port: ${DSK_PG_PORT}
     DBName: ${DSK_PG_DB_NAME}
   explain:
-    activity_query_buffer: 50
-    executor_number: 10
-    plan_sender_buffer: 50
     scrape_interval: 5s
     scrape_timeout: 5s
-    sender_number: 10
     slow_query_standard: 1s
 EOF
 ```
+
+| 설정값                         | 설명                       |
+|-----------------------------|--------------------------|
+| data_source_name.user       | DB 유저 명                  |
+| data_source_name.password   | DB 유저 ㅠ비밀번호              |
+| data_source_name.address    | PostgreSQL 서버 접속 주소      |
+| data_source_name.port       | PostgreSQL 서버 접속 포트      |
+| data_source_name.DBName     | PostgreSQL 데이터베이스        |
+| explain.scrape_interval     | activity session 수집하는 주기 |
+| explain.scrape_timeout      | 수집 타임아웃                  |
+| explain.slow_query_standard | 슬로우 쿼리 기준 시간             |
 
 ### Postgres agent 설치
 

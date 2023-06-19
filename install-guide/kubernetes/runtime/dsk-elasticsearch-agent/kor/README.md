@@ -36,6 +36,22 @@ elasticsearchAgent:
 EOF
 ```
 
+각 설정은 다음을 의미합니다.
+
+| 설정           | 설명                |
+|--------------|-------------------|
+| name         | agent의 이름         |
+| uri          | elasticsearch 주소  |
+| tolerations  | 쿠버네티스 톨러레이션 설정    |
+| imgPolicy    | 쿠버네티스 이미지 정책 설정   |
+| imgVersion   | 에이전트 이미지 버전 설정    |
+| logLevel     | 에이전트 로그 레벨 설정     |
+| listenPort   | 에이전트 포트 설정        |
+| exporterArgs | 에이전트 옵션 설정        |
+| extraArgs    | 에이전트 추가 옵션 설정     |
+| extraEnvs    | 에이전트 추가 환경변수 설정   |
+| resources    | 에이전트 쿠버네티스 리소스 설정 |
+
 ## 2. Elasticsearch agent 설치
 ```shell
 helm upgrade datasaker datasaker/agent-helm -n datasaker \

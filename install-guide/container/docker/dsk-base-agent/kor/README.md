@@ -11,6 +11,14 @@
 
 # Base agent 설치하기
 
+Cluster ID를 설정하면 자원을 논리적인 그룹으로 관리할 수 있습니다. Cluster ID를 설정하지 않으면 기본값으로 `unknown`이 설정됩니다.
+
+Cluster ID를 설정하기 위해선 다음과 같이 환경 변수를 설정해야 합니다.
+
+```shell
+export DSK_CLUSTER_ID=my-cluster
+```
+
 1. 데이터세이커가 사용할 로컬 디렉터리를 생성합니다.
 
 ```shell
@@ -27,8 +35,8 @@ docker run -d --name dsk-container-agent\
    -v /var/run/:/var/run/:ro\
    -v /sys/:/sys/:ro\
    -v /dev/disk/:/dev/disk/:ro\
-   -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro\
-   -e DSK_CLUSTER_ID=${VAR_CLUSTER_ID} \
+   -v ~/datasaker/config.yml:/etc/datasaker/global-config.yml:ro\
+   -e DSK_CLUSTER_ID=${DSK_CLUSTER_ID} \
    -e GOMAXPROCS=1\
    -e DSK_LOG_LEVEL=DEBUG\
    --privileged\
@@ -38,7 +46,7 @@ docker run -d --name dsk-node-agent\
    -v /var/.datasaker/:/var/datasaker/\
    -v /proc/:/host/proc/:ro\
    -v /sys/:/host/sys/:ro\
-   -e DSK_CLUSTER_ID=${VAR_CLUSTER_ID} \
+   -e DSK_CLUSTER_ID=${DSK_CLUSTER_ID} \
    -e DSK_LOG_LEVEL=DEBUG\
    --privileged\
    --restart=always\

@@ -31,8 +31,7 @@ DSK_ES_URI=http://localhost:9200
 cat << EOF > ~/.datasaker/elasticsearch-config.yml
 agent:
   metadata:
-  # agent_name: my-dsk-node-agent
-  # cluster_id: my-cluster
+  # agent_name: dsk-elasticsearch-agent
   option:
     exporter_config:
       command: "/etc/datasaker/target-exporter"
@@ -52,6 +51,18 @@ agent:
 EOF
 ```
 
+위 설정에서 각 argument는 다음을 의미합니다.
+
+| Argument            | Description                                                                                                                                                                                                                                           | Default               |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|
+| es.uri              | 연결해야 하는 Elasticsearch 노드의 주소(호스트 및 포트). 이 주소는 로컬 노드(예: localhost:9200)일 수도 있고 원격 Elasticsearch 서버의 주소일 수도 있습니다. 기본 인증이 필요한 경우, 다음과 같이 지정합니다: <proto>://<사용자>:<비밀번호>@<호스트>:<포트>. 예: http://admin:pass@localhost:9200. 사용자 자격 증명의 특수 문자는 URL 인코딩해야 합니다. | http://localhost:9200 |
+| es.all              | true이면 연결한 노드만 쿼리하는 것이 아니라 클러스터의 모든 노드에 대한 통계를 쿼리합니다.                                                                                                                                                                                                 | false                 |
+| es.cluster_settings | true이면 클러스터 설정에 대한 통계를 쿼리합니다.                                                                                                                                                                                                                         | false                 |
+| es.indices_settings | true이면 클러스터의 모든 인덱스에 대한 설정 통계를 쿼리합니다.                                                                                                                                                                                                                 | false                 |
+| es.indices_mappings | true이면 클러스터의 모든 인덱스 매핑에 대한 통계를 쿼리합니다.                                                                                                                                                                                                                 | false                 |
+| es.shards           | true인 경우, 샤드 수준 통계를 포함하여 클러스터의 모든 인덱스에 대한 통계를 쿼리합니다.                                                                                                                                                                                                  | false                 |
+| es.snapshots        | true이면 클러스터 스냅샷에 대한 통계를 쿼리합니다.                                                                                                                                                                                                                        | false                 |
+
 ## 2. Elasticsearch agent 설치
 
 1. 데이터세이커가 사용할 로컬 디렉터리를 생성합니다.
@@ -68,7 +79,6 @@ EOF
       -v /var/datasaker/:/var/datasaker/\
       -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro\
       -v ~/.datasaker/elasticsearch-config.yml:/etc/datasaker/dsk-elasticsearch-agent/agent-config.yml:ro\
-      -e DSK_CLUSTER_ID=${VAR_CLUSTER_ID} \
       -e DSK_LOG_LEVEL=INFO\
       -e DSK_SUB_KIND=elasticsearch-1\
       --restart=always\

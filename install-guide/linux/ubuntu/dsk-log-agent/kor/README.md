@@ -15,7 +15,6 @@
 
 `DataSaker`의 `Log agent`를 설치하기 위해서는 sudo 권한이 필요합니다.
 
-
 ```shell
 curl -fsSL -o installer.sh https://dsk-agent-s3.s3.ap-northeast-2.amazonaws.com/dsk-agent-s3/public/dsk-log-agent-install.sh
 chmod 700 installer.sh
@@ -57,7 +56,6 @@ sudo systemctl enable dsk-log-agent --now
 > 주의사항 </br>
 > - 로그 수집을 위해 패키지 실행 전 에이전트 설정 파일을 구성해야 합니다(`global-config.yml`, `config.conf`).</br>
 > - 로그 에에전트는 기본적으로 `fluentd`를 사용하여 로그를 수집합니다. 이미 사용 중인 `fluentd`가 있는 경우 `DSK_FLUENTD_CMD` 환경변수를 설정하여 변경할 수 있습니다. 환경변수를 사용하여 실행할 경우 다음과 같이 실행하십시오. (`sudo -E dsk-log-agent start`)
-
 
 ## 4. 패키지 실행 상태 확인
 

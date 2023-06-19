@@ -16,16 +16,40 @@ chmod 700 installer.sh
 sudo ./installer.sh dsk-elasticsearch-agent
 ```
 
-## 2. 패키지 실행 상태 확인
+## 2. Elasticsearch agent 설정값 등록
+
+```shell
+vi /etc/datasaker/dsk-elasticsearch-agent/agent-config.yml
+```
+
+필요에 따라 다음 내용을 수정합니다.
+
+```yaml
+# Elasticsearch agent 설정 파일
+agent:
+  agent_name: "your_agent_name_what_you_want" # 에이전트 이름 (별칭) default=dsk-elasticsearch-agent
+```
+
+## 3. 패키지 실행
+
+```bash
+systemctl start dsk-elasticsearch-agent
+```
+
+## 4. 패키지 실행 상태 확인
+
 ```bash
 systemctl status dsk-elasticsearch-agent
 ```
+
 또는
+
 ```bash
 service dsk-elasticsearch-agent status
 ```
 
 # Arguments
+
 elasticsearch exporter의 argument 설정을 변경하여 사용자 환경에 맞게 수정할 수 있습니다. 설정 값은 다음과 같습니다.
 
 | Argument                | Description                                                                                                                                                                                                                                                                                                                                                                      | Default               |

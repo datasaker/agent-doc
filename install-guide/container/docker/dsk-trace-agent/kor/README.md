@@ -40,13 +40,13 @@ Trace agent는 내부적으로 다음 포트를 사용하고 있습니다.
 
 연동을 위해선 대상 어플리케이션에 다음 환경변수 설정이 필요합니다.
 
-| 환경변수  | 값 | 설명 |
-|-------|----------| --- |
-| OTEL_EXPORTER_OTLP_TRACES_ENDPOINT  | (trace-agent):(port) | trace-agent 주소 |
-| OTEL_SERVICE_NAME  | your-service-name | 화면에 표시되길 원하는 서비스 명|
-| OTEL_METRICS_EXPORTER | none | 불필요 메트릭데이터 생성 방지용 |
-| OTEL_LOGS_EXPORTER | none | 불필요 로그데이터 생성 방지용 |
-| OTEL_RESOURCE_ATTRIBUTES  | dsk_host_key=$(cat /var/datasaker/host_key) | - |
+| 환경변수                               | 값                                           | 설명                 |
+|------------------------------------|---------------------------------------------|--------------------|
+| OTEL_EXPORTER_OTLP_TRACES_ENDPOINT | (trace-agent):(port)                        | trace-agent 주소     |
+| OTEL_SERVICE_NAME                  | your-service-name                           | 화면에 표시되길 원하는 서비스 명 |
+| OTEL_METRICS_EXPORTER              | none                                        | 불필요 메트릭데이터 생성 방지용  |
+| OTEL_LOGS_EXPORTER                 | none                                        | 불필요 로그데이터 생성 방지용   |
+| OTEL_RESOURCE_ATTRIBUTES           | dsk_host_key=$(cat /var/datasaker/host_key) | -                  |
 
 예를 들어, 다음과 같이 어플리케이션을 배포할 수 있습니다.
 

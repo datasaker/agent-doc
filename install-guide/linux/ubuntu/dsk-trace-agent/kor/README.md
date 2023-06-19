@@ -36,7 +36,6 @@ vi /etc/datasaker/dsk-trace-agent/agent-config.yaml
 # Trace agent 설정 파일
 agent:
   agent_name: "your_agent_name_what_you_want" # default=trace-agent
-  cluster_id: "test-cluster-id"               # default=unknown_cluster
 ```
 
 ## 3. 패키지 실행

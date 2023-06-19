@@ -10,16 +10,11 @@
 
 # Plan Postgres13 Agent 설치하기
 ## 1. agent-config 설정
-```bash
-sudo dsk-plan-postgres13-agent init ${VAR_CLUSTER_NAME}
-cat /etc/datasaker/dsk-plan-postgres13-agent/agent-config.yml
-```
-결과
-```
+
+```yaml
 agent:
   metadata:
     agent_name: "dsk-plan-postgres13-agent"         # replace you want
-    cluster_id: ${VAR_CLUSTER_NAME}                 # replace you want
   data_source_name:
     user:                                           # <user_name>
     password:                                       # <user_password>

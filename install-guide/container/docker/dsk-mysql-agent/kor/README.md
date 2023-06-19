@@ -18,8 +18,7 @@ mkdir .datasaker
 cat << EOF > ~/.datasaker/mysql-config.yml
 agent:
   metadata:
-  # agent_name: my-dsk-mysql-agent
-  # cluster_id: my-cluster
+   agent_name: my-dsk-mysql-agent
   option:
     exporter_config:
       command: "/etc/datasaker/target-exporter"

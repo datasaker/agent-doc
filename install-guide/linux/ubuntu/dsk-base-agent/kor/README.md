@@ -19,12 +19,27 @@ chmod 700 installer.sh
 sudo ./installer.sh dsk-node-agent
 ```
 
-## 2. 패키지 실행
+## 2. Base agent 설정
+
+```shell
+vi /etc/datasaker/dsk-node-agent/agent-config.yml
+```
+
+필요에 따라 다음 내용을 수정합니다.
+
+```yaml
+# Base agent 설정 파일
+agent:
+  agent_name: "your_agent_name_what_you_want" # 에이전트 이름 (별칭) default=dsk-node-agent
+  cluster_id: "my-cluster-id"               # 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정 default=unknown
+```
+
+## 3. 패키지 실행
 ```bash
 systemctl start dsk-node-agent
 ```
 
-## 3. 패키지 실행 상태 확인
+## 4. 패키지 실행 상태 확인
 ```bash
 systemctl status dsk-node-agent
 ```

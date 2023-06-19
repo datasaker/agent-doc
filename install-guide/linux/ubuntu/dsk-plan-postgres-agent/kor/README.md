@@ -58,18 +58,17 @@ sudo ./installer.sh dsk-plan-postgres-agent
 |agent.data_source_name.DBName|Postgres 데이터베이스를 입력합니다.|
 
 ### 옵션입력
-해당 명령어를 통해 `/etc/datasaker/dsk-plan-postgres-agent/agent-config.yml`의 cluster_id 값을 초기화 할 수 있습니다.
+
 ```shell
-sudo dsk-plan-postgres-agent init ${VAR_CLUSTER_NAME}
+vi /etc/datasaker/dsk-plan-mysql-agent/agent-config.yml
 ```
-해당 명령을 통해 정상적으로 cluster_id값이 설정되었는지 확인 가능합니다.
-`/etc/datasaker/dsk-plan-postgres-agent/agent-config.yml`에 내용을 기입합니다.
+
+필요에 따라 다음 내용을 수정합니다.
 
 ```yaml
 agent:
   metadata:
-    agent_name: "dsk-plan-postgres-agent"
-    cluster_id: CLUSTER_ID
+    agent_name: "your_agent_name_what_you_want" # 에이전트 이름 (별칭) default=dsk-plan-postgres-agent
   data_source_name:
     user: 'user'
     password: 'pass'

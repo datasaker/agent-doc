@@ -24,6 +24,15 @@ baseAgent:
 EOF
 ```
 
+각 설정 값에 대한 자세한 설명은 다음과 같습니다.
+
+| 설정                                  | 설명                                                 |
+|-------------------------------------|----------------------------------------------------|
+| `baseAgent.enabled`                 | `base agent`를 활성화할지 여부를 결정합니다.                     |
+| `baseAgent.enableMaster`            | `base agent`를 `control-plane` 노드에도 배포할지 여부를 결정합니다. |
+| `baseAgent.nodeAgent.logLevel`      | `node agent`의 로그 레벨을 설정합니다.                        |
+| `baseAgent.containerAgent.logLevel` | `container agent`의 로그 레벨을 설정합니다.                   |
+
 ## 2. Base agent 설치
 
 ```shell

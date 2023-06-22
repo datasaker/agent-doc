@@ -133,7 +133,7 @@ EOF
 | 설정값                         | 설명                       |
 |-----------------------------|--------------------------|
 | data_source_name.user       | DB 유저 명                  |
-| data_source_name.password   | DB 유저 ㅠ비밀번호              |
+| data_source_name.password   | DB 유저 비밀번호              |
 | data_source_name.address    | PostgreSQL 서버 접속 주소      |
 | data_source_name.port       | PostgreSQL 서버 접속 포트      |
 | data_source_name.DBName     | PostgreSQL 데이터베이스        |

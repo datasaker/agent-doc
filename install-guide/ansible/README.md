@@ -2,13 +2,13 @@
 
 Ansible을 이용하여 Datasaker Agent를 설치할 수 있습니다.
 
-### Requirements
+## Requirements
 
 - Ansible v2.6+가 필요합니다.
 - 대부분의 데비안 리눅스 배포판을 지원합니다.
 - Amazon Linux 2 배포판을 지원합니다.
 
-### Installation
+## Installation
 
 Ansible Galaxy에서 Datasaker role을 설치합니다.
 
@@ -20,7 +20,7 @@ ansible-galaxy install dsk_bot.datasaker
 
 아래는 기본 설치에 대한 예시입니다.
 
-##### Host Agent Default Install Example
+#### Host Agent Default Install Example
 ```yml
 - hosts: servers
   become: true
@@ -30,7 +30,7 @@ ansible-galaxy install dsk_bot.datasaker
     datasaker_api_key: "<YOUR_API_KEY>"
     datasaker_agents: ["dsk-node-agent"] 
 ```
-##### Docker Agent Default Install Example
+#### Docker Agent Default Install Example
 ```yml
 - hosts: servers
   become: true
@@ -186,7 +186,7 @@ datasaker_clean은 uninstall이 `True`로 설정되어야 합니다.
 |`uninstall`| `datasaker_agents` 또는 `datasaker_docker_agents` 에 작성된 Agent만 제거. <br> (Default) `False`|
 |`datasaker_clean`|	`datasaker_agents` 또는 `datasaker_docker_agents` 에 작성된 Agent 와 생성 된 폴더 및 설정 파일까지 제거.  <br> (Default) `False`|
 
-##### Datasaker Agents Uninstall Example
+#### Datasaker Agents Uninstall Example
 
 ```yml
 - hosts: servers

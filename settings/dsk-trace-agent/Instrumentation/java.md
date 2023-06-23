@@ -35,11 +35,15 @@ java -javaagent:path/to/opentelemetry-javaagent.jar \
 
 ### Docker 환경
 
+별도로 네트워크를 구성하여 데이터를 전송하거나, 호스트 포트를 사용하여 데이터를 전송할 수 있습니다.
+
 Docker 네트워크 설정을 통해 Trace Agent로 접근할 수 있도록 설정 합니다.
 
 ``` bash
     docker network create <network-name>
 ```
+
+Trace Agent를 다음과 같이 배포합니다.
 
 ``` bash
      docker run -d --name dsk-trace-agent\
@@ -53,6 +57,8 @@ Docker 네트워크 설정을 통해 Trace Agent로 접근할 수 있도록 설�
        datasaker/dsk-trace-agent
 ```
 
+도커 이미지에 다음과 같은 환경 변수들을 추가하여 배포합니다.
+
 ``` bash
     # 자바 어플리케이션 실행 예시
     docker run my-java-application \
@@ -62,24 +68,34 @@ Docker 네트워크 설정을 통해 Trace Agent로 접근할 수 있도록 설�
         -e OTEL_LOGS_EXPORTER=none \
         -e OTEL_RESOURCE_ATTRIBUTES=dsk_host_key=$(cat /var/datasaker/host_key) \
         --network <network-name> \
+        my/docker-image
         -d
 ```
 
-혹은 다음과 같이 호스트 주소를 사용하여를 추가합니다.
+두번째 방법은, 호스트 포트를 사용하는 방법입니다. 다음과 같이 호스트 주소를 사용하여를 추가합니다.
 
-``` dockerfile
-    # Dockerfile 예시
-    FROM openjdk:8-jre-alpine
-    COPY opentelemetry-javaagent.jar /app/
-    COPY myapp.jar /app/
-    WORKDIR /app
-    CMD ["java", "-javaagent:opentelemetry-javaagent.jar", \
-    "-Dotel.service.name=your-service-name", \
-    "-Dotel.metrics.exporter=none", \
-    "-Dotel.logs.exporter=none", \
-    "-Dotel.resource.attributes=dsk.host.key=$(cat /var/datasaker/host_key)", \
-    "-Dotel.exporter.otlp.traces.endpoint=http://<host address>:<port>",\
-    "-jar", "myapp.jar"]
+Trace Agent를 다음과 같이 배포합니다.
+
+``` bash
+     docker run -d --name dsk-trace-agent\
+       -v /var/datasaker/:/var/datasaker/\
+       -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro\
+       -e DKS_LOG_LEVEL=info\
+       -p 4317:4317/tcp\
+       -p 4318:4318/tcp\
+       --restart=always\
+       datasaker/dsk-trace-agent
+```
+도커 이미지에 다음과 같은 환경 변수들을 추가하여 배포합니다.
+``` bash
+    docker run my-java-application \
+        -e OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=localhost:4317 \
+        -e OTEL_SERVICE_NAME=your-service-name \
+        -e OTEL_METRICS_EXPORTER=none \
+        -e OTEL_LOGS_EXPORTER=none \
+        -e OTEL_RESOURCE_ATTRIBUTES=dsk_host_key=$(cat /var/datasaker/host_key) \
+        my/docker-image
+        -d
 ```
 
 ### Kubernetes 환경

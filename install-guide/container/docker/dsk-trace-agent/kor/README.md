@@ -2,7 +2,7 @@
 
 `Trace agent`는 `Opentelemetry`와 `Jaeger`와 같은 오픈소스 분산 추적 시스템과 연동하여, 애플리케이션의 분산 추적 데이터를 수집합니다. 
 이를 통해 애플리케이션 내부의 다양한 서비스 간의 통신을 추적하고, 성능 병목 현상을 식별하여 최적화할 수 있습니다. 
-수집된 데이터는 빠르게 처리되어 실시간으로 모니터링 및 분석이 가능합니다. 
+수집된 데이터는 빠르게 처리되어 실시간으로 모니터링 및 분석이 가능합니다.
 고객의 요구사항에 맞게 `Trace agent` 설정을 조정하여 최적의 결과를 제공해 드립니다.
 
 # DataSaker 선행 작업을 진행하였나요?
@@ -34,6 +34,55 @@ Trace agent는 내부적으로 다음 포트를 사용하고 있습니다.
        -p 4318:4318/tcp\
        --restart=always\
        datasaker/dsk-trace-agent
+```
+
+# Trace agent 설정하기
+필요하다면 아래 문서를 참고하여 trace agent의 설정을 바꿀 수 있습니다.
+
+## Trace agent 설정 값
+Trace agent의 설정 값의 의미한 default값은 다음과 같습니다.
+사용자마다 에이전트 설정에 대해 다른 요구사항이 있습니다.
+따라서 에이전트 설정을 사용자 설정에 맞게 조정해야 합니다.
+최적의 결과를 위해 에이전트 설정을 조정한 후, 에이전트 배포시 볼륨으로 설정 파일을 마운트하여 사용하세요.
+에이전트 기본 설정 파일 경로는 `/etc/datasaker/dsk-trace-agent/agent-config.yml`입니다.
+설정 파일에서 값을 추가하거나 수정하세요.
+
+파일의 구조는 아래와 같습니다.
+
+### `agent-config.yml`
+```yaml
+agent:
+  # 에이전트의 메타데이터
+  metadata: <metadata>
+  # 에이전트의 실행 관련 옵션
+  option:
+    [ collector_config: <collector_config> ]
+	[ reciever_config: <reciever_config> ]
+```
+
+#### `metadata`
+```yaml
+# 에이전트 이름 (별칭)
+[ agent_name: <string> | default = "dsk-trace-agent" ]
+
+# 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정
+[ cluster_id: <cluster_id> | default = "unknown" ]
+```
+
+#### `collector_config`
+```yaml
+# collector에 적용되는 샘플링 비율
+# 100 이상일 때 모든 데이터가 수집됩니다
+[ sampling_rate: <float> | default = 1 ]
+```
+
+#### `receiver_config`
+```yaml
+# collector로부터 데이터를 받을 포트 번호
+[ listen_port: <uint16> | default = 14251 ]
+
+# 각 span에 적용되는 커스텀 태크
+[ custom_tags: <map[string]string> | default = "" ]
 ```
 
 # Application에 Trace Agent 연동하기

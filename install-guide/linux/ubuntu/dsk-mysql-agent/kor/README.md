@@ -53,7 +53,7 @@ env DATA_SOURCE_NAME=아이디:패스워드@MySQL아이피:포트
 ```yaml
 agent:
   metadata:
-    agent_name: 'your_agent_name_what_you_want' # 에이전트 이름 (별칭) default=dsk-node-agent
+    agent_name: 'dsk-mysql-agent' # 에이전트 이름 (별칭) default=dsk-node-agent
   option:
     exporter_config:
       command: "/usr/bin/dsk-mysqld-exporter"

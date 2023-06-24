@@ -22,8 +22,8 @@ vi /etc/datasaker/dsk-node-agent/agent-config.yml
 ```yaml
 # Base agent 설정 파일
 agent:
-  agent_name: "your_agent_name_what_you_want" # 에이전트 이름 (별칭) default=dsk-node-agent
-  cluster_id: "test-cluster_id"               # 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정 default=unknown
+  agent_name: "dsk-base-agent"              # 에이전트 이름 (별칭) default=dsk-node-agent
+  cluster_id: "my-cluster-id"               # 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정 default=unknown
 ```
 
 ## 3. 패키지 실행

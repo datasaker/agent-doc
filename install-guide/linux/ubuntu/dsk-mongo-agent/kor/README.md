@@ -26,7 +26,7 @@ vi /etc/datasaker/dsk-mongo-agent/agent-config.yml
 ```yaml
 # Base agent 설정 파일
 agent:
-  agent_name: "your_agent_name_what_you_want" # 에이전트 이름 (별칭) default=dsk-mongo-agent
+  agent_name: "dsk-mongo-agent" # 에이전트 이름 (별칭) default=dsk-mongo-agent
 ```
 
 ## 3. 패키지 실행

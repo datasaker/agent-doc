@@ -108,7 +108,7 @@ ansible-galaxy install dsk_bot.datasaker
 
 | 변수명                                      | 설명                                      |
 |--------------------------------------------|--------------------------------------------------|
-|`trace_sampling_rate`| `dsk-trace-agent` 에서 collector에 적용되는 샘플링 비율 설정.<br>- 100 이상일 때 모든 데이터가 수집.<br> (Default) `10`|
+|`trace_sampling_rate`| `dsk-trace-agent` 에서 collector에 적용되는 샘플링 비율 설정.<br>- 100 이상일 때 모든 데이터가 수집.<br> (Default) `1`|
 |`log_collects`|	`dsk-log-agent` 에서 로그 수집 컬렉션 구성 설정. 리스트의 각 항목에는 아래 항목들이 포함. |
 |`log_collects[*].paths`|	`dsk-log-agent` 에서 로그 수집을 위한 경로 설정. <br> (Default) [`host-agent`]=`/var/log/*.log`, [`docker-agent`]=`/var/log/sample/*/*.log` |
 |`log_collects[*].exclude_paths`|	`dsk-log-agent` 에서 로그 컬렉션에서 제외할 경로 설정. 값을 지정하지 않으면 수집 경로에 설정한 모든 로그 수집. <br> (Default) `None` |

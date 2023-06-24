@@ -6,7 +6,7 @@
 고객의 요구사항에 맞게 에이전트 설정을 조정하여 최적의 결과를 제공해 드립니다.
 
 # DataSaker 선행 작업을 진행하였나요?
-현재 Kubernetes 환경에 `DataSaker`의 선행 작업이 진행되지 않으셨다면 `DataSaker` 선행 작업을 먼저 진행하여 주시기 바랍니다. <span style='background-color:#ffdce0'>[DataSaker 선행 작업](${PREPARATION_MANUAL_KR})</span>
+현재 Kubernetes 환경에 `DataSaker`의 선행 작업이 진행되지 않으셨다면 `DataSaker` 선행 작업을 먼저 진행하여 주시기 바랍니다. [DataSaker 선행 작업](${PREPARATION_MANUAL_KR})
 
 # Log agent 설치하기
 기본적으로, `Log agent`는 쿠버네티스 환경에서 데몬셋(daemonset)으로 배포됩니다.
@@ -25,9 +25,9 @@
 | `logAgent.collect.keywords`         | 로그 수집 키워드 (키워드가 포함된 로그만 수집)                                  |     N/A     |              |
 | `logAgent.collect.tag`              | 사용자 설정 태그                                                    |     N/A     |              |
 | `logAgent.collect.service.name`     | 서비스 이름                                                       |  `default`  |              |
-| `logAgent.collect.service.category` | 서비스 분류 [`app`, `database`, `syslog`, `etc`]                  |    `etc`    |              |
-| `logAgent.collect.service.type`     | 서비스 소스 타입 [`postgres`, `mysql`, `java`]                      |    `etc`    |              |
-| `logAgent.collect.service.address`  | 사용자 설정 - 데이터베이스 host 및 port 정보  (category 가 database인 경우 설정) |     N/A     |      ⚠️      |
+| `logAgent.collect.service.category` | 서비스 분류 (`app`, `database`, `syslog`, `etc` 중 하나의 값을 작성하세요.)                  |    `etc`    |              |
+| `logAgent.collect.service.type`     | 서비스 데이터베이스 종류 및 개발 언어 타입 (`postgres`, `mysql`, `java`, `etc` 중 하나의 값을 작성하세요.)                      |    `etc`    |              |
+| `logAgent.collect.service.address`  | 데이터베이스 host 및 port 정보  (서비스 분류가 database인 경우 설정하세요. 설정하지 않을 경우, 특정 기능을 사용하지 못할 수 있습니다.) |     N/A     |      ⚠️      |
 
 
 ```shell
@@ -38,9 +38,9 @@ logAgent:
   logLevel: 'INFO'
   collect:
     - workloads:
-      - '{WORKLOAD_NAME}'
+      - WORKLOAD_NAME
       service:
-        name: MY_SERVICE_NAME
+        name: SERVICE_NAME
         category: APP
         type: ETC
 EOF
@@ -90,35 +90,3 @@ service:
   type: postgres
   address: 0.0.0.0:5432
 ```
-
-# 수집 로그 대상 별 설정 가이드
-
-수집 대상의 로그가 multiline 으로 수집될 경우, 각 대상 별 로그 설정이 요구됩니다.
-
-## Database 로그 수집 설정
-
-### Postgres  
-
-Postgres 로그를 수집하기 위해서는 `/etc/postgresql/<VERSION>/main/postgresql.conf` 파일에 다음과 같은 설정이 필요합니다.
-
-```shell
-logging_collector = on
-log_file_mode = 0644
-log_line_prefix= '%m [%p] %q%u@%d [%c] [%x] '
-```
-
-⚠️: Postgres 쿼리 로그 수집과 관련해서 쿼리에 민감 정보가 포함되어 있다면 해당 설정을 `none`으로 설정하는 것을 권장합니다.
-```shell
-log_statement = 'none' # none, ddl, mod, all
-```
-
-[//]: # (### MySQL)
-
-[//]: # ()
-[//]: # (MySQL 로그 수집)
-
-[//]: # ()
-[//]: # (## Application 로그 수집 설정)
-
-[//]: # ()
-[//]: # (### Java)

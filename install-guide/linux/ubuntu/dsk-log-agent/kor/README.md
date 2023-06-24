@@ -47,6 +47,21 @@ agent:
 2. 다음과 같이 특정 경로의 모든 로그를 수집하도록 설정할 경우 로그 에이전트에 많은 부하가 발생할 수 있습니다. (`/var/log/*`) 수집 로그 파일을 개별적으로 작성하는 것을 권장합니다.(`/var/log/containers/sampleApp.log`)
 3. 로그 파일 이외의 파일이 경로에 설정되지 않도록 설정하십시오. 로그 수집 경로의 파일을 지정하거나 그 이외의 파일을 제외시키십시오. 로그 수집 설정에 포맷을 반드시 작성해주십시오. (예시: `.log`)
 
+
+로그 에이전트 구성 파일에서 각각의 설정 항목에 대한 설명은 다음과 같습니다.
+
+| **Settings**                        | **Description**                                           | **Default** | **Necessary** |
+|:------------------------------------|:----------------------------------------------------------|:-----------:|:------------:|
+| `agent.metadata.agent_name`      | 로그 에이전트 이름                                                 |     `dsk-log-agent`     |         |
+| `agent.collect.paths[]`      | 로그 수집 대상 경로 (예 : /var/log/sample/*.log)                              |     N/A     |    **✓**     |
+| `agent.collect.exclude_paths[]`      | 로그 수집 제외 대상 경로                              |     N/A     |         |
+| `agent.collect.keywords[]`         | 로그 수집 키워드 (키워드가 포함된 로그만 수집합니다.)                                  |     N/A     |              |
+| `agent.collect.tag`              | 사용자 설정 태그                                                    |     N/A     |              |
+| `agent.collect.service.name`     | 서비스 이름                                                       |  `default`  |              |
+| `agent.collect.service.category` | 서비스 분류 (`app`, `database`, `syslog`, `etc` 중 하나의 값을 작성하세요.)                 |    `etc`    |              |
+| `agent.collect.service.type`     | 서비스 데이터베이스 종류 및 개발 언어 타입 (`postgres`, `mysql`, `java`, `etc` 중 하나의 값을 작성하세요.)                      |    `etc`    |              |
+| `agent.collect.service.address`  | 데이터베이스 host 및 port 정보  (서비스 분류가 database인 경우 설정하세요. 설정하지 않을 경우, 특정 기능을 사용하지 못할 수 있습니다.) |     N/A     |      ⚠️      |
+
 ## 3. 패키지 실행
 
 ```shell

@@ -125,7 +125,7 @@ agent:
     agent_name: dsk-trace-agent        # 에이전트 이름 (별칭) default=dsk-trace-agent
   option:
     collector_config: 
-      sampling_rate: 1
+      sampling_rate: 1                 # span 데이터 sampling 비율 (0~100) default=1
 ```
 
 # Trace agent 제거하기

@@ -87,7 +87,7 @@ agent:
 ```yaml
 # collector에 적용되는 샘플링 비율
 # 100 이상일 때 모든 데이터가 수집됩니다
-[ sampling_rate: <float> | default = 0 ]
+[ sampling_rate: <float> | default = 1 ]
 ```
 
 #### `receiver_config`

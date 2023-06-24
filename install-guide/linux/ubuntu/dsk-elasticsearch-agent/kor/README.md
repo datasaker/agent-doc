@@ -27,7 +27,7 @@ vi /etc/datasaker/dsk-elasticsearch-agent/agent-config.yml
 ```yaml
 # Elasticsearch agent 설정 파일
 agent:
-  agent_name: "your_agent_name_what_you_want" # 에이전트 이름 (별칭) default=dsk-elasticsearch-agent
+  agent_name: "dsk-elasticsearch-agent" # 에이전트 이름 (별칭) default=dsk-elasticsearch-agent
 ```
 
 ## 3. 패키지 실행

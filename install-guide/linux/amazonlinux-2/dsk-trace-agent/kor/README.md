@@ -22,8 +22,7 @@ vi /etc/datasaker/dsk-trace-agent/agent-config.yml
 ```yaml
 # Trace agent 설정 파일
 agent:
-  agent_name: "your_agent_name_what_you_want" # default=trace-agent
-  cluster_id: "test-cluster-id"               # default=unknown_cluster
+  agent_name: "dsk-trace-agent" # 에이전트 이름 (별칭) default=dsk-trace-agent
 ```
 
 ## 3. 패키지 실행
@@ -104,8 +103,7 @@ agent:
 ```yaml
 agent:
   metadata:
-    agent_name: seoul-region-a-cluster-trace-agent # UI에서 보여지는 Agent 이름
-	cluster_id: seoul-region-a-cluster # UI에서 보여지는 Cluster 이름
+    agent_name: dsk-trace-agent # 에이전트 이름 (별칭) default=dsk-node-agent
   option:
     collector_configs:
 	  sampling_rate: 1

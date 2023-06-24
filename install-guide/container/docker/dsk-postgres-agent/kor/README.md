@@ -95,7 +95,6 @@ cat << EOF > ~/.datasaker/postgres-config.yml
 agent:
   metadata:
     agent_name: dsk-postgres-agent
-    cluster_id: dev-self-cluster
   option:
     exporter_config:
       command: /etc/datasaker/target-exporter

@@ -104,11 +104,10 @@ agent:
 ```yaml
 agent:
   metadata:
-    agent_name: seoul-region-a-cluster-trace-agent # UI에서 보여지는 Agent 이름
-	cluster_id: seoul-region-a-cluster # UI에서 보여지는 Cluster 이름
+    agent_name: dsk-trace-agent # 에이전트 이름 (별칭) default=dsk-trace-agent
   option:
     collector_configs:
-	  sampling_rate: 1
+    sampling_rate: 1
 ```
 
 # Trace agent 제거하기

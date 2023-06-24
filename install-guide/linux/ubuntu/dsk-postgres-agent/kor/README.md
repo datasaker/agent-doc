@@ -51,7 +51,7 @@ sudo ./installer.sh dsk-postgres-agent
 ```yaml
 agent:
   metadata:
-    agent_name: my-dsk-postgres-agent                # replace you want
+    agent_name: dsk-postgres-agent                # 에이전트 이름 (별칭) default=dsk-postgres-agent
   option:
     exporter_config:
       command: "/usr/bin/dsk-postgres-exporter"

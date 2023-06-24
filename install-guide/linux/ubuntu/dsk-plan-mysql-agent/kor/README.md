@@ -62,7 +62,7 @@ vi /etc/datasaker/dsk-plan-mysql-agent/agent-config.yml
 ```yaml
 agent:
   metadata:
-    agent_name: "your_agent_name_what_you_want" # 에이전트 이름 (별칭) default=dsk-plan-mysql-agent
+    agent_name: "dsk-plan-mysql-agent" # 에이전트 이름 (별칭) default=dsk-plan-mysql-agent
   data_source_name:
     user: 'user'
     password: 'pass'

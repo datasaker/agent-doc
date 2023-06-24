@@ -50,8 +50,7 @@ vi /etc/datasaker/dsk-postgres-agent/agent-config.yml
 ```yaml
 agent:
   metadata:
-    agent_name: my-dsk-postgres-agent
-    cluster_id: my-cluster
+    agent_name: dsk-postgres-agent # 에이전트 이름 (별칭) default=dsk-postgres-agent
   option:
     exporter_config:
       command: "/usr/bin/dsk-postgres-exporter"

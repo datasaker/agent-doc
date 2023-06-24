@@ -49,8 +49,7 @@ vi /etc/datasaker/dsk-plan-postgres-agent/agent-config.yml
 ```yaml
 agent:
   metadata:
-    agent_name: "dsk-plan-postgres-agent" # replace you want
-    cluster_id: REPLACE_CLUSTER_ID # replace you want
+    agent_name: "dsk-plan-postgres-agent" # 에이전트 이름 (별칭) default=dsk-plan-postgres-agent
   data_source_name:
     user: # <user_name>
     password: # <user_password>

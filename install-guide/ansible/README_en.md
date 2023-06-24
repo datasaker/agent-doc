@@ -106,7 +106,7 @@ To deploy the Datasaker Agent on hosts, add the Datasaker role and your API key 
 #### Agents Setting Role variables
 | Variable                                   | Description                                      |
 |--------------------------------------------|--------------------------------------------------|
-|`trace_sampling_rate`| Override The `dsk-trace-agent` sampling rate applied to the collector.<br>- When set to 100 or higher, all data is collected.<br> (Default) `10`|
+|`trace_sampling_rate`| Override The `dsk-trace-agent` sampling rate applied to the collector.<br>- When set to 100 or higher, all data is collected.<br> (Default) `1`|
 |`log_collects`|	An array of log collection configurations. Each item in the array includes the following. |
 |`log_collects[*].paths`|	An array of paths for log collection. <br> (Default) [`host-agent`]=`/var/log/*.log`, [`docker-agent`]=`/var/log/sample/*/*.log` |
 |`log_collects[*].exclude_paths`|	An array of paths to be excluded from the log collection. If the array is empty, no paths will be excluded. <br> (Default) `None` |

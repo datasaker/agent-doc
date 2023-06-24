@@ -24,7 +24,7 @@
 cat << EOF > ~/.datasaker/log-agent-config.yml
 agent:
   metadata:
-    agent_name: 'Sample Service Log Agent'
+    agent_name: 'dsk-log-agent'
   collect:
     - paths:
         - '/var/log/sample/*.log'
@@ -41,7 +41,7 @@ agent:
         address: 'my-sample-serivce:5432'
 EOF
 ```
-**[주의]** `agent.collect.paths[]` 설정 항목은 마운트한 볼륨 경로를 기준으로 작성해야 합니다.(예: '/var/log/sample/') 해당 항목을 작성하지 않을 경우, 로그 에이전트가 정상적으로 동작하지 않을 수 있습니다. 
+**[주의]** `agent.collect.paths[]` 설정 항목은 마운트한 볼륨 경로를 기준으로 작성해야 합니다.(예: '/var/log/sample/') 해당 항목을 작성하지 않을 경우, 로그 에이전트가 정상적으로 동작하지 않을 수 있습니다.
 
 
 로그 에이전트 구성 파일에서 각각의 설정 항목에 대한 설명은 다음과 같습니다.

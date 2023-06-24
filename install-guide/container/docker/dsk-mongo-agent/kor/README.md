@@ -31,8 +31,7 @@ DSK_MONGO_URI=mongodb://localhost:27017
 cat << EOF > ~/.datasaker/mongo-config.yml
 agent:
   metadata:
-    agent_name: my-dsk-mongo-agent
-    cluster_id: my-cluster
+    agent_name: dsk-mongo-agent
   option:
     exporter_config:
       command: "/etc/datasaker/target-exporter"

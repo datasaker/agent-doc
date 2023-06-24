@@ -22,8 +22,7 @@ vi /etc/datasaker/dsk-trace-agent/agent-config.yml
 ```yaml
 # Trace agent 설정 파일
 agent:
-  agent_name: "your_agent_name_what_you_want" # default=trace-agent
-  cluster_id: "test-cluster-id"               # default=unknown_cluster
+  agent_name: "dsk-trace-agent" # 에이전트 이름 (별칭) default=dsk-trace-agent
 ```
 
 ## 3. 패키지 실행
@@ -87,9 +86,8 @@ agent:
 #### `collector_config`
 ```yaml
 # collector에 적용되는 샘플링 비율
-# 0일때 run-config에 적힌 sampling rate가 적용됨 (10)
-# 100 이상일 때 모든 데이터가 수집됨
-[ sampling_rate: <float> | default = 0 ]
+# 100 이상일 때 모든 데이터가 수집됩니다
+[ sampling_rate: <float> | default = 1 ]
 ```
 
 #### `receiver_config`
@@ -105,8 +103,7 @@ agent:
 ```yaml
 agent:
   metadata:
-    agent_name: seoul-region-a-cluster-trace-agent # UI에서 보여지는 Agent 이름
-	cluster_id: seoul-region-a-cluster # UI에서 보여지는 Cluster 이름
+    agent_name: dsk-trace-agent # 에이전트 이름 (별칭) default=dsk-node-agent
   option:
     collector_configs:
 	  sampling_rate: 1

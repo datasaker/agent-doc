@@ -104,9 +104,8 @@ agent:
 
 ```yaml
 # collector에 적용되는 샘플링 비율
-# 0일때 run-config에 적힌 sampling rate가 적용됨 (10)
-# 100 이상일 때 모든 데이터가 수집됨
-[ sampling_rate: <float> | default = 0 ]
+# 100 이상일 때 모든 데이터가 수집됩니다
+[ sampling_rate: <float> | default = 1 ]
 ```
 
 #### `reciever_config`
@@ -123,11 +122,10 @@ agent:
 ```yaml
 agent:
   metadata:
-    agent_name: seoul-region-a-cluster-trace-agent # UI에서 보여지는 Agent 이름
-    cluster_id: seoul-region-a-cluster # UI에서 보여지는 Cluster 이름
+    agent_name: dsk-trace-agent        # 에이전트 이름 (별칭) default=dsk-trace-agent
   option:
     collector_config: 
-      sampling_rate: 1
+      sampling_rate: 1                 # span 데이터 sampling 비율 (0~100) default=1
 ```
 
 # Trace agent 제거하기

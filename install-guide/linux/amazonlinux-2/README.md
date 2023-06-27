@@ -1,4 +1,6 @@
-# Amazon Linux 2 환경에 Datasaker 설정파일 구성하기 (Beta)
+# Amazon Linux 2 환경에 Datasaker 설정파일 구성하기
+
+
 
 ## yum repository 등록하기
 ```shell

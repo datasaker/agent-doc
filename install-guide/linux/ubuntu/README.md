@@ -1,4 +1,4 @@
-# Ubuntu 환경에 데이터세이커 설정파일 구성하기 (Beta)
+# Ubuntu 환경에 데이터세이커 설정파일 구성하기
 
 ## global-config.yml 구성하기
 ```shell

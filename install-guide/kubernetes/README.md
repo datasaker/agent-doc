@@ -16,7 +16,6 @@ userInfo:
   clusterName: ${VAR_CLUSTER_NAME}
   apiKey: ${VAR_GLOBAL_APIKEY}
   runtimeType: ${VAR_RUNTIME_TYPE}
-  runtimeSock: ${VAR_RUNTIME_SOCK}
 EOF
 ```
 
@@ -27,7 +26,6 @@ EOF
 | clusterName | 유저가 붙이는 쿠버네티스 클러스터 이름.                   |
 | apiKey      | DataSaker에서 발급받은 API Key.                |
 | runtimeType | 쿠버네티스 런타임 종류. (docker, containerd, crio) |
-| runtimeSock | 쿠버네티스 런타임 소켓 경로.                         |
 
 ## 헬름을 이용한 DataSaker 설정파일 구성
 ### DataSaker 헬름 레포지토리 추가

@@ -8,14 +8,7 @@
 # Supported version
 |version|support|
 |---|---|
-|postgres 15|X|
 |postgres 14|O|
-|postgres 13|X|
-|postgres 12|X|
-|postgres 11|X|
-|postgres 10|X|
-|postgres 9|X|
-|postgres 8|X|
 
 <br><br>
 

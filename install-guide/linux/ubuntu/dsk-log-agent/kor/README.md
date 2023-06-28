@@ -28,17 +28,20 @@ sudo ./installer.sh dsk-log-agent
 ```yaml
 agent:
   metadata:
-    agent_name:         # 에이전트 이름
+    agent_name: 'dsk-log-agent'
   collect:
-    - paths: []         # (필수) 로그 수집 경로
-      exclude_paths: [] # 로그 수집 경로 중 제외시키고자 하는 로그 경로
-      keywords: []      # 로그 수집 키워드 (키워드가 포함된 로그만 수집)
-      tag:              # 사용자 설정 태그
+    - paths:
+      - '/var/log/sample/*.log'
+      exclude_paths:
+      - '/var/log/sample/private.log'
+      keywords:
+      - 'ERROR'
+      tag: 'sample'
       service:
-        name:           # 서비스 이름  (기본 설정값: default)
-        category:       # 서비스 분류  [app, database, syslog, etc] (기본 설정값: etc)
-        type:           # 서비스 소스 타입 [postgres, mysql, java] (기본 설정값: etc)
-        address:        # 사용자 설정 - 데이터베이스 host 및 port 정보 (type이 database 인 경우 작성)
+        name: 'sample service'
+        category: 'database'
+        type: 'postgres'
+        address: '0.0.0.0:5432'
 ```
 
 ### **[주의]**

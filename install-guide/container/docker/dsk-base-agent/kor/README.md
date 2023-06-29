@@ -54,4 +54,6 @@ docker run -d --name dsk-container-agent\
    --privileged\
    --restart=always\
    datasaker/dsk-container-agent
+
+sudo chown -R datasaker:datasaker /var/datasaker/ 
 ```

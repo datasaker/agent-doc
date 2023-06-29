@@ -29,6 +29,18 @@ export DSK_CLUSTER_ID=my-cluster
 2. 도커 명령어를 서버에 입력합니다.
 
 ```shell
+docker run -d --name dsk-node-agent\
+   -v /var/datasaker/:/var/datasaker/\
+   -v /proc/:/host/proc/:ro\
+   -v /sys/:/host/sys/:ro\
+   -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro\
+   -e DSK_CLUSTER_ID=${DSK_CLUSTER_ID} \
+   -e DSK_LOG_LEVEL=DEBUG\
+   --privileged\
+   --restart=always\
+   --network host\
+   --pid host\
+   datasaker/dsk-node-agent
 docker run -d --name dsk-container-agent\
    -v /var/datasaker/:/var/datasaker/\
    -v /:/rootfs/:ro\
@@ -42,16 +54,4 @@ docker run -d --name dsk-container-agent\
    --privileged\
    --restart=always\
    datasaker/dsk-container-agent
-docker run -d --name dsk-node-agent\
-   -v /var/datasaker/:/var/datasaker/\
-   -v /proc/:/host/proc/:ro\
-   -v /sys/:/host/sys/:ro\
-   -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro\
-   -e DSK_CLUSTER_ID=${DSK_CLUSTER_ID} \
-   -e DSK_LOG_LEVEL=DEBUG\
-   --privileged\
-   --restart=always\
-   --network host\
-   --pid host\
-   datasaker/dsk-node-agent
 ```

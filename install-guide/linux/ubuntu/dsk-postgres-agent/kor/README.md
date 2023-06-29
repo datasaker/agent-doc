@@ -66,7 +66,7 @@ chmod 700 installer.sh
 sudo ./installer.sh dsk-postgres-agent
 ```
 
-## 4. agent-config 설정
+## 4. Postgres agent 설정
 `/etc/datasaker/dsk-postgres-agent/agent-config.yml`에 내용을 기입합니다.
 ```yaml
 agent:
@@ -78,9 +78,9 @@ agent:
       port: 19187
       args:
         - --extend.query-path=/etc/datasaker/dsk-postgres-agent/queries.yaml
-        - --data-source-user=<monitoring account name>
-        - --data-source-pass=<monitoring account pass>
-        - --data-source-uri=<monitoring database uri> # <ip>:<port>/dbname
+        - --data-source-user=datasaker
+        - --data-source-pass='<PASSWORD>'
+        - --data-source-uri='<Postgres IP>:<Postgres Port>'/datasaker
     scrape_interval: 15s
     scrape_timeout: 5s
     scrape_configs:
@@ -88,6 +88,29 @@ agent:
         url: localhost:19187
         filtering_configs:
           rule: drop
+```
+
+#### `metadata`
+```yaml
+# 에이전트 이름 (별칭)
+[ agent_name: <string> | default = "dsk-postgres-agent" ]
+
+# 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정
+[ cluster_id: <cluster_id> | default = "unknown" ]
+```
+
+#### `option.exporter_config.port`
+```yaml
+# agent가 사용하는 port number 기존 사용중인 application과 포트 충돌 발생시 임의 값으로 변경
+[ port: <uint16> | default = 19187 ]
+```
+
+#### `option.exporter_config.args`
+```yaml
+# 관제하려는 database의 접속권한을 가진 계정 정보와 주소를 입력합니다.
+- --data-source-user=datasaker
+- --data-source-pass='<PASSWORD>'
+- --data-source-uri='<Postgres IP>:<Postgres Port>'/datasaker
 ```
 
 ## 5. 패키지 실행

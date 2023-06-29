@@ -77,9 +77,9 @@ agent:
       port: 19187
       args:
         - --extend.query-path=/etc/datasaker/dsk-postgres-agent/queries.yaml
-        - --data-source-user=<monitoring account name> # datasaker
-        - --data-source-pass=<monitoring account pass>
-        - --data-source-uri=<monitoring database uri>/datasaker
+        - --data-source-user=datasaker
+        - --data-source-pass='<PASSWORD>'
+        - --data-source-uri='<Postgres IP>:<Postgres Port>'/datasaker
     scrape_interval: 15s
     scrape_timeout: 5s
     scrape_configs:
@@ -92,7 +92,7 @@ agent:
 #### `metadata`
 ```yaml
 # 에이전트 이름 (별칭)
-[ agent_name: <string> | default = "dsk-trace-agent" ]
+[ agent_name: <string> | default = "dsk-postgres-agent" ]
 
 # 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정
 [ cluster_id: <cluster_id> | default = "unknown" ]
@@ -107,9 +107,9 @@ agent:
 #### `option.exporter_config.args`
 ```yaml
 # 관제하려는 database의 접속권한을 가진 계정 정보와 주소를 입력합니다.
-- --data-source-user=<monitoring account name> # 문서에 따라 생성시 datasaker
-- --data-source-pass=<monitoring account pass>
-- --data-source-uri=<monitoring database uri>/datasaker # <ip>:<port>/datasaker
+- --data-source-user=datasaker
+- --data-source-pass='<PASSWORD>'
+- --data-source-uri='<Postgres IP>:<Postgres Port>'/datasaker
 ```
 
 ## 5. 패키지 실행

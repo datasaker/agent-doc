@@ -74,7 +74,7 @@ EOF
 다음은 로그 에이전트 실행 예시입니다.
 
 ```shell
-dockr  run -d --name dsk-log-agent \
+docker  run -d --name dsk-log-agent \
   -v /var/datasaker/:/var/datasaker/ \
   -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro \
   -v ~/.datasaker/log-agent-config.yml:/etc/datasaker/dsk-log-agent/agent-config.yml:ro \

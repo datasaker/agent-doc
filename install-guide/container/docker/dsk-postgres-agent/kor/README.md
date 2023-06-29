@@ -7,14 +7,8 @@
 # Supported version
 |version|support|
 |---|---|
-|postgres 15|X|
 |postgres 14|O|
-|postgres 13|X|
-|postgres 12|X|
-|postgres 11|X|
-|postgres 10|X|
-|postgres 9|X|
-|postgres 8|X|
+
 
 
 # Agent 구성
@@ -42,23 +36,47 @@ Postgres agent는 `postgres agent`와 `plan-postgres-agent`로 구성되어 있�
 # Postgres agent 설치하기
 
 ## 1. Postgres agent 설정 변경
+### 필수 설정
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| shared_preload_libraries | pg_stat_statements | `pg_stat_statements` extension을 이용하여 `pg_dsk_sql_stat.*` metric을 추출합니다.|
+| track_activity_query_size | 4096 | `pg_stat_activity`, `pg_stat_statements`의 SQL 텍스트 길이를 증가시킵니다.|
+### 선택 설정
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| pg_stat_statements.track | ALL | `stored producers`, `function` 내에서의 구문을 추적합니다.|
+| pg_stat_statements.max | 10000 | `pg_stat_statements`의 추적 쿼리를 증가시킵니다. 이 설정은 다양한 클라이언트, 다양한 유형의 대용량 데이터베이스에 권장됩니다.|
+| pg_stat_statements.track_utility | 0 | `PREPARE`, `EXPLAIN`같은 유틸리 명령에 대한 추적을 비활성화 합니다. |
 
-관제하려는 데이터베이스 `pg_stat_statements` 모듈의 활성화 된 상태인지 확인 부탁드립니다.\
+관제하려는 데이터베이스의 `pg_stat_statements` 모듈이 활성화 된 상태인지 확인 부탁드립니다.
+```
+show shared_preload_libraries;
+
+
+ shared_preload_libraries
+--------------------------
+ pg_stat_statements
+(1 row)
+```
 [pg_stat_statements 참조사이트](https://www.postgresql.org/docs/14/pgstatstatements.html)
 
+
 ## 2. Postgres User 권한 설정
+`postgres agent`를 사용하기 위해서는 `pg_monitor`의 권한이 필요합니다.\
+`datasaker` 전용계정을 생성하세요, 전용계정을 생성할때는 `superuser`를 사용해야 합니다.
+### datasaker 전용 계정
+```sql
+CREATE USER datasaker WITH password '<PASSWORD>';
+```
 
-`postgres agent`를 설치하기 위해서는 `postgres user`의 권한이 필요합니다.\
-`postgres user`의 권한을 확인하고, 권한이 없다면 권한을 부여해주세요.\
-필요한 User 권한은 다음과 같습니다.
-
-- `SELECT`
-- `UPDATE`
-- `DELETE`
-- `INSERT`
-
+### datasaker 전용 데이터베이스 생성
+```sql
+CREATE DATABASE datasaker;
+GRANT USAGE ON SCHEMA public TO datasaker;
+GRANT pg_monitor TO datasaker;
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements;
+```
 [postgres user 권한 참조사이트](https://www.postgresql.org/docs/14/sql-grant.html)
-
 
 ## 3. Postgres agent 설정값 등록
 
@@ -67,9 +85,9 @@ Postgres agent는 `postgres agent`와 `plan-postgres-agent`로 구성되어 있�
 에이전트를 연결하기 위해서는 수집하고자 하는 PostgreSQL 서버의 주소, 데이터베이스, 유저 ID와 패스워드를 에이전트에 설정해야 합니다.
 
 ```shell
- DSK_PG_USER=<user>
+ DSK_PG_USER=datasaker
  DSK_PG_SOURCE_PASS=<password>
- DSK_PG_DB_NAME=<database>
+ DSK_PG_DB_NAME=datasaker
  DSK_PG_HOST=<host>
  DSK_PG_PORT=<port>
 ```
@@ -77,9 +95,9 @@ Postgres agent는 `postgres agent`와 `plan-postgres-agent`로 구성되어 있�
 예를 들어, 주소가 `192.168.123.132`이고, 기본 포트 `5432`에 서비스중인 PostgreSQL를 수집하기 위해서는 터미널에 다음과 같이 설정할 수 있습니다.
 
 ```shell
- DSK_PG_USER=postgres
+ DSK_PG_USER=datasaker
  DSK_PG_SOURCE_PASS=postgres
- DSK_PG_DB_NAME=postgres
+ DSK_PG_DB_NAME=datasaker
  DSK_PG_HOST=192.168.123.132
  DSK_PG_PORT=5432
 ```

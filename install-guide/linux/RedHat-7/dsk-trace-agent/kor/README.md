@@ -106,7 +106,7 @@ agent:
     agent_name: dsk-trace-agent # 에이전트 이름 (별칭) default=dsk-node-agent
   option:
     collector_configs:
-	  sampling_rate: 1
+      sampling_rate: 1
 ```
 
 # Trace agent 제거하기

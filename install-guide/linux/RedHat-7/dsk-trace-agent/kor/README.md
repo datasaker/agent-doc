@@ -22,7 +22,8 @@ vi /etc/datasaker/dsk-trace-agent/agent-config.yml
 ```yaml
 # Trace agent 설정 파일
 agent:
-  agent_name: "dsk-trace-agent" # 에이전트 이름 (별칭) default=dsk-trace-agent
+  metadata:
+    agent_name: "dsk-trace-agent" # 에이전트 이름 (별칭) default=dsk-trace-agent
 ```
 
 ## 3. 패키지 실행

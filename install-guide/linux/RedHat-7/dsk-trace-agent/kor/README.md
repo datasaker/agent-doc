@@ -71,7 +71,7 @@ agent:
   # 에이전트의 실행 관련 옵션
   option:
     [ collector_config: <collector_config> ]
-	[ reciever_config: <reciever_config> ]
+        [ reciever_config: <reciever_config> ]
 ```
 
 #### `metadata`

@@ -118,5 +118,6 @@ sudo systemctl stop dsk-trace-agent
 
 ## 2. 패키지 제거
 ```shell
+sudo systemctl stop dsk-trace-agent &&
 sudo yum remove dsk-trace-agent
 ```

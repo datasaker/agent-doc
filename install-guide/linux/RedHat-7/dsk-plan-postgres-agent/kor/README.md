@@ -125,5 +125,6 @@ sudo systemctl stop dsk-plan-postgres-agent
 
 ## 2. 패키지 제거
 ```shell
+sudo systemctl stop dsk-plan-postgres-agent &&
 sudo yum remove dsk-plan-postgres-agent
 ```

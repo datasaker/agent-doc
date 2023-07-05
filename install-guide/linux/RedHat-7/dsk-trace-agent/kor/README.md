@@ -10,29 +10,30 @@
 # Trace agent 설치하기
 ## 1. 패키지 설치
 ```shell
-yum install dsk-trace-agent
+sudo yum install dsk-trace-agent
 ```
 
 ## 2. Trace agent 설정
 ```shell
-vi /etc/datasaker/dsk-trace-agent/agent-config.yml
+sudo vi /etc/datasaker/dsk-trace-agent/agent-config.yml
 ```
 필요에 따라 다음 내용을 수정합니다.
 
 ```yaml
 # Trace agent 설정 파일
 agent:
-  agent_name: "dsk-trace-agent" # 에이전트 이름 (별칭) default=dsk-trace-agent
+  metadata:
+    agent_name: "dsk-trace-agent" # 에이전트 이름 (별칭) default=dsk-trace-agent
 ```
 
 ## 3. 패키지 실행
 ```shell
-systemctl enable dsk-trace-agent --now
+sudo systemctl enable dsk-trace-agent --now
 ```
 
 ## 4. 패키지 실행 상태 확인
 ```shell
-systemctl status dsk-trace-agent
+sudo systemctl status dsk-trace-agent
 ```
 
 # Trace agent 포트 정보
@@ -71,7 +72,7 @@ agent:
   # 에이전트의 실행 관련 옵션
   option:
     [ collector_config: <collector_config> ]
-	[ reciever_config: <reciever_config> ]
+        [ reciever_config: <reciever_config> ]
 ```
 
 #### `metadata`
@@ -106,16 +107,17 @@ agent:
     agent_name: dsk-trace-agent # 에이전트 이름 (별칭) default=dsk-node-agent
   option:
     collector_configs:
-	  sampling_rate: 1
+      sampling_rate: 1
 ```
 
 # Trace agent 제거하기
 ## 1. 패키지 중단
 ```shell
-systemctl stop dsk-trace-agent
+sudo systemctl stop dsk-trace-agent
 ```
 
 ## 2. 패키지 제거
 ```shell
-yum remove dsk-trace-agent
+sudo systemctl stop dsk-trace-agent &&
+sudo yum remove dsk-trace-agent
 ```

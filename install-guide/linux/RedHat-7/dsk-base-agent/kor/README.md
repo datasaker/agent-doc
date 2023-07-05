@@ -44,5 +44,6 @@ systemctl stop dsk-node-agent
 
 ## 2. 패키지 제거
 ```shell
-yum remove dsk-node-agent
+sudo systemctl stop dsk-node-agent &&
+sudo yum remove dsk-node-agent
 ```

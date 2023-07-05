@@ -37,12 +37,12 @@
 
 ## 3. 패키지 설치
 ```shell
-yum install dsk-postgres-agent
+sudo yum install dsk-postgres-agent
 ```
 
 ## 4. Postgres agent 설정
 ```shell
-vi /etc/datasaker/dsk-postgres-agent/agent-config.yml
+sudo vi /etc/datasaker/dsk-postgres-agent/agent-config.yml
 ```
 필요에 따라 다음 내용을 수정합니다.
 
@@ -57,9 +57,9 @@ agent:
       port: 19187
       args:
         - --extend.query-path=/etc/datasaker/dsk-postgres-agent/queries.yaml
-        - --data-source-user=<monitoring account name>
-        - --data-source-pass=<monitoring account pass>
-        - --data-source-uri=<monitoring database uri> # <ip>:<port>/dbname
+        - --data-source-user= # <monitoring account name>
+        - --data-source-pass= # <monitoring account pass>
+        - --data-source-uri= # <monitoring database uri> # <ip>:<port>/dbname
     scrape_interval: 15s
     scrape_timeout: 5s
     scrape_configs:
@@ -94,22 +94,23 @@ agent:
 
 ## 5. 패키지 실행
 ```shell
-systemctl enable dsk-postgres-agent --now
+sudo systemctl enable dsk-postgres-agent --now
 ```
 
 ## 6. 패키지 실행 상태 확인
 ```shell
-systemctl status dsk-postgres-agent
+sudo systemctl status dsk-postgres-agent
 ```
 
 # Postgres agent 제거하기
 
 ## 1. 패키지 중단
 ```shell
-systemctl stop dsk-postgres-agent
+sudo systemctl stop dsk-postgres-agent
 ```
 
 ## 2. 패키지 제거
 ```shell
-yum remove dsk-postgres-agent
+sudo systemctl stop dsk-postgres-agent &&
+sudo yum remove dsk-postgres-agent
 ```

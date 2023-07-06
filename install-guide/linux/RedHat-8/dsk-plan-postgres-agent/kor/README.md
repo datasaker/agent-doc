@@ -37,11 +37,11 @@
 
 ## 2. 패키지 설치
 ```shell
-yum install dsk-plan-postgres-agent
+sudo yum install dsk-plan-postgres-agent
 ```
 ## 3. Plan Postgres Agent 설정
 ```shell
-vi /etc/datasaker/dsk-plan-postgres-agent/agent-config.yml
+sudo vi /etc/datasaker/dsk-plan-postgres-agent/agent-config.yml
 ```
 필요에 따라 다음 내용을 수정합니다.
 
@@ -69,7 +69,7 @@ agent:
 #### `metadata`
 ```yaml
 # 에이전트 이름 (별칭)
-[ agent_name: <string> | default = "dsk-trace-agent" ]
+[ agent_name: <string> | default = "dsk-plan-postgres-agent" ]
 
 # 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정
 [ cluster_id: <cluster_id> | default = "unknown" ]
@@ -109,21 +109,22 @@ agent:
 
 ## 4. 패키지 실행
 ```shell
-systemctl enable dsk-plan-postgres-agent --now
+sudo systemctl enable dsk-plan-postgres-agent --now
 ```
 
 ## 5. 패키지 실행 상태 확인
 ```shell
-systemctl status dsk-plan-postgres-agent
+sudo systemctl status dsk-plan-postgres-agent
 ```
 
 # Plan Postgres Agent 제거하기
 ## 1. 패키지 중단
 ```shell
-systemctl stop dsk-plan-postgres-agent
+sudo systemctl stop dsk-plan-postgres-agent
 ```
 
 ## 2. 패키지 제거
 ```shell
-yum remove dsk-plan-postgres-agent
+sudo systemctl stop dsk-plan-postgres-agent &&
+sudo yum remove dsk-plan-postgres-agent
 ```

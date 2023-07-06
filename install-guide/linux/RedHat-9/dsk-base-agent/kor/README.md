@@ -11,12 +11,12 @@
 ## 1. 패키지 설치
 `DataSaker`의 `Base agent`를 설치하기 위해서는 sudo 권한이 필요합니다.
 ```shell
-yum install dsk-node-agent
+sudo yum install dsk-node-agent
 ```
 
 ## 2. Base agent 설정
 ```shell
-vi /etc/datasaker/dsk-node-agent/agent-config.yml
+sudo vi /etc/datasaker/dsk-node-agent/agent-config.yml
 ```
 필요에 따라 다음 내용을 수정합니다.
 ```yaml
@@ -28,21 +28,22 @@ agent:
 
 ## 3. 패키지 실행
 ```shell
-systemctl enable dsk-node-agent --now
+sudo systemctl enable dsk-node-agent --now
 ```
 
 ## 4. 패키지 실행 상태 확인
 ```shell
-systemctl status dsk-node-agent
+sudo systemctl status dsk-node-agent
 ```
 
 # Base agent 제거하기
 ## 1. 패키지 중단
 ```shell
-systemctl stop dsk-node-agent
+sudo systemctl stop dsk-node-agent
 ```
 
 ## 2. 패키지 제거
 ```shell
-yum remove dsk-node-agent
+sudo systemctl stop dsk-node-agent &&
+sudo yum remove dsk-node-agent
 ```

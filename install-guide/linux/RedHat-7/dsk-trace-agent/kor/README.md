@@ -104,7 +104,7 @@ agent:
 ```yaml
 agent:
   metadata:
-    agent_name: dsk-trace-agent # 에이전트 이름 (별칭) default=dsk-node-agent
+    agent_name: dsk-trace-agent # 에이전트 이름 (별칭) default=dsk-trace-agent
   option:
     collector_configs:
       sampling_rate: 1

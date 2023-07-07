@@ -72,7 +72,7 @@ agent:
 #### `metadata`
 ```yaml
 # 에이전트 이름 (별칭)
-[ agent_name: <string> | default = "dsk-trace-agent" ]
+[ agent_name: <string> | default = "dsk-postgres-agent" ]
 
 # 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정
 [ cluster_id: <cluster_id> | default = "unknown" ]

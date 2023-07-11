@@ -1,6 +1,7 @@
 # Ubuntu 환경에 데이터세이커 설정파일 구성하기
 
 ## global-config.yml 구성하기
+
 ```shell
 sudo mkdir -p /etc/datasaker
 
@@ -29,4 +30,5 @@ echo 'global:
     base_url: /dsk-agentmanager-api/agent
     send_interval: 1m' | sudo tee /etc/datasaker/global-config.yml
 ```
-<br>
+
+\

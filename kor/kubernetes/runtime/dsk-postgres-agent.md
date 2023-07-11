@@ -4,9 +4,7 @@
 
 `Postgres agents`는 `postgres-agent`와 `plan-postgres-agent`로 구성되어 있습니다.\
 이를 통해 데이터베이스의 성능 지표, 리소스 사용량, 슬로우 쿼리 등 다양한 정보를 수집할 수 있습니다.\
-고객의 요구사항에 따라 `plan-postgres-agent`는 `on/off` 형태로 사용 할 수 있습니다.\
-\
-
+고객의 요구사항에 따라 `plan-postgres-agent`는 `on/off` 형태로 사용 할 수 있습니다.
 
 ## Supported version
 
@@ -20,10 +18,6 @@
 | postgres 10 | X       |
 | postgres 9  | X       |
 | postgres 8  | X       |
-
-\
-\
-
 
 ## Agent 구성
 
@@ -41,14 +35,11 @@ Postgres agent는 `postgres agent`와 `plan-postgres agent`로 구성되어 있�
 `plan-postgres-agent`는 데이터베이스의 `active session`을 실시간으로 수집합니다.\
 이를 통해 데이터베이스의 슬로우 쿼리에 대한 정보를 수집할 수 있습니다.\
 슬로우 쿼리를 탐지하여 인덱스 생성, 쿼리 최적화 등의 방법으로 데이터베이스 성능을 개선할 수 있습니다.\
-고객의 요구사항에 맞게 에이전트 설정을 조정하여 최적의 결과를 제공해 드립니다.\
-\
-
+고객의 요구사항에 맞게 에이전트 설정을 조정하여 최적의 결과를 제공해 드립니다.
 
 ## DataSaker 선행 작업을 진행하였나요?
 
-현재 Kubernetes 환경에 `DataSaker`의 선행 작업이 진행되지 않으셨다면 `DataSaker` 선행 작업을 먼저 진행하여 주시기 바랍니다. [DataSaker 선행 작업](dsk-postgres-agent/kor/$%7BPREPARATION\_MANUAL\_KR%7D/)\
-\
+현재 Kubernetes 환경에 `DataSaker`의 선행 작업이 진행되지 않으셨다면 `DataSaker` 선행 작업을 먼저 진행하여 주시기 바랍니다. [DataSaker 선행 작업](dsk-postgres-agent/kor/$%7BPREPARATION\_MANUAL\_KR%7D/)
 
 
 ## Postgres agent 설치하기

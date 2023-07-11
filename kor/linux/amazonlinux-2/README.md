@@ -1,8 +1,7 @@
 # Amazon Linux 2 환경에 Datasaker 설정파일 구성하기
 
-
-
 ## yum repository 등록하기
+
 ```shell
 cat <<EOF | sudo tee /etc/yum.repos.d/datasaker.repo
 [datasaker]

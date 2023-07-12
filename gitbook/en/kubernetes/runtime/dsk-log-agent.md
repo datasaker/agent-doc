@@ -19,7 +19,7 @@ In order for `Log agent` to operate normally, you must **must** set one or more 
 The meaning and default setting values ​​of `Log agent` are as follows. Different users have different requirements for agent setup. Therefore, the agent settings must be adjusted to suit the user's settings. Tune your agent settings for optimal results. Add or edit these values ​​in "\~/datasaker/config.yaml".
 
 | **Settings** | **Description** | **Default** | **Required** |
-| ----------------------------------- | -------------------------------------------------- ------------------------------------ | :---------: | :----------: |
+| ----------------------------------- | --------------------------------------------------------------------------------------- | :---------: | :----------: |
 | `logAgent.collect.workloads[]` | Log collection target workload name (Example: 'nginx') | N/A | **✓** |
 | `logAgent.collect.keywords` | Log Collection Keywords (collects only logs containing keywords) | N/A | |
 | `logAgent.collect.tag` | custom tags | N/A | |

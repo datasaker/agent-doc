@@ -45,7 +45,7 @@ EOF
 The description of each setting item in the log agent configuration file is as follows.
 
 | **Settings** | **Description** | **Default** | **Necessary** |
-| -------------------------------- | -------------------------------------------------- ------------------------------------ | :-------------: | :----------: |
+| -------------------------------- | --------------------------------------------------------------------------------------- | :-------------: | :----------: |
 | `agent.metadata.agent_name` | log agent name | `dsk-log-agent` | |
 | `agent.collect.paths[]` | Log collection destination path (e.g. /var/log/sample/\*.log) | N/A | **✓** |
 | `agent.collect.exclude_paths[]` | Log collection exclusion target path | N/A | |

@@ -53,7 +53,7 @@ service dsk-elasticsearch-agent status
 elasticsearch exporter の argument 設定を変更して、ご使用の環境に合わせて変更できます。設定値は以下の通りです。
 
 | Argument |説明|デフォルト|
-|-------------------------|------------------------ -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- -----------------------------------------------|-- --------------------- |
+|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------ |
 | es.uri | Address (host and port) of the Elasticsearch node we should connect to. This could be a local node (localhost:9200, for instance), or the address of a remote Elasticsearch server. When basic auth is needed, specify as: <proto>://<user>:<password>@<host>:<port>. E.G.、http://admin:pass@localhost:9200。 Special characters in the user credentials need to be URL-encoded. | http://localhost：9200 |
 | es.all | If true, query stats for all nodes in the cluster, rather than just the node we connect to. | false |
 | es.cluster_settings | If true, query stats for cluster settings. | false |

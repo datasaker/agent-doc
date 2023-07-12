@@ -47,7 +47,7 @@ Below is an example of a basic installation.
 #### Required settings
 
 | variable name | Description |
-| -------------------------------------------- | -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- ------- |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `datasaker_api_key` | Enter your API Key. |
 | `datasaker_agents` | <p>A list of host agents to be installed on each host.<br><code>dsk-node-agent</code> <code>dsk-trace-agent</code> <code>dsk-log-agent< /code> <code>dsk-postgres-agent</code> <code>dsk-plan-postgres-agent</code><br>(Default) <code>dsk-node-agent</code></p > |
 | `datasaker_docker_agents` | <p>A list of Docker Container Agents you want to install on each host. Host Agent installation is automatically disabled when Docker Container Agents are added.<br><code>dsk-docker-node-agent</code> <code>dsk-docker-trace-agent</code> <code>dsk- docker-log-agent</code> <code>dsk-docker-postgres-agent</code><br>(Default) <code>dsk-docker-node-agent</code></p> |
@@ -78,7 +78,7 @@ Below is an example of a basic installation.
 #### Set up Docker Container Agent
 
 | variable name | Description |
-| ------------------------------------ | -------------------------------------------------- -------------------------------------------------- -------------- |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
 | `datasaker_docker_config_path` | <p>Set Datasaker Global Config location.<br>(Default) <code>~/.datasaker</code></p> |
 | `datasaker_docker_global_config` | <p>Set Datasaker Global Config name.<br>(Default) <code>~/.datasaker/config.yml</code></p> |
 | `docker_default_path` | <p>Set the Docker Log collection location to mount to the Datasaker Docker Log Agent.<br>(Default) <code>/var/lib/docker/containers/</code></p> |
@@ -101,7 +101,7 @@ Below is an example of a basic installation.
 * Host Agent and Docker Container Agent use the same settings.
 
 | variable name | Description |
-| ------------------------------------- | -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- ------------------------------------ |
+| ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `trace_sampling_rate` | <p>Sets the sampling rate applied to the collector in <code>dsk-trace-agent</code>.<br>- All data is collected when it is over 100.<br>(Default) <code>1</code> </p> |
 | `log_collects` | Log collection collection configuration settings in `dsk-log-agent`. Each item in the list contains the items below. |
 | `log_collects[*].paths` | <p>Set path for log collection in <code>dsk-log-agent</code>.<br>(Default) [<code>host-agent</code>]=<code>/var/log/ *.log</code>, [<code>docker-agent</code>]=<code>/var/log/sample/*/*.log</code></p> |
@@ -176,7 +176,7 @@ Below is an example of a basic installation.
 You can uninstall Datasaker Agent. datasaker\_clean requires uninstall set to `True`.
 
 | variable name | Description |
-| ----------------- | -------------------------------------------------- -------------------------------------------------- -------------------------------------------- |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `uninstall` | <p>Remove only agents written in <code>datasaker_agents</code> or <code>datasaker_docker_agents</code>.<br>(Default) <code>False</code></p> |
 | `datasaker_clean` | <p>Remove Agents written in <code>datasaker_agents</code> or <code>datasaker_docker_agents</code>, as well as created folders and configuration files.<br>(Default) <code>False</code></p > |
 

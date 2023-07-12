@@ -79,7 +79,7 @@ traceAgent:
 A detailed explanation of each setting value is as follows.
 
 | set value | Description |
-| ----------- | -------------------------------------------------- -------------------- |
+| ----------- | ----------------------------------------------------------------------- |
 | enabled | Enable trace agent. |
 | tolerations | Add a toleration setting if a taint is set on the worker node. |
 | imgPolicy | Set the agent's Image Policy. (Always, IfNotPresent, Never) |

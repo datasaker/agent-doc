@@ -56,7 +56,7 @@ EOF
 In the above setup, each argument means:
 
 | Arguments | Description | Default |
-| -------------------- | -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- -------------------------------------- | --------------------- |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
 | es.uri | The address (host and port) of the Elasticsearch node you need to connect to. This address can be either the local node (e.g. localhost:9200) or the address of a remote Elasticsearch server. If basic authentication is required, specify: ://<user>:<password>@<host>:<port>. Example: http://admin:pass@localhost:9200. Special characters in user credentials must be URL-encoded. | http://localhost:9200 |
 | es.all | If true, query statistics for all nodes in the cluster, not just the nodes you connect to. | false |
 | es.cluster\_settings | If true, queries statistics about cluster settings. | false |

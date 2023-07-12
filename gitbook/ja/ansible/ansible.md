@@ -47,7 +47,7 @@ ansible-galaxy install dsk_bot.datasaker
 ####必須設定
 
 |変数名|説明
-| -------------------------------------------- | -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- ------- |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `datasaker_api_key` | API Keyと入力します。 |
 | `datasaker_agents` | <p>各ホストにインストールするホストエージェントのリスト。<br> <code> dsk-node-agent </code> <code> dsk-trace-agent </code> <code> dsk-log-agent < /code> <code>dsk-postgres-agent</code> <code>dsk-plan-postgres-agent</code><br>(Default) <code>dsk-node-agent</code></p> > |
 | `datasaker_docker_agents` | <p>各ホストにインストールするDocker Container Agentのリスト。 Docker Container Agentsを挿入すると、Host Agentのインストールは自動的に無効になります。 docker-log-agent</code> <code>dsk-docker-postgres-agent</code><br>(Default) <code>dsk-docker-node-agent</code></p> |
@@ -78,7 +78,7 @@ ansible-galaxy install dsk_bot.datasaker
 #### Docker Container Agentの設定
 
 |変数名|説明
-| ------------------------------------ | -------------------------------------------------- -------------------------------------------------- -------------- |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
 | `datasaker_docker_config_path` | <p>Datasaker Global Configの場所を設定します。<br>（Default）<code>〜/.datasaker</code></p> |
 | `datasaker_docker_global_config` | <p>Datasaker Global Configの名前を設定します。<br>(Default) <code>~/.datasaker/config.yml</code></p> |
 | `docker_default_path` | <p>Datasaker Docker Log AgentにマウントするDocker Log収集の場所を設定します。
@@ -101,7 +101,7 @@ ansible-galaxy install dsk_bot.datasaker
 * Host AgentとDocker Container Agentは同じ設定値を使用します。
 
 |変数名|説明
-| ------------------------------------- | -------------------------------------------------- -------------------------------------------------- -------------------------------------------------- ------------------------------------ |
+| ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `trace_sampling_rate` | <p> <code> dsk-trace-agent </code>でcollectorに適用されるサンプリング率を設定します。<br> - 100以上の場合にすべてのデータを収集します。 </p> |
 | `log_collects` | `dsk-log-agent` のログ収集コレクション構成設定。リストの各項目には以下の項目が含まれます。 |
 | `log_collects[*].paths` | <p> <code> dsk-log-agent </code>でログを収集するためのパスを設定します。<br>(Default) [<code>host-agent</code>]=<code>/var/log/ *.log</code>、[<code>docker-agent</code>]=<code>/var/log/sample/*/*.log</code></p> |
@@ -176,7 +176,7 @@ ansible-galaxy install dsk_bot.datasaker
 Datasaker Agent を削除できます。 datasaker\_clean は、uninstall を `True` に設定する必要があります。
 
 |変数名|説明
-| ----------------- | -------------------------------------------------- -------------------------------------------------- -------------------------------------------- |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `uninstall` | <p><code>datasaker_agents</code>または<code>datasaker_docker_agents</code>で作成されたエージェントのみを削除します。<br>（Default）<code> False </code> </p> |
 | `datasaker_clean` | <p><code>datasaker_agents</code>または<code>datasaker_docker_agents</code>で作成されたAgentと作成されたフォルダと設定ファイルまで削除します。<br>（Default）<code>False</code> > |
 

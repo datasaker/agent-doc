@@ -1,4 +1,4 @@
-#dsk-log-agent
+# dsk-log-agent
 
 ## Kubernetes環境でDataSaker Log agentをインストールする
 
@@ -16,7 +16,7 @@
 
 `Log agent`が正常に動作するためには、必ず****collect.workloads**_に**必ず**1つ以上のログを収集するワークロードを設定する必要があります。
 
-`Log agent`の設定値の意味とデフォルト設定値は次のとおりです。ユーザーごとにエージェント設定に異なる要件があります。したがって、エージェント設定をユーザー設定に合わせて調整する必要があります。最適な結果を得るためにエージェント設定を調整してください。 「\~/datasaker/config.yaml」でその値を追加または変更します。
+`Log agent`の設定値の意味とデフォルト設定値は次のとおりです。ユーザーごとにエージェント設定に異なる要件があります。したがって、エージェント設定をユーザー設定に合わせて調整する必要があります。最適な結果を得るためにエージェント設定を調整してください。 ```\~/datasaker/config.yamlでその値を追加または変更します。
 
 | **Settings** | **Description** | **Default** | **Required** |
 | ----------------------------------- | --------------------------------------------------------------------------------------- | :---------: | :----------: |
@@ -28,7 +28,7 @@
 | `logAgent.collect.service.type` |サービスデータベースの種類と開発言語の種類（ `postgres`、`mysql`、`java`、`etc`のいずれかの値を書いてください） `etc` | |
 | `logAgent.collect.service.address` |データベースのホストとポートについて（サービスの分類がデータベースの場合は設定してください。設定しないと、特定の機能を使用できない可能性があります。） N / A | ⚠️|
 
-「シェル
+```shell
 cat << EOF >> ~/datasaker/config.yaml
 
 logAgent:
@@ -42,13 +42,13 @@ logAgent:
         category: APP
         type: ETC
 EOF
-「」
+```
 
 ### 2. Log agentのインストール
 
-「シェル
+```shell
 helm upgrade datasaker datasaker/agent-helm -n datasaker -f ~/datasaker/config.yaml
-「」
+```
 
 ## Log agentの使い方
 
@@ -60,7 +60,7 @@ helm upgrade datasaker datasaker/agent-helm -n datasaker -f ~/datasaker/config.y
 collect:
   - workloads: # [必須] 収集するワークロードの名前を入力します。
       - postgres
-「」
+```
 
 #### \[ **Workloads** 作成ガイド ]
 
@@ -68,7 +68,7 @@ collect:
 
 `collect.workloads`には、収集したいワークロードの名前を作成すると、対応するログファイルが収集されます。 (/var/log/containers/_WORKLOAD\_NAME_.log)
 
-たとえば、「app-server」というワークロード名でPodがデプロイされた場合、そのPodのContainerログは、Workload名とともにハッシュ値が加算されたファイル名で生成されます。 （app-server-5f4b7f7b4f-2q9qz.log）対応するログを収集するには、`collect.workloads`に 'app-server'を作成すると自動的にそのログを収集します。
+たとえば、```app-serverというワークロード名でPodがデプロイされた場合、そのPodのContainerログは、Workload名とともにハッシュ値が加算されたファイル名で生成されます。 （app-server-5f4b7f7b4f-2q9qz.log）対応するログを収集するには、`collect.workloads`に 'app-server'を作成すると自動的にそのログを収集します。
 
 ### 2. キーワード (`keywords`) 設定に注意してください。
 
@@ -76,7 +76,7 @@ collect:
 
 `` yaml
 keywords: [] # 指定されたキーワードが、返されたログのみを収集するように設定します。
-「」
+```
 
 ### 3. ログ収集対象の `type` が `database` の場合は `address` 設定をお勧めします。
 
@@ -88,4 +88,4 @@ service:
   category: データベース
   type: postgres
   address: 0.0.0.0:5432
-「」
+```

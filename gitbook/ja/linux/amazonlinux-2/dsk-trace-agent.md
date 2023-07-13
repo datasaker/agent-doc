@@ -1,40 +1,40 @@
-#dsk-trace-agent
+# dsk-trace-agent
 
 `Trace agent`はopentelemetryやJaegerのようなオープンソースの分散追跡システムと連携して、アプリケーションの分散追跡データを収集します。
 これにより、アプリケーション内のさまざまなサービス間の通信を追跡し、パフォーマンスのボトルネックを特定して最適化できます。
 収集されたデータは迅速に処理され、リアルタイムで監視および分析が可能です。
-お客様のニーズに合わせて「Trace Agent」設定を調整して、最適な結果を提供します。
+お客様のニーズに合わせて```Trace Agent設定を調整して、最適な結果を提供します。
 
 ＃Datasaker先行作業を行いましたか？
 現在、Amazon Linux 2環境で `DataSaker`の先行操作が行われていない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker先行操作]（$ {PREPARATION_MANUAL_JP}）
 
 # Trace agentのインストール
 ## 1. パッケージのインストール
-「シェル
+```shell
 yum install dsk-trace-agent
-「」
+```
 
 ## 2. Trace agentの設定
-「シェル
+```shell
 vi /etc/datasaker/dsk-trace-agent/agent-config.yml
-「」
+```
 必要に応じて次の内容を修正します。
 
 `` yaml
 # Trace agent 設定ファイル
 agent:
   agent_name: "dsk-trace-agent" # エージェント名 (エイリアス) default=dsk-trace-agent
-「」
+```
 
 ## 3. パッケージの実行
-「シェル
+```shell
 systemctl enable dsk-trace-agent --now
-「」
+```
 
 ## 4. パッケージ実行状態の確認
-「シェル
+```shell
 systemctl status dsk-trace-agent
-「」
+```
 
 # Trace agent ポート情報
 |ポート| Protocol | Describe |
@@ -73,7 +73,7 @@ agent:
   option:
     [ collector_config: <collector_config> ]
 [ reciever_config: <reciever_config> ]
-「」
+```
 
 #### `metadata`
 `` yaml
@@ -82,14 +82,14 @@ agent:
 
 ＃管理対象となる環境がどのクラスタにまとめられているかについての設定
 [cluster_id：<cluster_id> | default = "unknown" ]
-「」
+```
 
 #### `collector_config`
 `` yaml
 #collectorに適用されるサンプリング率
 ＃100以上の場合、すべてのデータが収集されます
 [sampling_rate：<float> | default = 1 ]
-「」
+```
 
 #### `receiver_config`
 `` yaml
@@ -98,7 +98,7 @@ agent:
 
 ＃各スパンに適用されるカスタムタック
 [ custom_tags: <map[string]string> | default = "" ]
-「」
+```
 
 ### Example
 `` yaml
@@ -108,15 +108,15 @@ agent:
   option:
     collector_configs:
 sampling_rate: 1
-「」
+```
 
 # Trace agentを削除する
 ## 1. パッケージの中断
-「シェル
+```shell
 systemctl stop dsk-trace-agent
-「」
+```
 
 ## 2. パッケージの削除
-「シェル
+```shell
 yum remove dsk-trace-agent
-「」
+```

@@ -1,4 +1,4 @@
-#dsk-log-agent
+# dsk-log-agent
 
 ## Docker環境にDatasaker Log agentをインストールする
 
@@ -18,7 +18,7 @@
 
 ユーザーが収集したいログパス（例： `/var/lib/docker/containers/`）をエージェントの特定のパス（たとえば `/var/log/sample/`）にマウントする場合、次のように設定ファイルを書くことができます。
 
-「シェル
+```shell
 cat << EOF> ~/.datasaker/log-agent-config.yml
 agent:
   metadata:
@@ -29,8 +29,8 @@ agent:
       exclude_paths:
         - '/var/log/sample/private.log'
       keywords:
-        - 「ERROR」
-        - 「WARN」
+        - ```ERROR
+        - ```WARN
       tag: 'Sample Service'
       service:
         name: 'Sample'
@@ -38,7 +38,7 @@ agent:
         type: 'postgres'
         address: 'my-sample-serivce:5432'
 EOF
-「」
+```
 
 **\[注意]** `agent.collect.paths[]`設定項目は、マウントされたボリュームパスに基づいて作成する必要があります（例： '/var/log/sample/'）場合、ログエージェントが正常に動作しない可能性があります。
 
@@ -64,13 +64,13 @@ EOF
   * **\[注意]** global および agent 構成ファイルは必ず作成してください。作成しないと、ログエージェントが正常に動作しない可能性があります。
 *ユーザーが収集したいログをエージェントにマウントします。
   *次のようにオプションを設定します。 `-v [COLLECT LOG PATH]:[LOG AGENT MOUNT PATH]:ro`
-    *そのオプションでは、「：」の前のパスはログを収集するパスを作成し、「：」の後のパスはログを収集するエージェントのパスを作成します。
+    *そのオプションでは、```：の前のパスはログを収集するパスを作成し、```：の後のパスはログを収集するエージェントのパスを作成します。
     * `[LOG AGENT MOUNT PATH]`パスに基づいてエージェント構成ファイルのログ収集パスを作成する必要があります。
 * ログファイルをマウントする場合は、必ず `-mount.volume=true` オプションを設定してください。
 
 以下は、ログエージェントの実行例です。
 
-「シェル
+```shell
 docker run -d --name dsk-log-agent\
   -v /var/datasaker/:/var/datasaker/\
   -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro \
@@ -79,7 +79,7 @@ docker run -d --name dsk-log-agent\
   --restart=always\
   datasaker/dsk-log-agent:latest \
   -mount.volume=true
-「」
+```
 
 ## Log agentの使用例
 
@@ -87,7 +87,7 @@ docker run -d --name dsk-log-agent\
 
 *異なるパスのログを1つのサービス名で収集できます。 （ `paths`エントリに複数のログファイルパスを作成してください。）
 *異なるサービスス `category`のログファイルを1つのサービス名で収集できます。 （別々の `collect`を書いた後、 `service.name`エントリを同じように書いてください。）
-*特定のパスにあるすべてのログファイルを収集できます（「*」を使用してログ収集パスを設定します）。また、そのパスから除外したいログファイルがある場合は、「exclude_paths」エントリに書き込みます。
+*特定のパスにあるすべてのログファイルを収集できます（```*を使用してログ収集パスを設定します）。また、そのパスから除外したいログファイルがある場合は、```exclude_pathsエントリに書き込みます。
 
 以下は、ログ収集設定の例です。
 
@@ -99,7 +99,7 @@ agent:
     - paths:
         - '~/datasaker/log/apple/app/*.log'
       keywords:
-        - 「400」
+        - ```400
         - '500'
       service:
         name: 'Apple'
@@ -108,7 +108,7 @@ agent:
     - paths:
         - '~/datasaker/log/apple/database/*.log'
       keywords:
-        - 「ERROR」
+        - ```ERROR
       service:
         name: 'Apple'
         category: 'database'
@@ -117,14 +117,14 @@ agent:
     - paths:
         - '~/datasaker/log/banana/app/*.log'
       keywords:
-        - 「ERROR」
+        - ```ERROR
       service:
         name: 'Banana'
         category: 'app'
         type: 'etc'
-「」
+```
 
-「シェル
+```shell
 docker run -d --name dsk-log-agent\
   -v /var/datasaker/:/var/datasaker/\
   -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro \
@@ -135,4 +135,4 @@ docker run -d --name dsk-log-agent\
   --restart=always\
   datasaker/dsk-log-agent:latest \
   -mount.volume=true
-「」
+```

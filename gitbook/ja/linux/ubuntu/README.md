@@ -2,7 +2,7 @@
 
 ## global-config.ymlの設定
 
-「シェル
+```shell
 sudo mkdir -p /etc/datasaker
 
 sudo touch /etc/datasaker/global-config.yml
@@ -29,6 +29,6 @@ echo 'global:
     url: api.jp.datasaker.io
     base_url: /dsk-agentmanager-api/agent
     send_interval：1m '| sudo tee /etc/datasaker/global-config.yml
-「」
+```
 
 \

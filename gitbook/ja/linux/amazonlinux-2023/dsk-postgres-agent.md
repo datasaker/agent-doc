@@ -1,4 +1,4 @@
-#dsk-postgres-agent
+# dsk-postgres-agent
 
 ## Amazon Linux 2023環境にDatasakerのPostgresエージェントをインストールする(Beta)
 
@@ -46,15 +46,15 @@
 
 ### 3. パッケージのインストール
 
-「シェル
+```shell
 yum install dsk-postgres-agent
-「」
+```
 
 ### 4. Postgresエージェントの設定
 
-「シェル
+```shell
 vi /etc/datasaker/dsk-postgres-agent/agent-config.yml
-「」
+```
 
 必要に応じて次の内容を修正します。
 
@@ -80,7 +80,7 @@ agent:
         url: localhost:19187
         filtering_configs:
           rule: drop
-「」
+```
 
 **`metadata`**
 
@@ -90,14 +90,14 @@ agent:
 
 ＃管理対象となる環境がどのクラスタにまとめられているかについての設定
 [cluster_id：<cluster_id> | default = "unknown" ]
-「」
+```
 
 **`option.exporter_config.port`**
 
 `` yaml
 # agent が使用する port number 既存の使用中の application とポートの競合が発生したときに任意の値に変更
 [ port: <uint16> | | default = 19187 ]
-「」
+```
 
 **`option.exporter_config.args`**
 
@@ -106,30 +106,30 @@ agent:
 - --data-source-user=<monitoring account name>
 - --data-source-pass=<monitoring account pass>
 - --data-source-uri=<monitoring database uri>#<ip>:<port>/dbname
-「」
+```
 
 ### 5. パッケージの実行
 
-「シェル
+```shell
 systemctl enable dsk-postgres-agent --now
-「」
+```
 
 ### 6. パッケージ実行状態の確認
 
-「シェル
+```shell
 systemctl status dsk-postgres-agent
-「」
+```
 
 ## Postgresエージェントを削除する
 
 ### 1. パッケージの中断
 
-「シェル
+```shell
 systemctl stop dsk-postgres-agent
-「」
+```
 
 ### 2. パッケージの削除
 
-「シェル
+```shell
 yum remove dsk-postgres-agent
-「」
+```

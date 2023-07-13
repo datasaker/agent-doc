@@ -1,6 +1,6 @@
-#dsk-plan-mysql-agent
+# dsk-plan-mysql-agent
 
-「Mysql agent」は、データベースの状態とスロークエリをリアルタイムで収集します。これにより、データベースのパフォーマンス指標、リソース使用量、スロークエリなど、さまざまな情報を収集できます。収集されたデータに基づいて、データベースのパフォーマンスのボトルネックを特定し、対応できます。さらに、スロークエリを検出して、インデックスの作成、クエリの最適化などの方法でデータベースのパフォーマンスを向上させることができます。お客様のニーズに合わせてエージェント設定を調整して、最適な結果を提供します。
+```Mysql agentは、データベースの状態とスロークエリをリアルタイムで収集します。これにより、データベースのパフォーマンス指標、リソース使用量、スロークエリなど、さまざまな情報を収集できます。収集されたデータに基づいて、データベースのパフォーマンスのボトルネックを特定し、対応できます。さらに、スロークエリを検出して、インデックスの作成、クエリの最適化などの方法でデータベースのパフォーマンスを向上させることができます。お客様のニーズに合わせてエージェント設定を調整して、最適な結果を提供します。
 
 ## Supported version
 
@@ -40,7 +40,7 @@
 curl -fsSL -o installer.sh https://dsk-agent-s3.s3.ap-northeast-2.amazonaws.com/dsk-agent-s3/public/install.sh
 chmod 700 installer.sh
 sudo ./installer.sh dsk-plan-mysql-agent
-「」
+```
 
 ### 4. MySQL agent 設定値の登録
 
@@ -58,9 +58,9 @@ sudo ./installer.sh dsk-plan-mysql-agent
 
 #### オプション入力
 
-「シェル
+```shell
 vi /etc/datasaker/dsk-plan-mysql-agent/agent-config.yml
-「」
+```
 
 必要に応じて次の内容を修正します。
 
@@ -82,13 +82,13 @@ agent:
     sender_number: 10
     activity_query_buffer: 50
     plan_sender_buffer: 50
-「」
+```
 
 ### 5. パッケージの実行
 
 `` bash
 sudo dsk-plan-mysql-agent start
-「」
+```
 
 ### 6. パッケージ実行状態の確認
 
@@ -96,13 +96,13 @@ sudo dsk-plan-mysql-agent start
 
 `` bash
 systemctl status dsk-plan-mysql-agent
-「」
+```
 
 または
 
-「シェル
+```shell
 serivce dsk-plan-mysql-agent
-「」
+```
 
 \
 \
@@ -114,10 +114,10 @@ serivce dsk-plan-mysql-agent
 
 `` bash
 sudo dsk-plan-mysql-agent stop
-「」
+```
 
 ### 2. パッケージの削除
 
 `` bash
 sudo apt remove dsk-plan-mysql-agent
-「」
+```

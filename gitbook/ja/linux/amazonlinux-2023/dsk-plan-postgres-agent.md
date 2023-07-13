@@ -1,4 +1,4 @@
-#dsk-plan-postgres-agent
+# dsk-plan-postgres-agent
 
 ## Amazon Linux 2023環境にDatasakerのPlan-Postgresエージェントをインストールする(Beta)
 
@@ -49,15 +49,15 @@
 
 ### 2. パッケージのインストール
 
-「シェル
+```shell
 yum install dsk-plan-postgres-agent
-「」
+```
 
 ### 3. Plan Postgres Agent の設定
 
-「シェル
+```shell
 vi /etc/datasaker/dsk-plan-postgres-agent/agent-config.yml
-「」
+```
 
 必要に応じて次の内容を修正します。
 
@@ -81,7 +81,7 @@ agent:
     sender_number: 10 # <explain sender number>
     activity_query_buffer: 50 # <activity query buffer>
     plan_sender_buffer: 50 # <explain result buffer>
-「」
+```
 
 **`metadata`**
 
@@ -91,7 +91,7 @@ agent:
 
 ＃管理対象となる環境がどのクラスタにまとめられているかについての設定
 [cluster_id：<cluster_id> | default = "unknown" ]
-「」
+```
 
 **`data_source_name`**
 
@@ -106,7 +106,7 @@ agent:
 [ port: <uint16> | | required ]
 #postgresサーバデータベース名
 [ DBName: <string> | required ]
-「」
+```
 
 **`explain`**
 
@@ -125,30 +125,30 @@ agent:
 [activity_query_buffer：<int16> | default=50 ]
 #explain result buffer
 [plan_sender_buffer：<int16> | | default=50 ]
-「」
+```
 
 ### 4. パッケージの実行
 
-「シェル
+```shell
 systemctl enable dsk-plan-postgres-agent --now
-「」
+```
 
 ### 5. パッケージ実行状態の確認
 
-「シェル
+```shell
 systemctl status dsk-plan-postgres-agent
-「」
+```
 
 ## Plan Postgres Agentを削除する
 
 ### 1. パッケージの中断
 
-「シェル
+```shell
 systemctl stop dsk-plan-postgres-agent
-「」
+```
 
 ### 2. パッケージの削除
 
-「シェル
+```shell
 yum remove dsk-plan-postgres-agent
-「」
+```

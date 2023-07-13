@@ -1,4 +1,4 @@
-#dsk-base-agent
+# dsk-base-agent
 
 ## Kubernetes環境でDataSaker Base agentをインストールする
 
@@ -12,7 +12,7 @@
 
 ### 1. Base agent 設定値の登録
 
-「シェル
+```shell
 cat << EOF >> ~/datasaker/config.yaml
 
 baseAgent：
@@ -23,7 +23,7 @@ baseAgent：
   containerAgent:
     logLevel: 'INFO'
 EOF
-「」
+```
 
 各設定値の詳細な説明は以下の通りである。
 
@@ -36,10 +36,10 @@ EOF
 
 ### 2. Base agentのインストール
 
-「シェル
+```shell
 helm upgrade datasaker datasaker/agent-helm -n datasaker \
   -f ~/datasaker/config.yaml
-「」
+```
 
 ##トラブルシューティング
 
@@ -47,12 +47,12 @@ helm upgrade datasaker datasaker/agent-helm -n datasaker \
 
 Base Agentは監視のために、インストール環境で2つのポートを使用します。 （default = `14194`、`19110`）そのポートをサーバー上の他のプログラムがすでに占有している場合、Base agentは正常に起動できず、次のログを出力します。
 
-「シェル
+```shell
 ts=2023-03-14T02:54:49.460Z caller=node_exporter.go:201 level=error err="listen tcp :19110: bind: address already in use"
 {"level":"error","ts":"2023-03-14T02:54:49Z","msg":"error occurred from subprocess","error":"error occured during running child process. err: exit status 1"}
 {"level":"error","ts":"2023-03-14T02:54:49Z","msg":"error occurred from subprocess","error":"exporter exit unexpectedly and retry count exceeded"}
 {"level":"fatal","ts":"2023-03-14T02:54:49Z","msg":"child process is terminated unexpectedly, please check other logs","error":"exporter exit unexpectedly and retry count exceeded"}
-「」
+```
 
 この問題を解決するために、config.yamlファイルに `listenPort`設定を追加できます。
 
@@ -67,4 +67,4 @@ baseAgent：
     listenPort: 19111
   containerAgent:
     logLevel: 'INFO'
-「」
+```

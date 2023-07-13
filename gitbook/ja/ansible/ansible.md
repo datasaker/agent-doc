@@ -1,4 +1,4 @@
-#Ansible Datasaker Role
+# Ansible Datasaker Role
 
 Ansibleを使用してDatasaker Agentをインストールできます。
 
@@ -12,9 +12,9 @@ Ansibleを使用してDatasaker Agentをインストールできます。
 
 Ansible GalaxyからDatasaker roleをインストールします。
 
-「シェル
+```shell
 ansible-galaxy install dsk_bot.datasaker
-「」
+```
 
 エージェントを展開するためにAnsible playbookを作成します。
 
@@ -22,7 +22,7 @@ ansible-galaxy install dsk_bot.datasaker
 
 #### Host Agent Default Install Example
 
-`` yml
+``` yml
 - hosts: servers
   become: true
   roles:
@@ -30,11 +30,11 @@ ansible-galaxy install dsk_bot.datasaker
   vars:
     datasaker_api_key: "<YOUR_API_KEY>"
     datasaker_agents: ["dsk-node-agent"]
-「」
+```
 
 #### Docker Agent Default Install Example
 
-`` yml
+``` yml
 - hosts: servers
   become: true
   roles:
@@ -42,7 +42,7 @@ ansible-galaxy install dsk_bot.datasaker
   vars:
     datasaker_api_key: "<YOUR_API_KEY>"
     datasaker_docker_agents: ["dsk-docker-node-agent","dsk-docker-log-agent"]
-「」
+```
 
 ####必須設定
 
@@ -131,7 +131,7 @@ ansible-galaxy install dsk_bot.datasaker
 
 **Ansible Playbook詳細設定Example**
 
-`` yml
+``` yml
 - hosts: servers
   become: true
   roles:
@@ -139,10 +139,10 @@ ansible-galaxy install dsk_bot.datasaker
   vars:
     datasaker_api_key: "<YOUR_API_KEY>"
     datasaker_docker_agents:
-      - 「dsk-docker-node-agent」
-      - 「dsk-docker-trace-agent」
-      - 「dsk-docker-log-agent」
-      - 「dsk-docker-postgres-agent」
+      - ```dsk-docker-node-agent
+      - ```dsk-docker-trace-agent
+      - ```dsk-docker-log-agent
+      - ```dsk-docker-postgres-agent
     postgres_user_name: sample
     postgres_user_password: 1q2w3e4r
     postgres_database_address: 0.0.0.0
@@ -169,7 +169,7 @@ ansible-galaxy install dsk_bot.datasaker
           category: "データベース"
           type: "postgres"
           address: "0.0.0.0:5432"
-「」
+```
 
 ## Uninstallation
 
@@ -182,7 +182,7 @@ Datasaker Agent を削除できます。 datasaker\_clean は、uninstall を `T
 
 #### Datasaker Agents Uninstall Example
 
-`` yml
+``` yml
 - hosts: servers
   become: true
   roles:
@@ -191,4 +191,4 @@ Datasaker Agent を削除できます。 datasaker\_clean は、uninstall を `T
     datasaker_agents: ["<AGENT_NAME>"]
     uninstall: True
     datasaker_clean: True
-「」
+```

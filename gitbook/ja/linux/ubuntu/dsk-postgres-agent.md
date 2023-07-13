@@ -1,4 +1,4 @@
-#dsk-postgres-agent
+# dsk-postgres-agent
 
 `postgres agent`はデータベースの状態をリアルタイムで収集します。\
 これにより、データベースのパフォーマンス指標、リソース使用量など、さまざまな情報を収集できます。\
@@ -50,7 +50,7 @@
 curl -fsSL -o installer.sh https://dsk-agent-s3.s3.ap-northeast-2.amazonaws.com/dsk-agent-s3/public/install.sh
 chmod 700 installer.sh
 sudo ./installer.sh dsk-postgres-agent
-「」
+```
 
 ### 4. agent-configの設定
 
@@ -76,36 +76,36 @@ agent:
         url: localhost:19187
         filtering_configs:
           rule: drop
-「」
+```
 
 ### 5. パッケージの実行
 
-「シェル
+```shell
 systemctl enable dsk-postgres-agent --now
-「」
+```
 
 ### 6. パッケージ実行状態の確認
 
-「シェル
+```shell
 systemctl status dsk-postgres-agent
-「」
+```
 
 または
 
-「シェル
+```shell
 service dsk-postgres-agent
-「」
+```
 
 ## Postgresエージェントを削除する
 
 ### 1. パッケージの中断
 
-「シェル
+```shell
 systemctl stop dsk-postgres-agent
-「」
+```
 
 ### 2. パッケージの削除
 
-「シェル
+```shell
 sudo apt remove dsk-postgres-agent
-「」
+```

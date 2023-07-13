@@ -1,6 +1,6 @@
-#dsk-plan-postgres13-agent
+# dsk-plan-postgres13-agent
 
-「Postgres13 agent」は、データベースの状態とスロークエリをリアルタイムで収集します。
+```Postgres13 agentは、データベースの状態とスロークエリをリアルタイムで収集します。
 これにより、データベースのパフォーマンス指標、リソース使用量、スロークエリなど、さまざまな情報を収集できます。
 収集されたデータに基づいて、データベースのパフォーマンスのボトルネックを特定し、対応できます。
 さらに、スロークエリを検出して、インデックスの作成、クエリの最適化などの方法でデータベースのパフォーマンスを向上させることができます。
@@ -30,7 +30,7 @@ agent:
     sender_number: 10 # <explain sender number>
     activity_query_buffer: 50 # <activity query buffer>
     plan_sender_buffer: 50 # <explain result buffer>
-「」
+```
 
 ## 2. パッケージのインストール
 sudo 権限が必要です。
@@ -38,30 +38,30 @@ sudo 権限が必要です。
 curl -fsSL -o installer.sh https://dsk-agent-s3.s3.ap-northeast-2.amazonaws.com/dsk-agent-s3/public/install.sh
 chmod 700 installer.sh
 sudo ./installer.sh dsk-postgres13-agent
-「」
+```
 
 ## 3. パッケージの実行
 `` bash
 sudo dsk-plan-postgres13-agent start
-「」
+```
 
 ## 4. パッケージ実行状態の確認
 ### Running
 `` bash
 sudo dsk-plan-postgres13-agent status
-「」
+```
 ### Not Running
 `` bash
 sudo dsk-plan-postgres13-agent status
-「」
+```
 
 # Plan Postgres13 Agent を削除する
 ## 1. パッケージの中断
 `` bash
 sudo dsk-plan-postgres13-agent stop
-「」
+```
 
 ## 2. パッケージの削除
 `` bash
 sudo apt remove dsk-plan-postgres13-agent
-「」
+```

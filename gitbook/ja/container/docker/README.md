@@ -6,7 +6,7 @@
 
 サーバーの端末を開き、次のコマンドを入力します。
 
-「シェル
+```shell
 sudo groupadd -g 202306 datasaker
 sudo useradd -r -u 202306 -g datasaker -s /usr/sbin/nologin datasaker
 
@@ -30,4 +30,4 @@ global:
   agent_manager:
     url: api.jp.datasaker.io
 EOF
-「」
+```

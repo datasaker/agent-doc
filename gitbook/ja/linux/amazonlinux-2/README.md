@@ -2,7 +2,7 @@
 
 ## yum repositoryを登録する
 
-「シェル
+```shell
 cat <<EOF | sudo tee /etc/yum.repos.d/datasaker.repo
 [datasaker]
 name=datasaker-repo
@@ -10,10 +10,10 @@ baseurl=http://nexus.exem-oss.org/repository/datasaker-amazonlinux-2
 enabled=1
 gpgcheck=0
 EOF
-「」
+```
 
 ## global-config.ymlの設定
-「シェル
+```shell
 sudo mkdir -p /etc/datasaker
 
 sudo touch /etc/datasaker/global-config.yml
@@ -40,4 +40,4 @@ echo 'global:
     url: api.jp.datasaker.io
     base_url: /dsk-agentmanager-api/agent
     send_interval：1m '| sudo tee /etc/datasaker/global-config.yml
-「」
+```

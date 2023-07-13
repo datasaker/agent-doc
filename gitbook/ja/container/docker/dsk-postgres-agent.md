@@ -1,10 +1,10 @@
-#dsk-postgres-agent
+# dsk-postgres-agent
 
 ## Docker環境にDataSaker PostgreSQLエージェントをインストールする
 
-「Postgres agent」は「postgres-agent」と「plan-postgres-agent」で構成されています。
+```Postgres agentは```postgres-agentと```plan-postgres-agentで構成されています。
 これにより、Postgresqlのパフォーマンス指標、リソース使用量、スロークエリなど、さまざまな情報を収集できます。
-お客様のニーズに応じて、「plan-postgres-agent」は「on / off」の形式で使用できます。
+お客様のニーズに応じて、```plan-postgres-agentは```on / offの形式で使用できます。
 
 ## Supported version
 
@@ -67,29 +67,29 @@ Postgresエージェントは `postgresエージェント'と `plan-postgres-age
 
 エージェントを接続するには、収集したいPostgreSQLサーバーのアドレス、データベース、ユーザーID、およびパスワードをエージェントに設定する必要があります。
 
-「シェル
+```shell
  DSK_PG_USER=<ユーザー>
  DSK_PG_SOURCE_PASS=<パスワード>
  DSK_PG_DB_NAME=<database>
  DSK_PG_HOST=<host>
  DSK_PG_PORT=<port>
-「」
+```
 
 たとえば、アドレスが `192.168.123.132` で、デフォルトポート `5432` にサービス中の PostgreSQL を収集するためには端末に次のように設定できます。
 
-「シェル
+```shell
  DSK_PG_USER=postgres
  DSK_PG_SOURCE_PASS=postgres
  DSK_PG_DB_NAME=postgres
  DSK_PG_HOST=192.168.123.132
  DSK_PG_PORT=5432
-「」
+```
 
 #### Postgres agent 設定値登録
 
 次に、端末に次のコマンドを入力して、dsk-postgres-agentとdsk-plan-postgres-agentの設定ファイルを作成します。
 
-「シェル
+```shell
 cd~
 mkdir .datasaker
 cat << EOF> ~/.datasaker/postgres-config.yml
@@ -128,7 +128,7 @@ agent:
     scrape_timeout: 5s
     slow_query_standard: 1s
 EOF
-「」
+```
 
 |設定値|説明
 | ----------------------------- | ------------------------ |
@@ -145,14 +145,14 @@ EOF
 
 1. データセーカが使用するローカルディレクトリを作成します。
 
-「シェル
+```shell
  sudo mkdir -p /var/datasaker
  sudo chown -R datasaker:datasaker /var/datasaker/
-「」
+```
 
 2. ドッカー命令をサーバに入力します。
 
-「シェル
+```shell
  DSK_PG_URI=${DSK_PG_HOST}:${DSK_PG_PORT}/${DSK_PG_DB_NAME}?sslmode=disable
  docker run -d --name dsk-postgres-agent\
   -v /var/datasaker/:/var/datasaker/\
@@ -170,4 +170,4 @@ EOF
     -e DKS_LOG_LEVEL=info\
     --restart=always\
     datasaker/dsk-plan-postgres-agent
-「」
+```

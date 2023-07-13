@@ -1,4 +1,4 @@
-#dsk-base-agent
+# dsk-base-agent
 
 ## Docker環境にDataSaker Base agentをインストールする
 
@@ -14,20 +14,20 @@ Cluster IDを設定すると、リソースを論理グループとして管理�
 
 Cluster IDを設定するには、次のように環境変数を設定する必要があります。
 
-「シェル
+```shell
 export DSK_CLUSTER_ID=my-cluster
-「」
+```
 
 1. データセーカが使用するローカルディレクトリを作成します。
 
-「シェル
+```shell
    sudo mkdir -p /var/datasaker
    sudo chown -R datasaker:datasaker /var/datasaker/
-「」
+```
 
 2. ドッカー命令をサーバに入力します。
 
-「シェル
+```shell
 docker run -d --name dsk-node-agent\
    -v /var/datasaker/:/var/datasaker/\
    -v /proc/:/host/proc/:ro\
@@ -55,4 +55,4 @@ docker run -d --name dsk-container-agent\
    datasaker/dsk-container-agent
 
 sudo chown -R datasaker:datasaker /var/datasaker/
-「」
+```

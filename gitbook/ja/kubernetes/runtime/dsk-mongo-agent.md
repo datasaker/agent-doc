@@ -1,4 +1,4 @@
-#dsk-mongo-agent
+# dsk-mongo-agent
 
 ## Kubernetes環境でDataSaker Mongo agentをインストールする
 
@@ -10,24 +10,24 @@
 
 ### 1. Mongo agent 設定値登録
 
-「シェル
+```shell
 cat << EOF >> ~/datasaker/config.yaml
 
 mongoAgent:
   list: []
 EOF
-「」
+```
 
 #### Mongo agent設定値
 
-Mongo agentの設定値の意味とdefault値は次のとおりです。ユーザーごとにエージェント設定に異なる要件があります。したがって、エージェント設定をユーザー設定に合わせて調整する必要があります。最適な結果を得るためにエージェント設定を調整してください。 「\~/datasaker/config.yaml」でその値を追加または変更します。
+Mongo agentの設定値の意味とdefault値は次のとおりです。ユーザーごとにエージェント設定に異なる要件があります。したがって、エージェント設定をユーザー設定に合わせて調整する必要があります。最適な結果を得るためにエージェント設定を調整してください。 ```\~/datasaker/config.yamlでその値を追加または変更します。
 
 `` yaml
-「」
+```
 
 ### 2. Mongo agentのインストール
 
-「シェル
+```shell
 helm upgrade datasaker datasaker/agent-helm -n datasaker \
   -f ~/datasaker/config.yaml
-「」
+```

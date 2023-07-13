@@ -1,4 +1,4 @@
-#dsk-log-agent
+# dsk-log-agent
 
 `Log agent`は、さまざまな環境でシステムまたはアプリケーションによって生成されたログデータをほぼリアルタイムで収集、処理、転送するエージェントです。 `Log agent`を介して複数のサーバーから生成されたログデータを集中的に管理および分析するために使用できます。これにより、ユーザーはシステムまたはアプリケーションで発生する問題をすばやく検出して対応できます。さらに、ログデータを分析することで、セキュリティ、パフォーマンス、ビジネス分析など、さまざまな目的に活用できます。お客様のニーズに合わせてエージェント設定を調整して、最適な結果を提供します。
 
@@ -14,11 +14,11 @@
 
 `DataSaker`の `Log agent`をインストールするにはsudo権限が必要です。
 
-「シェル
+```shell
 curl -fsSL -o installer.sh https://dsk-agent-s3.s3.ap-northeast-2.amazonaws.com/dsk-agent-s3/public/dsk-log-agent-install.sh
 chmod 700 installer.sh
 sudo ./installer.sh dsk-log-agent
-「」
+```
 
 ### 2. agent-configの設定
 
@@ -34,14 +34,14 @@ agent:
       exclude_paths:
       - '/var/log/sample/private.log'
       keywords:
-      - 「ERROR」
+      - ```ERROR
       tag: 'sample'
       service:
         name: 'sample service'
         category: 'database'
         type: 'postgres'
         address: '0.0.0.0:5432'
-「」
+```
 
 #### **\[注意]**
 
@@ -65,9 +65,9 @@ agent:
 
 ### 3. パッケージの実行
 
-「シェル
+```shell
 sudo systemctl enable dsk-log-agent --now
-「」
+```
 
 >注意事項\
 >
@@ -78,15 +78,15 @@ sudo systemctl enable dsk-log-agent --now
 
 ### 4. パッケージ実行状態の確認
 
-「シェル
+```shell
 systemctl status dsk-log-agent
-「」
+```
 
 または
 
-「シェル
+```shell
 service dsk-log-agent status
-「」
+```
 
 ***
 
@@ -94,20 +94,20 @@ service dsk-log-agent status
 
 ### 1. パッケージの中断
 
-「シェル
+```shell
 systemctl stop dsk-log-agent
-「」
+```
 
 または
 
-「シェル
+```shell
 service dsk-log-agent stop
-「」
+```
 
 ### 2. パッケージの削除
 
 パッケージを削除する前に、必ずパッケージを中断して削除してください。
 
-「シェル
+```shell
 sudo apt remove dsk-log-agent
-「」
+```

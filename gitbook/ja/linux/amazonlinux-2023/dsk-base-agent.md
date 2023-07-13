@@ -1,4 +1,4 @@
-#dsk-base-agent
+# dsk-base-agent
 
 ## Amazon Linux 2023環境にDatasakerのBase agentをインストールする(Beta)
 
@@ -14,15 +14,15 @@
 
 `DataSaker`の `Base agent`をインストールするにはsudo権限が必要です。
 
-「シェル
+```shell
 yum install dsk-node-agent
-「」
+```
 
 ### 2. Base agentの設定
 
-「シェル
+```shell
 vi /etc/datasaker/dsk-node-agent/agent-config.yml
-「」
+```
 
 必要に応じて次の内容を修正します。
 
@@ -31,30 +31,30 @@ vi /etc/datasaker/dsk-node-agent/agent-config.yml
 agent:
   agent_name: "dsk-base-agent" # エージェント名 (エイリアス) default=dsk-node-agent
   cluster_id: "my-cluster-id" # 管理対象となる環境がどのクラスタにまとめられているかに関する設定 default=unknown
-「」
+```
 
 ### 3. パッケージの実行
 
-「シェル
+```shell
 systemctl enable dsk-node-agent --now
-「」
+```
 
 ### 4. パッケージ実行状態の確認
 
-「シェル
+```shell
 systemctl status dsk-node-agent
-「」
+```
 
 ## Base agentを削除する
 
 ### 1. パッケージの中断
 
-「シェル
+```shell
 systemctl stop dsk-node-agent
-「」
+```
 
 ### 2. パッケージの削除
 
-「シェル
+```shell
 yum remove dsk-node-agent
-「」
+```

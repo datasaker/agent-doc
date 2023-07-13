@@ -1,8 +1,8 @@
-#dsk-elasticsearch-agent
+# dsk-elasticsearch-agent
 
 ## Docker環境にDataSaker Elasticsearch agentをインストールする
 
-「Elasticsearch agent」は、DataSakerからelasitcsearch情報を収集するエージェントです。
+```Elasticsearch agentは、DataSakerからelasitcsearch情報を収集するエージェントです。
 
 ## DataSaker 先行作業を行いましたか？
 
@@ -14,19 +14,19 @@
 
 エージェントを接続するには、収集したいElasticsearchサーバーのホストとポートアドレスをエージェントに設定する必要があります。
 
-「シェル
+```shell
  DSK_ES_URI=http(s)://<user>:<password>@<host>:<port>
-「」
+```
 
 たとえば、localhost 9200ポートにサービスしているElasticsearchを収集するには、次のように設定できます。
 
-「シェル
+```shell
  DSK_ES_URI=http://localhost:9200
-「」
+```
 
 端末に次のコマンドを入力して、dsk-elasticsearch-agent設定ファイルを生成します。
 
-「シェル
+```shell
 cd~
 mkdir .datasaker
 DSK_ES_URI=http://localhost:9200
@@ -51,7 +51,7 @@ agent:
         filtering_configs:
           rule: drop
 EOF
-「」
+```
 
 上記の設定では、各 argument は次のことを意味します。
 
@@ -69,13 +69,13 @@ EOF
 
 1. データセーカが使用するローカルディレクトリを作成します。
 
-    「シェル
+    ```shell
      sudo mkdir -p /var/datasaker
      sudo chown -R datasaker:datasaker /var/datasaker/
-    「」
+    ```
 2. ドッカー命令をサーバに入力します。
 
-    「シェル
+    ```shell
     docker run -d --name dsk-elasticsearch-agent\
        -v /var/datasaker/:/var/datasaker/\
        -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro\
@@ -84,4 +84,4 @@ EOF
        -e DSK_SUB_KIND=elasticsearch-1\
        --restart=always\
        datasaker/dsk-elasticsearch-agent
-    「」
+    ```

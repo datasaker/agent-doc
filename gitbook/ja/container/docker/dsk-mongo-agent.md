@@ -1,8 +1,8 @@
-#dsk-mongo-agent
+# dsk-mongo-agent
 
 ## Docker環境にDataSaker Mongo agentをインストールする
 
-「Mongo agent」をドッカー環境にインストールする方法について説明します。
+```Mongo agentをドッカー環境にインストールする方法について説明します。
 
 ## DataSaker 先行作業を行いましたか？
 
@@ -14,19 +14,19 @@
 
 エージェントを接続するには、収集したいモンゴルDBサーバーのホスト、ポートアドレスをAgentに設定する必要があります。
 
-「シェル
+```shell
  DSK_MONGO_URI=mongodb://<user>:<password>@<host>:<port>
-「」
+```
 
 たとえば、アドレスが `192.168.123.132` で、 `27017` ポートにサービス中のモンゴル DB を収集するためには次のように設定できます。
 
-「シェル
+```shell
  DSK_MONGO_URI=mongodb://192.168.123.132:27017
-「」
+```
 
 端末に次のコマンドを入力して、dsk-mongo-agent 設定ファイルを生成します。
 
-「シェル
+```shell
 cd~
 mkdir .datasaker
 DSK_MONGO_URI=mongodb://localhost:27017
@@ -46,7 +46,7 @@ agent:
         filtering_configs:
           rule: drop
 EOF
-「」
+```
 
 | Argument |説明|
 | ------------- | ------------------------ |
@@ -57,13 +57,13 @@ EOF
 
 1. データセーカが使用するローカルディレクトリを作成します。
 
-    「シェル
+    ```shell
      sudo mkdir -p /var/datasaker
      sudo chown -R datasaker:datasaker /var/datasaker/
-    「」
+    ```
 2. ドッカー命令をサーバに入力します。
 
-    「シェル
+    ```shell
      docker run -d --name dsk-mongo-agent\
      -v /var/datasaker/:/var/datasaker/\
      -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro\
@@ -71,4 +71,4 @@ EOF
      -e DSK_LOG_LEVEL=Info\
      --restart=always\
      datasaker/dsk-mongo-agent
-    「」
+    ```

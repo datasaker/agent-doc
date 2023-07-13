@@ -1,7 +1,7 @@
-#Coming Soon
+# Coming Soon
 <!--
 # Ubuntu環境にDataSaker Mysql agentをインストールする(Beta)
-「Mysql agent」は、データベースの状態とスロークエリをリアルタイムで収集します。
+```Mysql agentは、データベースの状態とスロークエリをリアルタイムで収集します。
 これにより、データベースのパフォーマンス指標、リソース使用量、スロークエリなど、さまざまな情報を収集できます。
 収集されたデータに基づいて、データベースのパフォーマンスのボトルネックを特定し、対応できます。
 さらに、スロークエリを検出して、インデックスの作成、クエリの最適化などの方法でデータベースのパフォーマンスを向上させることができます。
@@ -40,13 +40,13 @@
 curl -fsSL -o installer.sh https://dsk-agent-s3.s3.ap-northeast-2.amazonaws.com/dsk-agent-s3/public/install.sh
 chmod 700 installer.sh
 sudo ./installer.sh dsk-mysql-agent
-「」
+```
 
 ## 4. MySQL agent 設定値登録
 ### 環境変数の登録
-「」
+```
 env DATA_SOURCE_NAME=ID：パスワード@ MySQLアイピー：ポート
-「」
+```
 
 ### オプション入力
 `/etc/datasaker/dsk-mysql-agent/agent-config.yml`に内容を書き込みます。
@@ -91,36 +91,36 @@ agent:
         url: localhost:19104 #
         filtering_configs:
           rule: drop
-「」
+```
 
 
 ## 5. パッケージの実行
 `` bash
 $ sudo -E dsk-mysql-agent start
 Agent is running
-「」
+```
 
 ## 6. パッケージ実行状態の確認
 ### Running
 `` bash
 $ sudo dsk-mysql-agents status
 Agent is running
-「」
+```
 ### Not Running
 `` bash
 $ sudo dsk-mysql-agents status
 Agent is not running
-「」
+```
 <br><br>
 
 # Mysql agentを削除する
 ## 1. パッケージの中断
 `` bash
 sudo dsk-mysql-agent stop
-「」
+```
 
 ## 2. パッケージの削除
 `` bash
 sudo apt remove dsk-mysql-agent
-「」
+```
 -->

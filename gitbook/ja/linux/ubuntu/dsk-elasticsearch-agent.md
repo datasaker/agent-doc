@@ -1,4 +1,4 @@
-# Ubuntu環境にDataSaker Elasticsearch agentをインストールする(Beta)
+#  Ubuntu環境にDataSaker Elasticsearch agentをインストールする(Beta)
 `Elasticsearch agent` は elasticsearch 状態情報を収集します。
 
 ＃DataSaker先行作業を行いましたか？
@@ -14,13 +14,13 @@ example API Key : VAR_GLOBAL_APIKEY=1234567890abcdef1234567890abcdef
 curl -fsSL -o installer.sh https://dsk-agent-s3.s3.ap-northeast-2.amazonaws.com/dsk-agent-s3/public/install.sh
 chmod 700 installer.sh
 sudo ./installer.sh dsk-elasticsearch-agent
-「」
+```
 
 ## 2. Elasticsearch agent 設定値の登録
 
-「シェル
+```shell
 vi /etc/datasaker/dsk-elasticsearch-agent/agent-config.yml
-「」
+```
 
 必要に応じて次の内容を修正します。
 
@@ -28,25 +28,25 @@ vi /etc/datasaker/dsk-elasticsearch-agent/agent-config.yml
 #Elasticsearch agent設定ファイル
 agent:
   agent_name: "dsk-elasticsearch-agent" # エージェント名 (エイリアス) default=dsk-elasticsearch-agent
-「」
+```
 
 ## 3. パッケージの実行
 
 `` bash
 systemctl start dsk-elasticsearch-agent
-「」
+```
 
 ## 4. パッケージ実行状態の確認
 
 `` bash
 systemctl status dsk-elasticsearch-agent
-「」
+```
 
 または
 
 `` bash
 service dsk-elasticsearch-agent status
-「」
+```
 
 #Arguments
 
@@ -78,13 +78,13 @@ elasticsearch exporter の argument 設定を変更して、ご使用の環境�
 ## 1. パッケージの中断
 `` bash
 systemctl stop dsk-elasticsearch-agent
-「」
+```
 または
 `` bash
 service dsk-elasticsearch-agent stop
-「」
+```
 
 ## 2. パッケージの削除
 `` bash
 sudo apt remove dsk-elasticsearch-agent
-「」
+```

@@ -1,4 +1,4 @@
-#dsk-plan-postgres-agent
+# dsk-plan-postgres-agent
 
 `plan-postgres-agent`はデータベースの `active session`をリアルタイムで収集します。
 これにより、データベースのスロークエリに関する情報を収集できます。\
@@ -47,15 +47,15 @@
 
 ### 2. パッケージのインストール
 
-「シェル
+```shell
 sudo yum install dsk-plan-postgres-agent
-「」
+```
 
 ### 3. Plan Postgres Agent の設定
 
-「シェル
+```shell
 sudo vi /etc/datasaker/dsk-plan-postgres-agent/agent-config.yml
-「」
+```
 
 必要に応じて次の内容を修正します。
 
@@ -79,7 +79,7 @@ agent:
     sender_number: 10 # <explain sender number>
     activity_query_buffer: 50 # <activity query buffer>
     plan_sender_buffer: 50 # <explain result buffer>
-「」
+```
 
 **`metadata`**
 
@@ -89,7 +89,7 @@ agent:
 
 ＃管理対象となる環境がどのクラスタにまとめられているかについての設定
 [cluster_id：<cluster_id> | default = "unknown" ]
-「」
+```
 
 **`data_source_name`**
 
@@ -104,7 +104,7 @@ agent:
 [ port: <uint16> | | required ]
 #postgresサーバデータベース名
 [ DBName: <string> | required ]
-「」
+```
 
 **`explain`**
 
@@ -123,31 +123,31 @@ agent:
 [activity_query_buffer：<int16> | default=50 ]
 #explain result buffer
 [plan_sender_buffer：<int16> | | default=50 ]
-「」
+```
 
 ### 4. パッケージの実行
 
-「シェル
+```shell
 sudo systemctl enable dsk-plan-postgres-agent --now
-「」
+```
 
 ### 5. パッケージ実行状態の確認
 
-「シェル
+```shell
 sudo systemctl status dsk-plan-postgres-agent
-「」
+```
 
 ## Plan Postgres Agentを削除する
 
 ### 1. パッケージの中断
 
-「シェル
+```shell
 sudo systemctl stop dsk-plan-postgres-agent
-「」
+```
 
 ### 2. パッケージの削除
 
-「シェル
+```shell
 sudo systemctl stop dsk-plan-postgres-agent &&
 sudo yum remove dsk-plan-postgres-agent
-「」
+```

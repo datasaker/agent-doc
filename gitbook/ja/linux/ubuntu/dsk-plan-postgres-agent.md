@@ -1,4 +1,4 @@
-#dsk-plan-postgres-agent
+# dsk-plan-postgres-agent
 
 `plan-postgres-agent`はデータベースの `active session`をリアルタイムで収集します。
 これにより、データベースのスロークエリに関する情報を収集できます。\
@@ -45,11 +45,11 @@
 
 ### 3. パッケージのインストール
 
-「シェル
+```shell
 curl -fsSL -o installer.sh https://dsk-agent-s3.s3.ap-northeast-2.amazonaws.com/dsk-agent-s3/public/install.sh
 chmod 700 installer.sh
 sudo ./installer.sh dsk-plan-postgres-agent
-「」
+```
 
 ### 4. Postgres agent 設定値の登録
 
@@ -67,9 +67,9 @@ sudo ./installer.sh dsk-plan-postgres-agent
 
 #### オプション入力
 
-「シェル
+```shell
 vi /etc/datasaker/dsk-plan-mysql-agent/agent-config.yml
-「」
+```
 
 必要に応じて次の内容を修正します。
 
@@ -91,25 +91,25 @@ agent:
     sender_number: 10
     activity_query_buffer: 50
     plan_sender_buffer: 50
-「」
+```
 
 ### 5. パッケージの実行
 
-「シェル
+```shell
 systemctl enable dsk-plan-postgres-agent --now
-「」
+```
 
 ### 6. パッケージ実行状態の確認
 
-「シェル
+```shell
 systemctl status dsk-plan-postgres-agent
-「」
+```
 
 または
 
-「シェル
+```shell
 serivce dsk-plan-postgres-agent
-「」
+```
 
 \
 \
@@ -119,12 +119,12 @@ serivce dsk-plan-postgres-agent
 
 ### 1. パッケージの中断
 
-「シェル
+```shell
 systemctl stop dsk-plan-postgres-agent
-「」
+```
 
 ### 2. パッケージの削除
 
-「シェル
+```shell
 sudo apt remove dsk-plan-postgres-agent
-「」
+```

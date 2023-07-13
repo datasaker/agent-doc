@@ -1,9 +1,9 @@
-#dsk-trace-agent
+# dsk-trace-agent
 
 `Trace agent`はopentelemetryやJaegerのようなオープンソースの分散追跡システムと連携して、アプリケーションの分散追跡データを収集します。
 これにより、アプリケーション内のさまざまなサービス間の通信を追跡し、パフォーマンスのボトルネックを特定して最適化できます。
 収集されたデータは迅速に処理され、リアルタイムで監視および分析が可能です。
-お客様のニーズに合わせて「Trace Agent」設定を調整して、最適な結果を提供します。
+お客様のニーズに合わせて```Trace Agent設定を調整して、最適な結果を提供します。
 
 ＃DataSaker先行作業を行いましたか？
 
@@ -18,17 +18,17 @@
 example API Key : VAR_GLOBAL_APIKEY=1234567890abcdef1234567890abcdef
  -->
 
-「シェル
+```shell
 curl -fsSL -o installer.sh https://dsk-agent-s3.s3.ap-northeast-2.amazonaws.com/dsk-agent-s3/public/install.sh
 chmod 700 installer.sh
 sudo ./installer.sh dsk-trace-agent
-「」
+```
 
 ## 2. Trace agentの設定
 
-「シェル
+```shell
 vi /etc/datasaker/dsk-trace-agent/agent-config.yaml
-「」
+```
 
 必要に応じて次の内容を修正します。
 
@@ -36,19 +36,19 @@ vi /etc/datasaker/dsk-trace-agent/agent-config.yaml
 # Trace agent 設定ファイル
 agent:
   agent_name: "your_agent_name_what_you_want" # default=trace-agent
-「」
+```
 
 ## 3. パッケージの実行
 
-「シェル
+```shell
 systemctl enable dsk-trace-agent --now
-「」
+```
 
 ## 4. パッケージ実行状態の確認
 
-「シェル
+```shell
 sudo systemctl status dsk-trace-agent
-「」
+```
 
 # Trace agent ポート情報
 
@@ -88,7 +88,7 @@ agent:
   option:
     [ collector_config: <collector_config> ]
     [ reciever_config: <reciever_config> ]
-「」
+```
 
 #### `metadata`
 
@@ -98,7 +98,7 @@ agent:
 
 ＃管理対象となる環境がどのクラスタにまとめられているかについての設定
 [cluster_id：<cluster_id> | default = "unknown" ]
-「」
+```
 
 #### `collector_config`
 
@@ -106,7 +106,7 @@ agent:
 #collectorに適用されるサンプリング率
 ＃100以上の場合、すべてのデータが収集されます
 [sampling_rate：<float> | default = 1 ]
-「」
+```
 
 #### `reciever_config`
 
@@ -116,7 +116,7 @@ agent:
 
 #各spanに適用されるカスタムタグ
 [ custom_tags: <map[string]string> | default = "" ]
-「」
+```
 
 ### Example
 `` yaml
@@ -126,18 +126,18 @@ agent:
   option:
     collector_config:
       sampling_rate: 1 # span データ sampling 比率 (0~100) default=1
-「」
+```
 
 # Trace agentを削除する
 
 ## 1. パッケージの中断
 
-「シェル
+```shell
 systemctl stop dsk-trace-agent
-「」
+```
 
 ## 2. パッケージの削除
 
-「シェル
+```shell
 sudo apt remove dsk-trace-agent
-「」
+```

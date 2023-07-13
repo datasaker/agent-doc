@@ -1,8 +1,8 @@
-#dsk-trace-agent
+# dsk-trace-agent
 
 ## Docker環境にDatasaker Trace agentをインストールする
 
-「Trace agent」は、「Opentelemetry」や「Jaeger」などのオープンソースの分散追跡システムと連携して、アプリケーションの分散追跡データを収集します。これにより、アプリケーション内のさまざまなサービス間の通信を追跡し、パフォーマンスのボトルネックを特定して最適化できます。収集されたデータは迅速に処理され、リアルタイムで監視および分析が可能です。お客様のニーズに合わせて「トレースエージェント」設定を調整して、最適な結果を提供します。
+```Trace agentは、```Opentelemetryや```Jaegerなどのオープンソースの分散追跡システムと連携して、アプリケーションの分散追跡データを収集します。これにより、アプリケーション内のさまざまなサービス間の通信を追跡し、パフォーマンスのボトルネックを特定して最適化できます。収集されたデータは迅速に処理され、リアルタイムで監視および分析が可能です。お客様のニーズに合わせて```トレースエージェント設定を調整して、最適な結果を提供します。
 
 ## DataSaker 先行作業を行いましたか？
 
@@ -24,7 +24,7 @@ Trace agent は内部的に次のポートを使用しています。
 上記の必要なポートを公開してTrace agentを展開できます。\
 たとえば、otlpデータのみを受け取ると、次のように配布できます。
 
-「シェル
+```shell
      docker run -d --name dsk-trace-agent\
        -v /var/datasaker/:/var/datasaker/\
        -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro\
@@ -33,7 +33,7 @@ Trace agent は内部的に次のポートを使用しています。
        -p 4318:4318/tcp\
        --restart=always\
        datasaker/dsk-trace-agent
-「」
+```
 
 ## Trace agentの設定
 
@@ -55,7 +55,7 @@ agent:
   option:
     [ collector_config: <collector_config> ]
 [ reciever_config: <reciever_config> ]
-「」
+```
 
 **`metadata`**
 
@@ -65,7 +65,7 @@ agent:
 
 ＃管理対象となる環境がどのクラスタにまとめられているかについての設定
 [cluster_id：<cluster_id> | default = "unknown" ]
-「」
+```
 
 **`collector_config`**
 
@@ -73,7 +73,7 @@ agent:
 #collectorに適用されるサンプリング率
 ＃100以上の場合、すべてのデータが収集されます
 [sampling_rate：<float> | default = 1 ]
-「」
+```
 
 **`receiver_config`**
 
@@ -83,7 +83,7 @@ agent:
 
 ＃各スパンに適用されるカスタムタック
 [ custom_tags: <map[string]string> | default = "" ]
-「」
+```
 
 ## ApplicationにTrace Agentを連携する
 
@@ -99,7 +99,7 @@ agent:
 
 たとえば、次のようにアプリケーションをデプロイできます。
 
-「シェル
+```shell
 docker run my-java-application\
     -e OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=<trace-agent-address>:4317\
     -e OTEL_SERVICE_NAME=your-service-name\
@@ -107,7 +107,7 @@ docker run my-java-application\
     -e OTEL_LOGS_EXPORTER=none\
     -e OTEL_RESOURCE_ATTRIBUTES=dsk_host_key=$(cat /var/datasaker/host_key)\
     -d
-「」
+```
 
 詳細については、以下を参照してください。
 

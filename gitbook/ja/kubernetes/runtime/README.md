@@ -1,6 +1,6 @@
-# Kubernetes環境でDatasaker設定ファイルを構成する
+#  Kubernetes環境でDatasaker設定ファイルを構成する
 
-「DataSaker」は、「Kubernetes」環境で「Helm」を介したインストールガイドに進みます。 （「ヘルム」がインストールされていない場合は、ヘルムのインストールを先に進んでください。https://helm.sh/ja/docs/intro/install/）
+```DataSakerは、```Kubernetes環境で```Helmを介したインストールガイドに進みます。 （```ヘルムがインストールされていない場合は、ヘルムのインストールを先に進んでください。https://helm.sh/ja/docs/intro/install/）
 
 ## ユーザー情報を登録する
 
@@ -8,21 +8,21 @@
 
 ### ディレクトリの作成
 
-「シェル
+```shell
 mkdir -p ~/datasaker
 chmod 755 ~/datasaker
-「」
+```
 
 ### ユーザー情報登録ファイルの生成
 
-「シェル
+```shell
 cat << EOF> ~/datasaker/config.yaml
 userInfo:
   clusterName: ${VAR_CLUSTER_NAME}
   apiKey: ${VAR_GLOBAL_APIKEY}
   runtimeType: ${VAR_RUNTIME_TYPE}
 EOF
-「」
+```
 
 各情報は以下を意味します。
 
@@ -36,15 +36,15 @@ EOF
 
 ### DataSakerヘルムレポジトリの追加
 
-「シェル
+```shell
 helm repo add datasaker https://datasaker.github.io/agent-helm/
-「」
+```
 
 ### Helm installによるDataSaker設定ファイルの生成
 
-「シェル
+```shell
 helm install datasaker datasaker/agent-helm -n datasaker --create-namespace \
   -f ~/datasaker/config.yaml
-「」
+```
 
 新しいチャートを追加する場合は、`helm repo update`を進めてください。

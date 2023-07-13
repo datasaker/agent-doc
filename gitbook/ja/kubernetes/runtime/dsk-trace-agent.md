@@ -1,8 +1,8 @@
-#dsk-trace-agent
+# dsk-trace-agent
 
 ## Kubernetes環境でDataSaker Trace agentをインストールする
 
-「Trace agent」は、「Opentelemetry」や「Jaeger」などのオープンソースの分散追跡システムと連携して、アプリケーションの分散追跡データを収集します。これにより、アプリケーション内のさまざまなサービス間の通信を追跡し、パフォーマンスのボトルネックを特定して最適化できます。収集されたデータは迅速に処理され、リアルタイムで監視および分析が可能です。お客様のニーズに合わせて「トレースエージェント」設定を調整して、最適な結果を提供します。
+```Trace agentは、```Opentelemetryや```Jaegerなどのオープンソースの分散追跡システムと連携して、アプリケーションの分散追跡データを収集します。これにより、アプリケーション内のさまざまなサービス間の通信を追跡し、パフォーマンスのボトルネックを特定して最適化できます。収集されたデータは迅速に処理され、リアルタイムで監視および分析が可能です。お客様のニーズに合わせて```トレースエージェント設定を調整して、最適な結果を提供します。
 
 ## DataSaker 先行作業を行いましたか？
 
@@ -12,21 +12,21 @@
 
 ### 1. Trace agent 設定値の登録
 
-「シェル
+```shell
 cat << EOF >> ~/datasaker/config.yaml
 
 traceAgent:
   enabled: true
   logLevel: 'INFO'
 EOF
-「」
+```
 
 ### 2. Trace agentのインストール
 
-「シェル
+```shell
 helm upgrade datasaker datasaker/agent-helm -n datasaker \
   -f ~/datasaker/config.yaml
-「」
+```
 
 ## Trace agent ポート情報
 
@@ -74,7 +74,7 @@ traceAgent:
   collector:
     ＃sampleRateは、トレースデータを収集する確率を設定します。 100以上の場合は、トレースデータをすべて収集します。 (0<sampleRate<=100)
     samplingRate: 1
-「」
+```
 
 各設定値の詳細な説明は以下の通りである。
 

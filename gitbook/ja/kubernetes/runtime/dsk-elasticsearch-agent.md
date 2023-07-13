@@ -1,8 +1,8 @@
-#dsk-elasticsearch-agent
+# dsk-elasticsearch-agent
 
 ## Kubernetes環境でDataSaker Elasticsearch agentをインストールする
 
-「Elasticsearch agent」は、DataSakerからelasitcsearch情報を収集するエージェントです。
+```Elasticsearch agentは、DataSakerからelasitcsearch情報を収集するエージェントです。
 
 ## DataSaker 先行作業を行いましたか？
 
@@ -14,7 +14,7 @@
 
 elasticsearchAgent.list\[].uri に elasticsearch addresss 情報を必ず登録してください
 
-「シェル
+```shell
 cat << EOF >> ~/datasaker/config.yaml
 
 elasticsearchAgent:
@@ -40,7 +40,7 @@ elasticsearchAgent:
           cpu: 1000m
           memory: 1000Mi
 EOF
-「」
+```
 
 各設定値の詳細な説明は以下の通りである。
 
@@ -60,9 +60,9 @@ EOF
 
 ### 2. Elasticsearch agentのインストール
 
-「シェル
+```shell
 helm upgrade datasaker datasaker/agent-helm -n datasaker \
   -f ~/datasaker/config.yaml
-「」
+```
 
 詳細情報が必要な場合は、次の記事を参照してください。 [関連文書](../../../settings/dsk-elasticsearch-agent/settings.md)

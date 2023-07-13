@@ -1,7 +1,7 @@
 # Coming Soon
 <!--
 # Ubuntu環境にDataSaker Mysql agentをインストールする(Beta)
-```Mysql agentは、データベースの状態とスロークエリをリアルタイムで収集します。
+`Mysql agent`は、データベースの状態とスロークエリをリアルタイムで収集します。
 これにより、データベースのパフォーマンス指標、リソース使用量、スロークエリなど、さまざまな情報を収集できます。
 収集されたデータに基づいて、データベースのパフォーマンスのボトルネックを特定し、対応できます。
 さらに、スロークエリを検出して、インデックスの作成、クエリの最適化などの方法でデータベースのパフォーマンスを向上させることができます。
@@ -50,7 +50,7 @@ env DATA_SOURCE_NAME=ID：パスワード@ MySQLアイピー：ポート
 
 ### オプション入力
 `/etc/datasaker/dsk-mysql-agent/agent-config.yml`に内容を書き込みます。
-`` yaml
+``` yaml
 agent:
   metadata:
     agent_name: 'dsk-mysql-agent' # エージェント名 (エイリアス) default=dsk-node-agent

@@ -73,7 +73,7 @@ vi /etc/datasaker/dsk-plan-mysql-agent/agent-config.yml
 
 必要に応じて次の内容を修正します。
 
-`` yaml
+``` yaml
 agent:
   metadata:
     agent_name: "dsk-plan-postgres-agent" # エージェント名 (エイリアス) default=dsk-plan-postgres-agent

@@ -29,8 +29,8 @@ agent:
       exclude_paths:
         - '/var/log/sample/private.log'
       keywords:
-        - ```ERROR
-        - ```WARN
+        - `ERROR`
+        - `WARN`
       tag: 'Sample Service'
       service:
         name: 'Sample'
@@ -63,8 +63,8 @@ EOF
   * `-v ~/.datasaker/log-agent-config.yml:/etc/datasaker/dsk-log-agent/agent-config.yml:ro`
   * **\[注意]** global および agent 構成ファイルは必ず作成してください。作成しないと、ログエージェントが正常に動作しない可能性があります。
 *ユーザーが収集したいログをエージェントにマウントします。
-  *次のようにオプションを設定します。 `-v [COLLECT LOG PATH]:[LOG AGENT MOUNT PATH]:ro`
-    *そのオプションでは、```：の前のパスはログを収集するパスを作成し、```：の後のパスはログを収集するエージェントのパスを作成します。
+  * 次のようにオプションを設定します。 `-v [COLLECT LOG PATH]:[LOG AGENT MOUNT PATH]:ro`
+    * そのオプションでは、`：`の前のパスはログを収集するパスを作成し、`：`の後のパスはログを収集するエージェントのパスを作成します。
     * `[LOG AGENT MOUNT PATH]`パスに基づいてエージェント構成ファイルのログ収集パスを作成する必要があります。
 * ログファイルをマウントする場合は、必ず `-mount.volume=true` オプションを設定してください。
 
@@ -85,13 +85,13 @@ docker run -d --name dsk-log-agent\
 
 ログエージェント設定ファイルを適切に使用して、さまざまな方法で収集設定を行うことができます。
 
-*異なるパスのログを1つのサービス名で収集できます。 （ `paths`エントリに複数のログファイルパスを作成してください。）
-*異なるサービスス `category`のログファイルを1つのサービス名で収集できます。 （別々の `collect`を書いた後、 `service.name`エントリを同じように書いてください。）
-*特定のパスにあるすべてのログファイルを収集できます（```*を使用してログ収集パスを設定します）。また、そのパスから除外したいログファイルがある場合は、```exclude_pathsエントリに書き込みます。
+* 異なるパスのログを1つのサービス名で収集できます。 （ `paths`エントリに複数のログファイルパスを作成してください。）
+* 異なるサービスス `category`のログファイルを1つのサービス名で収集できます。 （別々の `collect`を書いた後、 `service.name`エントリを同じように書いてください。）
+* 特定のパスにあるすべてのログファイルを収集できます（`*`を使用してログ収集パスを設定します）。また、そのパスから除外したいログファイルがある場合は、`exclude_paths`エントリに書き込みます。
 
 以下は、ログ収集設定の例です。
 
-`` yaml
+``` yaml
 agent:
   metadata:
     agent_name: 'Apple & Banana Service Log Agent'
@@ -99,7 +99,7 @@ agent:
     - paths:
         - '~/datasaker/log/apple/app/*.log'
       keywords:
-        - ```400
+        - `400`
         - '500'
       service:
         name: 'Apple'
@@ -108,7 +108,7 @@ agent:
     - paths:
         - '~/datasaker/log/apple/database/*.log'
       keywords:
-        - ```ERROR
+        - `ERROR`
       service:
         name: 'Apple'
         category: 'database'
@@ -117,7 +117,7 @@ agent:
     - paths:
         - '~/datasaker/log/banana/app/*.log'
       keywords:
-        - ```ERROR
+        - `ERROR`
       service:
         name: 'Banana'
         category: 'app'

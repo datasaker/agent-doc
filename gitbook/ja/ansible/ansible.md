@@ -5,7 +5,7 @@ Ansibleを使用してDatasaker Agentをインストールできます。
 ## Requirements
 
 * Ansible v2.6+が必要です。
-*ほとんどのDebian Linuxディストリビューションをサポートしています。
+* ほとんどのDebian Linuxディストリビューションをサポートしています。
 * Amazon Linux 2ディストリビューションをサポートします。
 
 ## Installation
@@ -44,7 +44,7 @@ ansible-galaxy install dsk_bot.datasaker
     datasaker_docker_agents: ["dsk-docker-node-agent","dsk-docker-log-agent"]
 ```
 
-####必須設定
+#### 必須設定
 
 |変数名|説明
 | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -139,10 +139,10 @@ ansible-galaxy install dsk_bot.datasaker
   vars:
     datasaker_api_key: "<YOUR_API_KEY>"
     datasaker_docker_agents:
-      - ```dsk-docker-node-agent
-      - ```dsk-docker-trace-agent
-      - ```dsk-docker-log-agent
-      - ```dsk-docker-postgres-agent
+      - `dsk-docker-node-agent`
+      - `dsk-docker-trace-agent`
+      - `dsk-docker-log-agent`
+      - `dsk-docker-postgres-agent`
     postgres_user_name: sample
     postgres_user_password: 1q2w3e4r
     postgres_database_address: 0.0.0.0

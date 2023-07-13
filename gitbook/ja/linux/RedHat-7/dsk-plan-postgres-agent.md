@@ -61,7 +61,7 @@ sudo vi /etc/datasaker/dsk-plan-postgres-agent/agent-config.yml
 
 #### `agent-config.yml`
 
-`` yaml
+``` yaml
 agent:
   metadata:
     agent_name: "dsk-plan-postgres-agent" # エージェント名 (エイリアス) default=dsk-plan-postgres-agent
@@ -83,7 +83,7 @@ agent:
 
 **`metadata`**
 
-`` yaml
+``` yaml
 # エージェント名(エイリアス)
 [ agent_name: <string> | default = "dsk-plan-postgres-agent" ]
 
@@ -93,7 +93,7 @@ agent:
 
 **`data_source_name`**
 
-`` yaml
+``` yaml
 #postgresアカウント名
 [ user: <string> | required ]
 #postgresアカウントパスワード
@@ -108,7 +108,7 @@ agent:
 
 **`explain`**
 
-`` yaml
+``` yaml
 # activity session scrape サイクル
 [scrape_interval：<seconds> | default=30s]
 #activity session scrape queryのタイムアウト時間

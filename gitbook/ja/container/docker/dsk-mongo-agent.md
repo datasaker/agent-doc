@@ -2,7 +2,7 @@
 
 ## Docker環境にDataSaker Mongo agentをインストールする
 
-```Mongo agentをドッカー環境にインストールする方法について説明します。
+`Mongo agent`をドッカー環境にインストールする方法について説明します。
 
 ## DataSaker 先行作業を行いましたか？
 

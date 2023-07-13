@@ -24,7 +24,7 @@ vi /etc/datasaker/dsk-elasticsearch-agent/agent-config.yml
 
 必要に応じて次の内容を修正します。
 
-`` yaml
+``` yaml
 #Elasticsearch agent設定ファイル
 agent:
   agent_name: "dsk-elasticsearch-agent" # エージェント名 (エイリアス) default=dsk-elasticsearch-agent

@@ -14,9 +14,9 @@
 
 ### 1. Log agent 設定値の登録
 
-`Log agent`が正常に動作するためには、必ず****collect.workloads**_に**必ず**1つ以上のログを収集するワークロードを設定する必要があります。
+`Log agent`が正常に動作するためには、必ず****collect.workloads**_に** 必ず**1つ以上のログを収集するワークロードを設定する必要があります。
 
-`Log agent`の設定値の意味とデフォルト設定値は次のとおりです。ユーザーごとにエージェント設定に異なる要件があります。したがって、エージェント設定をユーザー設定に合わせて調整する必要があります。最適な結果を得るためにエージェント設定を調整してください。 ```\~/datasaker/config.yamlでその値を追加または変更します。
+`Log agent`の設定値の意味とデフォルト設定値は次のとおりです。ユーザーごとにエージェント設定に異なる要件があります。したがって、エージェント設定をユーザー設定に合わせて調整する必要があります。最適な結果を得るためにエージェント設定を調整してください。 `\~/datasaker/config.yaml`でその値を追加または変更します。
 
 | **Settings** | **Description** | **Default** | **Required** |
 | ----------------------------------- | --------------------------------------------------------------------------------------- | :---------: | :----------: |
@@ -56,7 +56,7 @@ helm upgrade datasaker datasaker/agent-helm -n datasaker -f ~/datasaker/config.y
 
 ワークロードを作成しないと、 `Log agent`が正常に動作しない可能性があります。
 
-`` yaml
+``` yaml
 collect:
   - workloads: # [必須] 収集するワークロードの名前を入力します。
       - postgres
@@ -68,13 +68,13 @@ collect:
 
 `collect.workloads`には、収集したいワークロードの名前を作成すると、対応するログファイルが収集されます。 (/var/log/containers/_WORKLOAD\_NAME_.log)
 
-たとえば、```app-serverというワークロード名でPodがデプロイされた場合、そのPodのContainerログは、Workload名とともにハッシュ値が加算されたファイル名で生成されます。 （app-server-5f4b7f7b4f-2q9qz.log）対応するログを収集するには、`collect.workloads`に 'app-server'を作成すると自動的にそのログを収集します。
+たとえば、`app-server`というワークロード名でPodがデプロイされた場合、そのPodのContainerログは、Workload名とともにハッシュ値が加算されたファイル名で生成されます。 （app-server-5f4b7f7b4f-2q9qz.log）対応するログを収集するには、`collect.workloads`に 'app-server'を作成すると自動的にそのログを収集します。
 
 ### 2. キーワード (`keywords`) 設定に注意してください。
 
 `keywords`設定に登録した文字列を含むログのみを収集します。 1つ以上の `keywords`を設定した場合、1つの `keywords`が含まれている場合はログを収集します。
 
-`` yaml
+``` yaml
 keywords: [] # 指定されたキーワードが、返されたログのみを収集するように設定します。
 ```
 
@@ -82,7 +82,7 @@ keywords: [] # 指定されたキーワードが、返されたログのみを�
 
 この設定では、関連する `database agent` からログ情報をマッピングして表示します。 `address`を設定しないと、その機能を使用できない可能性があります。
 
-`` yaml
+``` yaml
 service:
   name: custom-service-name
   category: データベース

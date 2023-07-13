@@ -2,9 +2,9 @@
 
 ## Kubernetes環境でDataSaker Postgresエージェントをインストールする
 
-```Postgres agentsは```postgres-agentと```plan-postgres-agentで構成されています。
+`Postgres agents`は`postgres-agent`と`plan-postgres-agent`で構成されています。
 これにより、データベースのパフォーマンス指標、リソース使用量、スロークエリなど、さまざまな情報を収集できます。\
-お客様のニーズに応じて、```plan-postgres-agentは```on / offの形式で使用できます。
+お客様のニーズに応じて、`plan-postgres-agent`は`on / off`の形式で使用できます。
 
 ## Supported version
 

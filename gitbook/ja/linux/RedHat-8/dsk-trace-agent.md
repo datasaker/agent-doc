@@ -3,7 +3,7 @@
 `Trace agent`はopentelemetryやJaegerのようなオープンソースの分散追跡システムと連携して、アプリケーションの分散追跡データを収集します。
 これにより、アプリケーション内のさまざまなサービス間の通信を追跡し、パフォーマンスのボトルネックを特定して最適化できます。
 収集されたデータは迅速に処理され、リアルタイムで監視および分析が可能です。
-お客様のニーズに合わせて```Trace Agent設定を調整して、最適な結果を提供します。
+お客様のニーズに合わせて`Trace Agent`設定を調整して、最適な結果を提供します。
 
 ＃Datasaker先行作業を行いましたか？
 現在RedHat 8環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker先行操作]（$ {PREPARATION_MANUAL_JP}）
@@ -20,7 +20,7 @@ sudo vi /etc/datasaker/dsk-trace-agent/agent-config.yml
 ```
 必要に応じて次の内容を修正します。
 
-`` yaml
+``` yaml
 # Trace agent 設定ファイル
 agent:
   metadata:
@@ -66,7 +66,7 @@ Trace agentの設定値の意味するデフォルト値は次のとおりです
 ファイルの構造は以下の通りです。
 
 ### `agent-config.yml`
-`` yaml
+``` yaml
 agent:
   ＃エージェントのメタデータ
   metadata: <metadata>
@@ -77,7 +77,7 @@ agent:
 ```
 
 #### `metadata`
-`` yaml
+``` yaml
 # エージェント名(エイリアス)
 [ agent_name: <string> | default = "dsk-trace-agent" ]
 
@@ -86,14 +86,14 @@ agent:
 ```
 
 #### `collector_config`
-`` yaml
+``` yaml
 #collectorに適用されるサンプリング率
 ＃100以上の場合、すべてのデータが収集されます
 [sampling_rate：<float> | default = 1 ]
 ```
 
 #### `receiver_config`
-`` yaml
+``` yaml
 ＃collectorからデータを受け取るポート番号
 [ listen_port: <uint16> | | default = 14251 ]
 
@@ -102,7 +102,7 @@ agent:
 ```
 
 ### Example
-`` yaml
+``` yaml
 agent:
   metadata:
     agent_name: dsk-trace-agent # エージェント名 (エイリアス) default=dsk-trace-agent

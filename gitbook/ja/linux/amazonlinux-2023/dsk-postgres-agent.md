@@ -60,7 +60,7 @@ vi /etc/datasaker/dsk-postgres-agent/agent-config.yml
 
 #### `agent-config.yml`
 
-`` yaml
+``` yaml
 agent:
   metadata:
     agent_name: dsk-postgres-agent # エージェント名 (エイリアス) default=dsk-postgres-agent
@@ -84,7 +84,7 @@ agent:
 
 **`metadata`**
 
-`` yaml
+``` yaml
 # エージェント名(エイリアス)
 [ agent_name: <string> | default = "dsk-trace-agent" ]
 
@@ -94,14 +94,14 @@ agent:
 
 **`option.exporter_config.port`**
 
-`` yaml
+``` yaml
 # agent が使用する port number 既存の使用中の application とポートの競合が発生したときに任意の値に変更
 [ port: <uint16> | | default = 19187 ]
 ```
 
 **`option.exporter_config.args`**
 
-`` yaml
+``` yaml
 ＃管理したいデータベースのアクセス権を持つアカウント情報と住所を入力します。
 - --data-source-user=<monitoring account name>
 - --data-source-pass=<monitoring account pass>

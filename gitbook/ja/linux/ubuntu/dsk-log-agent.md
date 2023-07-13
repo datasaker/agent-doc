@@ -24,7 +24,7 @@ sudo ./installer.sh dsk-log-agent
 
 `/etc/datasaker/dsk-log-agent/agent-config.yml` パスに agent-config ファイルを次のように作成します。
 
-`` yaml
+``` yaml
 agent:
   metadata:
     agent_name: 'dsk-log-agent'
@@ -34,7 +34,7 @@ agent:
       exclude_paths:
       - '/var/log/sample/private.log'
       keywords:
-      - ```ERROR
+      - `ERROR`
       tag: 'sample'
       service:
         name: 'sample service'

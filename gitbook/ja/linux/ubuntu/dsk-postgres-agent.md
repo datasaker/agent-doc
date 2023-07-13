@@ -56,7 +56,7 @@ sudo ./installer.sh dsk-postgres-agent
 
 `/etc/datasaker/dsk-postgres-agent/agent-config.yml`に内容を書き込みます。
 
-`` yaml
+``` yaml
 agent:
   metadata:
     agent_name: dsk-postgres-agent # エージェント名 (エイリアス) default=dsk-postgres-agent

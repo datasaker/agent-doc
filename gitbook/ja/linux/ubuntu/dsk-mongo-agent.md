@@ -23,7 +23,7 @@ vi /etc/datasaker/dsk-mongo-agent/agent-config.yml
 
 必要に応じて次の内容を修正します。
 
-`` yaml
+``` yaml
 # Base agent 設定ファイル
 agent:
   agent_name: "dsk-mongo-agent" # エージェント名 (エイリアス) default=dsk-mongo-agent

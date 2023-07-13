@@ -1,6 +1,6 @@
 # dsk-plan-postgres13-agent
 
-```Postgres13 agentは、データベースの状態とスロークエリをリアルタイムで収集します。
+`Postgres13 agent`は、データベースの状態とスロークエリをリアルタイムで収集します。
 これにより、データベースのパフォーマンス指標、リソース使用量、スロークエリなど、さまざまな情報を収集できます。
 収集されたデータに基づいて、データベースのパフォーマンスのボトルネックを特定し、対応できます。
 さらに、スロークエリを検出して、インデックスの作成、クエリの最適化などの方法でデータベースのパフォーマンスを向上させることができます。
@@ -12,7 +12,7 @@
 # Plan Postgres13 Agentのインストール
 ## 1. agent-configの設定
 
-`` yaml
+``` yaml
 agent:
   metadata:
     agent_name: "dsk-plan-postgres13-agent" # replace you want

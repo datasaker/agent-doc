@@ -2,7 +2,7 @@
 
 ## Kubernetes環境でDataSaker Elasticsearch agentをインストールする
 
-```Elasticsearch agentは、DataSakerからelasitcsearch情報を収集するエージェントです。
+`Elasticsearch agent`は、DataSakerからelasitcsearch情報を収集するエージェントです。
 
 ## DataSaker 先行作業を行いましたか？
 

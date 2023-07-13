@@ -68,3 +68,22 @@
 텍스트 박스의 위 아래줄은 공백입니다.
 ~~~
 ```
+
+---
+
+## 문서 관리 규칙
+
+### 1. 문서 관리
+
+- 설치 문서는 install-guide 디렉터리에서 관리합니다.
+- 설치 문서의 변경점이 배포되기 위해서, install-guide 아래의 한글 문서는 gitbook/ko 디렉터리로 이동되어야 합니다.
+- 설치 문서에 대한 번역은 gitbook/ja, gitbook/en 디렉터리에서 관리합니다.
+
+### 2. 문서 배포 관리
+
+- 문서 배포는 gitbook으로 관리됩니다.
+- gitbook은 다음 링크에서 확인 가능합니다.
+  - [https://app.gitbook.com/o/pWBl8U3ZAGulEDGWoOMA/home](https://app.gitbook.com/o/pWBl8U3ZAGulEDGWoOMA/home)
+- 문서의 배포를 위해서는 github의 main 브랜치까지 변경사항이 반영되어야 합니다.
+- 반영된 문서는 다음 링크에서 확인 가능합니다.
+  - [https://datasaker.gitbook.io/datasaker/](https://datasaker.gitbook.io/datasaker/)

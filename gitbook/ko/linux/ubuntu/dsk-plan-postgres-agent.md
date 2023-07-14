@@ -22,7 +22,6 @@
 
 현재 Ubuntu 환경에서는 `DataSaker`의 선행 작업이 진행되지 않으셨다면 `DataSaker` 선행 작업을 먼저 진행하여 주시기 바랍니다. [DataSaker 선행 작업]($%7BPREPARATION\_MANUAL\_KR%7D/)
 
-
 ## Plan Postgres Agent install
 
 ### 1. Postgres 설정 변경

@@ -3,9 +3,7 @@
 `plan-postgres-agent`はデータベースの `active session`をリアルタイムで収集します。
 これにより、データベースのスロークエリに関する情報を収集できます。\
 スロークエリを検出して、インデックスの作成、クエリの最適化などの方法でデータベースのパフォーマンスを向上させることができます。\
-お客様のニーズに合わせてエージェント設定を調整して、最適な結果を提供します。\
-\
-
+お客様のニーズに合わせてエージェント設定を調整して、最適な結果を提供します。
 
 ## Supported version
 
@@ -20,15 +18,9 @@
 | postgres 9 | X |
 | postgres 8 | X |
 
-\
-\
-
-
 ## DataSaker 先行作業を行いましたか？
 
-現在、Amazon Linux 2環境では、`DataSaker`の先行操作が進行していない場合は、`DataSaker`先行操作を先に進んでください。 [DataSaker 先行操作]($%7BPREPARATION\_MANUAL\_KR%7D/)\
-\
-
+現在、Amazon Linux 2環境では、`DataSaker`の先行操作が進行していない場合は、`DataSaker`先行操作を先に進んでください。 [DataSaker 先行操作]($%7BPREPARATION\_MANUAL\_KR%7D/)
 
 ## Plan Postgres Agent Install
 

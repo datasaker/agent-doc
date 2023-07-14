@@ -61,7 +61,7 @@ agent:
 | `agent.collect.service.name` |サービス名| `default` | |
 | `agent.collect.service.category` |サービス分類（ `app`、`database`、`syslog`、`etc`のいずれかの値を作成してください。）| `etc` | |
 | `agent.collect.service.type` |サービスデータベースの種類と開発言語の種類（ `postgres`、`mysql`、`java`、`etc`のいずれかの値を書いてください） `etc` | |
-| `agent.collect.service.address` |データベースのホストとポートについて（サービスの分類がデータベースの場合は設定してください。設定しないと、特定の機能を使用できない可能性があります。） N / A | ⚠️|
+| `agent.collect.service.address` |データベースのホストとポート情報（サービスの分類がデータベースの場合は設定します。設定しないと、特定の機能を使用できない可能性があります。） N / A | ⚠️|
 
 ### 3. パッケージの実行
 

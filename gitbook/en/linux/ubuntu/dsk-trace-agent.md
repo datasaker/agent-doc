@@ -24,7 +24,7 @@ chmod 700 installer.sh
 sudo ./installer.sh dsk-trace-agent
 ```
 
-## 2. Trace agent setting
+## 2. Trace agent settings
 
 ``` shell
 vi /etc/datasaker/dsk-trace-agent/agent-config.yaml

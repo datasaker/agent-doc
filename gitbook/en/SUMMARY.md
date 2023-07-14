@@ -1,17 +1,24 @@
 # Table of contents
 
-* [Ansible Datasaker Role](ansible/README.md)
-  * [Ansible Datasaker Role](ansible/ansible.md)
 * [Kubernetes](kubernetes/README.md)
   * [Configuring the Datasaker configuration file in the Kubernetes environment](kubernetes/runtime/README.md)
     * [dsk-base-agent](kubernetes/runtime/dsk-base-agent.md)
-    * [dsk-elasticsearch-agent](kubernetes/runtime/dsk-elasticsearch-agent.md)
+    <!-- * [dsk-elasticsearch-agent](kubernetes/runtime/dsk-elasticsearch-agent.md) -->
     * [dsk-kubernetes-agent](kubernetes/runtime/dsk-kubernetes-agent.md)
     * [dsk-log-agent](kubernetes/runtime/dsk-log-agent.md)
-    * [dsk-mongo-agent](kubernetes/runtime/dsk-mongo-agent.md)
-    * [dsk-mysql-agent](kubernetes/runtime/dsk-mysql-agent.md)
+    <!-- * [dsk-mongo-agent](kubernetes/runtime/dsk-mongo-agent.md) -->
+    <!-- * [dsk-mysql-agent](kubernetes/runtime/dsk-mysql-agent.md) -->
     * [dsk-postgres-agent](kubernetes/runtime/dsk-postgres-agent.md)
     * [dsk-trace-agent](kubernetes/runtime/dsk-trace-agent.md)
+* [Docker](container/README.md)
+  * [Configuring the Datasaker configuration file in the Docker environment](container/docker/README.md)
+    * [dsk-base-agent](container/docker/dsk-base-agent.md)
+    <!-- * [dsk-elasticsearch-agent](container/docker/dsk-elasticsearch-agent.md) -->
+    * [dsk-log-agent](container/docker/dsk-log-agent.md)
+    <!-- * [dsk-mongo-agent](container/docker/dsk-mongo-agent.md) -->
+    <!-- * [dsk-mysql-agent](container/docker/dsk-mysql-agent.md) -->
+    * [dsk-postgres-agent](container/docker/dsk-postgres-agent.md)
+    * [dsk-trace-agent](container/docker/dsk-trace-agent.md)
 * [Linux](linux/README.md)
   * [Configuring the Datasaker configuration file in the RedHat 7 environment](linux/RedHat-7/README.md)
     * [dsk-base-agent](linux/RedHat-7/dsk-base-agent.md)
@@ -45,21 +52,14 @@
     * [dsk-trace-agent](linux/amazonlinux-2023/dsk-trace-agent.md)
   * [Configuring datasaker configuration file in Ubuntu environment](linux/ubuntu/README.md)
     * [dsk-base-agent](linux/ubuntu/dsk-base-agent.md)
-    * [dsk-elasticsearch-agent](linux/ubuntu/dsk-elasticsearch-agent.md)
+    <!-- * [dsk-elasticsearch-agent](linux/ubuntu/dsk-elasticsearch-agent.md) -->
     * [dsk-log-agent](linux/ubuntu/dsk-log-agent.md)
-    * [dsk-mongo-agent](linux/ubuntu/dsk-mongo-agent.md)
-    * [dsk-mysql-agent](linux/ubuntu/dsk-mysql-agent.md)
-    * [dsk-plan-mysql-agent](linux/ubuntu/dsk-plan-mysql-agent.md)
+    <!-- * [dsk-mongo-agent](linux/ubuntu/dsk-mongo-agent.md) -->
+    <!-- * [dsk-mysql-agent](linux/ubuntu/dsk-mysql-agent.md) -->
+    <!-- * [dsk-plan-mysql-agent](linux/ubuntu/dsk-plan-mysql-agent.md) -->
     * [dsk-plan-postgres-agent](linux/ubuntu/dsk-plan-postgres-agent.md)
     * [dsk-plan-postgres13-agent](linux/ubuntu/dsk-plan-postgres13-agent.md)
     * [dsk-postgres-agent](linux/ubuntu/dsk-postgres-agent.md)
     * [dsk-trace-agent](linux/ubuntu/dsk-trace-agent.md)
-* [Docker](container/README.md)
-  * [Configuring the Datasaker configuration file in the Docker environment](container/docker/README.md)
-    * [dsk-base-agent](container/docker/dsk-base-agent.md)
-    * [dsk-elasticsearch-agent](container/docker/dsk-elasticsearch-agent.md)
-    * [dsk-log-agent](container/docker/dsk-log-agent.md)
-    * [dsk-mongo-agent](container/docker/dsk-mongo-agent.md)
-    * [dsk-mysql-agent](container/docker/dsk-mysql-agent.md)
-    * [dsk-postgres-agent](container/docker/dsk-postgres-agent.md)
-    * [dsk-trace-agent](container/docker/dsk-trace-agent.md)
+* [Ansible Datasaker Role](ansible/README.md)
+  * [Ansible Datasaker Role](ansible/ansible.md)

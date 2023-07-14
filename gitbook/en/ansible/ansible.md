@@ -48,6 +48,7 @@ Below is an example of a basic installation.
 |`datasaker_api_key`|Enter the API Key.|
 |`datasaker_agents`| A list of Host Agents to be installed on each host. <br>`dsk-node-agent` `dsk-trace-agent` `dsk-log-agent` `dsk-postgres-agent` `dsk-plan-postgres-agent`<br>(Default) `dsk-node -agent`|
 |`datasaker_docker_agents`| A list of Docker Container Agents you want to install on each host. Host Agent installation is automatically disabled when Docker Container Agents are installed. <br>`dsk-docker-node-agent` `dsk-docker-trace-agent` `dsk-docker-log-agent` `dsk-docker-postgres-agent`<br>(Default) `dsk-docker- node-agent`|
+
 <!--
 #### Datasaker common settings
 | variable name | Description |

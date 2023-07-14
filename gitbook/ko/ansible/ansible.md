@@ -48,6 +48,7 @@ ansible-galaxy install dsk_bot.datasaker
 |`datasaker_api_key`|API Key를 입력합니다.|
 |`datasaker_agents`| 각 호스트에 설치하고자 하는 Host Agent 리스트입니다. <br>`dsk-node-agent` `dsk-trace-agent` `dsk-log-agent` `dsk-postgres-agent` `dsk-plan-postgres-agent`<br>(Default) `dsk-node-agent`|
 |`datasaker_docker_agents`| 각 호스트에 설치하고자 하는 Docker Container Agent 리스트입니다. Docker Container Agents를 넣으면 Host Agent 설치는 자동으로 비활성화 됩니다. <br>`dsk-docker-node-agent` `dsk-docker-trace-agent` `dsk-docker-log-agent` `dsk-docker-postgres-agent`<br>(Default) `dsk-docker-node-agent`|
+
 <!--
 #### Datasaker 공통 설정
 | 변수명                                      | 설명                                      |

@@ -28,7 +28,7 @@ We tailor agent settings to suit your needs to deliver optimal results.\
 
 ## Did you run the DataSaker predecessor?
 
-In the current Amazon Linux 2023 environment, if the preceding task of `DataSaker` has not been carried out, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor](dsk-plan-postgres-agent/en/$%7BPREPARATION\_MANUAL\_KR%7D/)\
+In the current Amazon Linux 2023 environment, if the preceding task of 'DataSaker' has not been carried out, please proceed with the preceding task of 'DataSaker' first. [DataSaker predecessor](dsk-plan-postgres-agent/en/$%7BPREPARATION\_MANUAL\_KR%7D/)\
 \
 
 

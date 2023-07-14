@@ -24,7 +24,7 @@ sudo vi /etc/datasaker/dsk-node-agent/agent-config.yml
 # Base agent 設定ファイル
 agent:
   agent_name: "dsk-base-agent" # エージェント名 (エイリアス) default=dsk-node-agent
-  cluster_id: "my-cluster-id" # 管理対象となる環境がどのクラスタにまとめられているかに関する設定 default=unknown
+  cluster_id: "my-cluster-id" # 管理対象となる環境がどのクラスタにまとめられているかについての設定 default=unknown
 ```
 
 ## 3. パッケージの実行

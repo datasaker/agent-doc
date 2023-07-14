@@ -10,7 +10,7 @@
 
 ## Log agentのインストール
 
-デフォルトでは、 `Log agent` はキューバネティス環境でデーモンセットとして配布されます。したがって、すべてのノードに `Log agent` がインストールされます。特定のノードにのみ `Log agent` をインストールしたい場合は、そのノードに affinity または nodeSelector を追加設定してください。
+デフォルトでは、 `Log agent` はキューバネティス環境でデーモンセットとして配布されます。したがって、すべてのノードに `Log agent` がインストールされます。特定のノードにのみLog agentをインストールしたい場合は、そのノードにaffinityまたはnodeSelectorを追加設定してください。
 
 ### 1. Log agent 設定値の登録
 
@@ -26,7 +26,7 @@
 | `logAgent.collect.service.name` |サービス名| `default` | |
 | `logAgent.collect.service.category` |サービス分類（ `app`、`database`、`syslog`、`etc`のいずれかの値を作成してください。）| `etc` | |
 | `logAgent.collect.service.type` |サービスデータベースの種類と開発言語の種類（ `postgres`、`mysql`、`java`、`etc`のいずれかの値を書いてください） `etc` | |
-| `logAgent.collect.service.address` |データベースのホストとポートについて（サービスの分類がデータベースの場合は設定してください。設定しないと、特定の機能を使用できない可能性があります。） N / A | ⚠️|
+| `logAgent.collect.service.address` |データベースのホストとポート情報（サービスの分類がデータベースの場合は設定します。設定しないと、特定の機能を使用できない可能性があります。） N / A | ⚠️|
 
 ```shell
 cat << EOF >> ~/datasaker/config.yaml
@@ -64,11 +64,11 @@ collect:
 
 #### \[ **Workloads** 作成ガイド ]
 
-ワークロードとは、クバネティスで駆動されるアプリケーションを意味します。 （ワークロードが単一のコンポーネントであるか、または連携して動作する複数のコンポーネントであるかにかかわらず、Kubernetisはワークロードを一連のPodセット内で実行します。）リソースを提供します。 (Deployment, Replicaset, StatefulSet, DaemonSet)
+ワークロードとは、クバネティスで駆動されるアプリケーションを意味します。 （ワークロードが単一のコンポーネントであるか、または連携して動作する複数のコンポーネントであるかにかかわらず、Cubernetesはワークロードを一連のPodセット内で実行します。）リソースを提供します。 (Deployment, Replicaset, StatefulSet, DaemonSet)
 
 `collect.workloads`には、収集したいワークロードの名前を作成すると、対応するログファイルが収集されます。 (/var/log/containers/_WORKLOAD\_NAME_.log)
 
-たとえば、`app-server`というワークロード名でPodがデプロイされた場合、そのPodのContainerログは、Workload名とともにハッシュ値が加算されたファイル名で生成されます。 （app-server-5f4b7f7b4f-2q9qz.log）対応するログを収集するには、`collect.workloads`に 'app-server'を作成すると自動的にそのログを収集します。
+たとえば、`app-server`というワークロード名でPodがデプロイされた場合、そのPodのContainerログは、Workload名と一緒にハッシュ値が加算されたファイル名で作成されます。 （app-server-5f4b7f7b4f-2q9qz.log）対応するログを収集するには、`collect.workloads`に 'app-server'を作成すると自動的にそのログを収集します。
 
 ### 2. キーワード (`keywords`) 設定に注意してください。
 

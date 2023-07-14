@@ -14,7 +14,7 @@ If the preceding task of `DataSaker` has not been carried out in the current Red
 sudo yum install dsk-trace-agent
 ```
 
-## 2. Trace agent setting
+## 2. Trace agent settings
 ```shell
 sudo vi /etc/datasaker/dsk-trace-agent/agent-config.yml
 ```

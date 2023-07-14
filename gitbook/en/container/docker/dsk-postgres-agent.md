@@ -75,7 +75,7 @@ To connect the agent, the address of the PostgreSQL server to be collected, data
  DSK_PG_PORT=<port>
 ```
 
-For example, to collect PostgreSQL serviced at the address `192.168.123.132` and the default port `5432`, you can set the terminal as follows.
+For example, to collect PostgreSQL serviced at the address `192.168.123.132` and the default port `5432`, the terminal can be set as follows.
 
 ```shell
  DSK_PG_USER=postgres

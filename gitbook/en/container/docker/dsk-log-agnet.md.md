@@ -77,7 +77,7 @@ docker run -d --name dsk-log-agent \
   -v ~/.datasaker/log-agent-config.yml:/etc/datasaker/dsk-log-agent/agent-config.yml:ro \
   -v /var/lib/docker/containers/:/var/log/sample/:ro \
   --restart=always \
-  datasaker/dsk-log-agent:latest\
+  datasaker/dsk-log-agent:latest \
   -mount.volume=true
 ```
 
@@ -133,6 +133,6 @@ docker run -d --name dsk-log-agent \
   -v ~/var/lib/docker/containers/APPLE-DB-SERVER:~/datasaker/apple/database/:ro \
   -v ~/var/lib/docker/containers/BANANA-APP-SERVER:~/datasaker/banana/app/:ro \
   --restart=always \
-  datasaker/dsk-log-agent:latest\
+  datasaker/dsk-log-agent:latest \
   -mount.volume=true
 ```

@@ -4,6 +4,7 @@
 
 `DataSaker` 설정파일 구성하기 위한 환경을 구성하고, 사용자 테넌트 정보를 등록합니다.
 
+먼저, `DataSaker` 설정파일을 구성하기 위한 환경을 구성합니다.
 서버의 터미널을 열어 다음 명령어를 입력합니다.
 
 ```shell
@@ -12,10 +13,14 @@ sudo useradd -r -u 202306 -g datasaker -s /usr/sbin/nologin datasaker
 
 mkdir -p ~/.datasaker
 chmod 755 ~/.datasaker
+```
 
+이후 `Datasaker`에서 발급받은 API Key를 사용하여 설정 파일을 구성합니다.
+
+```shell
 cat << EOF > ~/.datasaker/config.yml
 global:
-  api_key: ${VAR_GLOBAL_APIKEY}
+  api_key: "<YOUR_API_KEY>"
   gates:
     trace_datagate:
       url: gate.kr.datasaker.io:31300

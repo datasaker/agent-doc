@@ -8,6 +8,8 @@
 
 ### 디렉토리 생성
 
+먼저, `DataSaker` 설정파일을 구성하기 위한 환경을 구성합니다.
+
 ```shell
 mkdir -p ~/datasaker
 chmod 755 ~/datasaker
@@ -15,12 +17,14 @@ chmod 755 ~/datasaker
 
 ### 사용자 정보 등록파일 생성
 
+다음을 명령어를 참고하여 사용자 정보 등록파일을 생성합니다.
+
 ```shell
 cat << EOF > ~/datasaker/config.yaml
 userInfo:
-  clusterName: ${VAR_CLUSTER_NAME}
-  apiKey: ${VAR_GLOBAL_APIKEY}
-  runtimeType: ${VAR_RUNTIME_TYPE}
+  clusterName: "<YOUR_CLUSTER_NAME>"
+  apiKey: "<YOUR_API_KEY>"
+  runtimeType: "<YOUR_RUNTIME_TYPE>"
 EOF
 ```
 

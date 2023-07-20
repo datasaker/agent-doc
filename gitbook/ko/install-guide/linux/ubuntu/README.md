@@ -2,13 +2,19 @@
 
 ## global-config.yml 구성하기
 
+먼저, `DataSaker` 설정파일을 구성하기 위한 환경을 구성합니다.
+
 ```shell
 sudo mkdir -p /etc/datasaker
 
 sudo touch /etc/datasaker/global-config.yml
+```
 
+이후 `Datasaker`에서 발급받은 API Key를 사용하여 설정 파일을 구성합니다.
+
+```shell
 echo 'global:
-  api_key: ${VAR_GLOBAL_APIKEY}
+  api_key: "<YOUR_API_KEY>"
   gates:
     metric_datagate:
       url: gate.kr.datasaker.io:31302
@@ -30,5 +36,3 @@ echo 'global:
     base_url: /dsk-agentmanager-api/agent
     send_interval: 1m' | sudo tee /etc/datasaker/global-config.yml
 ```
-
-\

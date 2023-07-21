@@ -93,7 +93,6 @@ agent:
           rule: drop
 ```
 
-
 ## 5. 패키지 실행
 ```bash
 $ sudo -E dsk-mysql-agent start

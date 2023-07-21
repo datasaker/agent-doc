@@ -65,7 +65,7 @@ vi /etc/datasaker/dsk-plan-mysql-agent/agent-config.yml
 ```yaml
 agent:
   metadata:
-    agent_name: "dsk-plan-mysql-agent" # 에이전트 이름 (별칭) default=dsk-plan-mysql-agent
+    agent_name: "dsk-plan-mysql-agent"
   data_source_name:
     user: 'user'
     password: 'pass'
@@ -101,10 +101,6 @@ systemctl status dsk-plan-mysql-agent
 ```shell
 serivce dsk-plan-mysql-agent
 ```
-
-\
-\
-
 
 ## Log agent 제거하기
 

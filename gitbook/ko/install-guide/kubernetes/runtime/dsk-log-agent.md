@@ -52,7 +52,7 @@ helm upgrade datasaker datasaker/agent-helm -n datasaker -f ~/datasaker/config.y
 
 ## Log agent 사용 방법
 
-### 1. 반드시 하나 이상의 로그 수집 대상 워크로드 이름(`workloads`)을 입력하십시오.
+### 1. 반드시 하나 이상의 로그 수집 대상 워크로드 이름(`workloads`)을 입력하십시오
 
 워크로드를 작성하지 않을 경우, `Log agent`가 정상적으로 동작하지 않을 수 있습니다.
 
@@ -70,7 +70,7 @@ collect:
 
 예를 들어, 'app-server' 라는 워크로드 이름으로 Pod가 배포되었을 때 해당 Pod의 Container로그는 Workload 이름과 함께 해쉬값이 더해진 파일명으로 생성됩니다. (app-server-5f4b7f7b4f-2q9qz.log) 해당 로그를 수집하기 위해서는 `collect.workloads` 에 'app-server' 를 작성하면 자동으로 해당 로그를 수집합니다.
 
-### 2. 키워드(`keywords`) 설정에 유의하십시오.
+### 2. 키워드(`keywords`) 설정에 유의하십시오
 
 `keywords` 설정에 등록한 문자열이 포함된 로그만 수집합니다. 하나 이상의 `keywords`를 설정할 경우 한 개의 `keywords`라도 포함되어 있으면 로그를 수집합니다.
 
@@ -78,7 +78,7 @@ collect:
 keywords: [] # 지정된 키워드가 포환된 로그만 수집하도록 설정합니다.
 ```
 
-### 3. 로그 수집 대상의 `type`이 `database`인 경우 `address` 설정을 권장합니다.
+### 3. 로그 수집 대상의 `type`이 `database`인 경우 `address` 설정을 권장합니다
 
 해당 설정을 통해 관련 `database agent` 에서 로그 정보를 맵핑하여 보여드립니다. `address` 설정을 하지 않을 경우, 해당 기능을 사용하지 못할 수 있습니다.
 

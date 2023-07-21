@@ -47,16 +47,11 @@ Trace agent의 설정 값의 의미와 default값은 다음과 같습니다. 사
 
 ```yaml
 traceAgent:
-  # false로 설정하면, 다른 값들은 무시됩니다.
   enabled: false
   tolerations: []
-  # 에이전트 이미지를 가져올 때 사용할 이미지 풀 정책을 설정합니다.
   imgPolicy: 'Always' # [Always, IfNotPresent, Never]
-  # 에이전트 이미지의 버전을 설정합니다.
   imgVersion: 'latest'
-  # tags는 트레이스 에이전트에 대한 커스텀 태그이며 key=value,key2=value2 형식으로 작성할 수 있습니다.
   tags: []
-  # resources는 트레이스 에이전트의 리소스 제한을 설정합니다.
   resource:
     requests:
       cpu: 100m
@@ -64,15 +59,10 @@ traceAgent:
     limits:
       cpu: 1000m
       memory: 1000Mi
-  # logLevel은 에이전트의 로그 레벨을 설정합니다.
   logLevel: 'INFO'
-  # nodeSelector를 설정하면 특정 노드에만 에이전트가 배포됩니다.
   nodeSelector: {}
-  # affinity는 에이전트의 affinity 설정입니다.
   affinity: {}
-  # collector 설정은 Trace 데이터 수집과 관련된 설정입니다.
   collector:
-    # sampleRate는 Trace 데이터를 수집할 확률을 설정합니다. 100 이상이면 Trace 데이터를 전부 수집합니다.  (0 < sampleRate <= 100)
     samplingRate: 1
 ```
 

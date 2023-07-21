@@ -5,7 +5,6 @@
 수집된 데이터를 기반으로 데이터베이스의 성능 병목 현상을 파악하고, 대응할 수 있습니다.\
 고객의 요구사항에 맞게 에이전트 설정을 조정하여 최적의 결과를 제공해 드립니다.
 
-
 ## Supported version
 
 | version     | support |
@@ -22,7 +21,6 @@
 ## DataSaker 선행 작업을 진행하였나요?
 
 현재 Ubuntu 환경에서는 `DataSaker`의 선행 작업이 진행되지 않으셨다면 `DataSaker` 선행 작업을 먼저 진행하여 주시기 바랍니다. [DataSaker 선행 작업]($%7BPREPARATION\_MANUAL\_KR%7D/)
-
 
 ## Postgres agent 설치하기
 
@@ -54,12 +52,18 @@ sudo ./installer.sh dsk-postgres-agent
 
 ### 4. agent-config 설정
 
-`/etc/datasaker/dsk-postgres-agent/agent-config.yml`에 내용을 기입합니다.
+```shell
+vi /etc/datasaker/dsk-postgres-agent/agent-config.yml
+```
+
+필요에 따라 다음 내용을 수정합니다.
+
+#### `agent-config.yml`
 
 ```yaml
 agent:
   metadata:
-    agent_name: dsk-postgres-agent                # 에이전트 이름 (별칭) default=dsk-postgres-agent
+    agent_name: dsk-postgres-agent
   option:
     exporter_config:
       command: "/usr/bin/dsk-postgres-exporter"
@@ -77,6 +81,52 @@ agent:
         filtering_configs:
           rule: drop
 ```
+
+##### `metadata`
+
+```yaml
+# 에이전트 이름 (별칭)
+[ agent_name: <string> | default = "dsk-postgres-agent" ]
+
+# 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정
+[ cluster_id: <cluster_id> | default = "unknown" ]
+```
+
+각 설정에 대한 설명은 다음과 같습니다.
+
+| **Settings**               | **Description**                                                                                     | **Default** | **Required** |
+| -------------------------- | --------------------------------------------------------------------------------------------------- | :-----------: | :------------: |
+| `agent_name`               | 에이전트 이름 (별칭)                                                                                | dsk-postgres-agent            | N/A             |
+| `cluster_id`               | 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정                                        | unknown     | N/A             |
+
+##### `option.exporter_config.port`
+
+```yaml
+[ port: <uint16> | default = 19187 ]
+```
+
+각 설정에 대한 설명은 다음과 같습니다.
+
+| **Settings** | **Description**                                                                                     | **Default** | **Required** |
+| ------------ | --------------------------------------------------------------------------------------------------- | :-----------: | :------------: |
+| `port`       | agent가 사용하는 port number 기존 사용중인 application과 포트 충돌 발생시 임의 값으로 변경 | 19187       | N/A             |
+
+##### `option.exporter_config.args`
+
+```yaml
+# 관제하려는 database의 접속권한을 가진 계정 정보와 주소를 입력합니다.
+- --data-source-user=<monitoring account name>
+- --data-source-pass=<monitoring account pass>
+- --data-source-uri=<monitoring database uri> # <ip>:<port>/dbname
+```
+
+각 argument에 대한 설명은 다음과 같습니다.
+
+| **Settings** | **Description**                                                                                     | **Default** | **Required** |
+| ------------ | --------------------------------------------------------------------------------------------------- | :-----------: | :------------: |
+| `--data-source-user`       | 관제하려는 database의 접속권한을 가진 계정 정보를 입력합니다. | N/A       | **✓**             |
+| `--data-source-pass`       | 관제하려는 database의 접속권한을 가진 계정의 비밀번호를 입력합니다. | N/A       | **✓**             |
+| `--data-source-uri`       | 관제하려는 database의 주소를 입력합니다. | N/A       | **✓**             |
 
 ### 5. 패키지 실행
 

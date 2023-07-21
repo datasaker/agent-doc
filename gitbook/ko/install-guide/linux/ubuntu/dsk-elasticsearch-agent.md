@@ -1,11 +1,15 @@
-# Ubuntu 환경에 DataSaker Elasticsearch agent 설치하기 (Beta)
-`Elasticsearch agent`는 elasticsearch 상태 정보를 수집합니다.
+# dsk-elasticsearch-agent
 
-# DataSaker 선행 작업을 진행하였나요?
-현재 Ubuntu 환경에서는 `DataSaker`의 선행 작업이 진행되지 않으셨다면 `DataSaker` 선행 작업을 먼저 진행하여 주시기 바랍니다. [DataSaker 선행 작업](${PREPARATION_MANUAL_KR})
+`elasticsearch-agent`는 elasticsearch 상태 정보를 수집합니다.
 
-# Elasticsearch agent 설치하기
-## 1. 패키지 설치
+## DataSaker 선행 작업을 진행하였나요?
+
+현재 환경에서는 `DataSaker`의 선행 작업이 진행되지 않으셨다면 `DataSaker` 선행 작업을 먼저 진행하여 주시기 바랍니다. [DataSaker 선행 작업](${PREPARATION_MANUAL_KR})
+
+## Elasticsearch agent 설치하기
+
+### 1. 패키지 설치
+
 `DataSaker`의 `Elasticsearch agent`를 설치하기 위해서는 sudo 권한이 필요합니다.
 <!-- 
 example API Key : VAR_GLOBAL_APIKEY=1234567890abcdef1234567890abcdef
@@ -16,7 +20,7 @@ chmod 700 installer.sh
 sudo ./installer.sh dsk-elasticsearch-agent
 ```
 
-## 2. Elasticsearch agent 설정값 등록
+### 2. Elasticsearch agent 설정값 등록
 
 ```shell
 vi /etc/datasaker/dsk-elasticsearch-agent/agent-config.yml
@@ -25,18 +29,25 @@ vi /etc/datasaker/dsk-elasticsearch-agent/agent-config.yml
 필요에 따라 다음 내용을 수정합니다.
 
 ```yaml
-# Elasticsearch agent 설정 파일
 agent:
-  agent_name: "dsk-elasticsearch-agent" # 에이전트 이름 (별칭) default=dsk-elasticsearch-agent
+  agent_name: "dsk-base-agent"
+  cluster_id: "my-cluster-id"
 ```
 
-## 3. 패키지 실행
+각 설정에 대한 설명은 다음과 같습니다.
+
+| **Settings**               | **Description**                                                                                     | **Default** | **Required** |
+| -------------------------- | --------------------------------------------------------------------------------------------------- | :---------: | :----------: |
+| `agent_name`               | 에이전트 이름 (별칭)                                                                                | dsk-base-agent            |      No       |
+| `cluster_id` | 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정을 합니다. | unknown     | No           |
+
+### 3. 패키지 실행
 
 ```bash
-systemctl start dsk-elasticsearch-agent
+systemctl enable dsk-elasticsearch-agent --now
 ```
 
-## 4. 패키지 실행 상태 확인
+### 4. 패키지 실행 상태 확인
 
 ```bash
 systemctl status dsk-elasticsearch-agent
@@ -48,7 +59,7 @@ systemctl status dsk-elasticsearch-agent
 service dsk-elasticsearch-agent status
 ```
 
-# Arguments
+## Arguments
 
 elasticsearch exporter의 argument 설정을 변경하여 사용자 환경에 맞게 수정할 수 있습니다. 설정 값은 다음과 같습니다.
 
@@ -74,18 +85,23 @@ elasticsearch exporter의 argument 설정을 변경하여 사용자 환경에 �
 | aws.region              | Region for AWS elasticsearch                                                                                                                                                                                                                                                                                                                                                     |                       |
 
 ---
-# Elasticsearch agent 제거하기
-## 1. 패키지 중단
+
+## Elasticsearch agent 제거하기
+
+### 1. 패키지 중단
+
 ```bash
 systemctl stop dsk-elasticsearch-agent
 ```
+
 또는
+
 ```bash
 service dsk-elasticsearch-agent stop
 ```
 
 ## 2. 패키지 제거
+
 ```bash
 sudo apt remove dsk-elasticsearch-agent
 ```
-

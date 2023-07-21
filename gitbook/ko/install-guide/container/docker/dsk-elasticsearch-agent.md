@@ -67,13 +67,14 @@ EOF
 
 ### 2. Elasticsearch agent 설치
 
-1.  데이터세이커가 사용할 로컬 디렉터리를 생성합니다.
+1. 데이터세이커가 사용할 로컬 디렉터리를 생성합니다.
 
     ```shell
      sudo mkdir -p /var/datasaker
      sudo chown -R datasaker:datasaker /var/datasaker/ 
     ```
-2.  도커 명령어를 서버에 입력합니다.
+
+2. 도커 명령어를 서버에 입력합니다.
 
     ```shell
     docker run -d --name dsk-elasticsearch-agent\

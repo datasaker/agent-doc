@@ -48,8 +48,9 @@
 예를 들어, 쿠버네티스 워크로드 정보를 통해 로그를 수집하는 경우 다음과 같이 구성 파일을 작성할 수 있습니다.
 
 ```shell
-cat << EOF > ~/.datasaker/log-agent-config.yml
-agent:
+cat << EOF >> ~/datasaker/config.yaml
+logAgent:
+  enabled: true
   logs:
     - collect:
         type: kubernetes
@@ -63,8 +64,9 @@ EOF
 로그 파일을 직접 수집하는 경우는 다음과 같이 구성 파일을 작성할 수 있습니다.
 
 ```shell
-cat << EOF > ~/.datasaker/log-agent-config.yml
-agent:
+cat << EOF >> ~/datasaker/config.yaml
+logAgent:
+  enabled: true
   logs:
     - collect:
         type: file

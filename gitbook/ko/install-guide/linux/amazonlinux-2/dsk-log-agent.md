@@ -29,9 +29,9 @@ agent:
   logs:
     - collect:
         type: file
-      file:
-        paths:
-          - '/var/log/sample/*.log'
+        file:
+          paths:
+            - '/var/log/sample/*.log'
 ```
 
 > 주의사항 : 로그 파일 이외의 파일이 로그 수집 대상 경로에 설정되지 않도록 설정하십시오. 로그 수집 경로의 파일을 지정하거나 그 이외의 파일을 제외시키십시오. 로그 수집 설정에 파일 확장자 형식을 반드시 작성해주십시오. (예시: `.log`)

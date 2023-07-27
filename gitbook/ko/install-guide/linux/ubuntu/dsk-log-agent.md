@@ -35,9 +35,9 @@ agent:
   logs:
     - collect:
         type: file
-      file:
-        paths:
-          - '/var/log/sample/*.log'
+        file:
+          paths:
+            - '/var/log/sample/*.log'
 ```
 
 > 주의사항 : 로그 파일 이외의 파일이 로그 수집 대상 경로에 설정되지 않도록 설정하십시오. 로그 수집 경로의 파일을 지정하거나 그 이외의 파일을 제외시키십시오. 로그 수집 설정에 파일 확장자 형식을 반드시 작성해주십시오. (예시: `.log`)
@@ -72,13 +72,6 @@ agent:
 ```shell
 sudo systemctl enable dsk-log-agent --now
 ```
-
-> 주의사항
->
->
-> * 로그 수집을 위해 패키지 실행 전 에이전트 설정 파일을 구성해야 합니다(`global-config.yml`, `config.conf`).
->
-> * 로그 에에전트는 기본적으로 `fluent-bit`를 사용하여 로그를 수집합니다. 이미 사용 중인 `fluent-bit`가 있는 경우 `FLB_BIN_PATH` 환경변수에 `fluent-bit` 바이너리 실행파일을 설정하여 변경할 수 있습니다. 환경변수를 사용하여 실행할 경우 다음과 같이 실행하십시오. (`sudo -E dsk-log-agent start`)
 
 ### 4. 패키지 실행 상태 확인
 

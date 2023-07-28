@@ -36,41 +36,16 @@ agent:
 
 > 주의사항 : 로그 파일 이외의 파일이 로그 수집 대상 경로에 설정되지 않도록 설정하십시오. 로그 수집 경로의 파일을 지정하거나 그 이외의 파일을 제외시키십시오. 로그 수집 설정에 파일 확장자 형식을 반드시 작성해주십시오. (예시: `.log`)
 
-로그 에이전트 구성 파일에서 각각의 설정 항목에 대한 설명은 다음과 같습니다.
-
-| **Settings**                        | **Description**                                                                        | **Default** |
-| ----------------------------------- | -------------------------------------------------------------------------------------- | :---------: |
-|  **metadata**                       | 에이전트 기본 정보                                                                                    |
-| `agent_name`                        | 로그 에이전트 이름                                                                       | `dsk-log-agent` |
-| `cluster_id`                        | 관제 대상이 되는 환경의 클러스터 정보                                                     |  `unknown`  |
-| **logs[]**                          | 로그 수집 대상 정보                                                                                    |
-| `service`                           | 로그 수집 대상의 서비스 이름                                                              |  `default`  |
-| `tag[]`                             | 로그 수집 대상의 태그                                                                    |     N/A     |
-| `keyword`                           | 로그 수집 키워드 (키워드가 포함된 로그만 수집)                                             |             |
-| **multiline**                       | 멀티라인 로그 수집 설정                                                                                 |
-| `format`                  | 멀티라인 로그 포맷 (예 : go, java, ruby, python)                                          |             |
-| `pattern`                 | 멀티라인 로그 패턴 (예 : ^\d{4}-\d{2}-\d{2}) - 사용자 커스텀 정규식 패턴 사용 가능           |             |
-| **masking[]**                       | 민감 정보 로그 마스킹 설정                                                                              |
-| `pattern`                           | 마스킹할 로그 패턴 (예 : ^\d{4}-\d{2}-\d{2}) - 사용자 커스텀 정규식 패턴 사용 가능           |            |
-| `replace`                           | 마스킹 패턴이 대체될 문자열 (예 : ******)                                                  |            |
-| **collect**                         | 로그 수집 대상 설정                                                                                    |
-| `type`                              | 로그 수집 방법 (`file`, `driver` 중 하나의 값을 작성)                                    |    `file`    |
-| `category`                          | 서비스 분류 (`app`, `database`, `syslog`, `etc` 중 하나의 값을 작성)                     |    `etc`    |
-| `address`                           | 데이터베이스 host 및 port 정보  (서비스 분류가 database인 경우 설정)                       |          |
-| **file**                            | 로그 수집 방법이 file 인 경우 설정                                                                   |
-| `paths[]`                           | 로그 수집 대상 경로 (예 : /var/log/sample/*.log)                                          | `/var/log/*.log` |
-| `exclude_paths[]`                   | 로그 수집 제외 대상 경로                                                                   |          |
-
 ### 3. 패키지 실행
 
 ```shell
-sudo systemctl enable dsk-log-agent --now
+systemctl enable dsk-log-agent --now
 ```
 
 ### 4. 패키지 실행 상태 확인
 
 ```shell
-sudo systemctl status dsk-log-agent
+systemctl status dsk-log-agent
 ```
 
 ## Log agent 제거하기
@@ -78,7 +53,7 @@ sudo systemctl status dsk-log-agent
 ### 1. 패키지 중단
 
 ```shell
-sudo systemctl stop dsk-log-agent
+systemctl stop dsk-log-agent
 ```
 
 ### 2. 패키지 제거
@@ -86,5 +61,58 @@ sudo systemctl stop dsk-log-agent
 패키지 제거 전 반드시 패키지를 중단하고 제거하십시오.
 
 ```shell
-sudo apt remove dsk-log-agent
+yum remove dsk-log-agent
 ```
+
+## Log agent 구성 설정하기
+
+로그 에이전트의 로그 수집 설정을 변경하고자 할 경우, `/etc/datasaker/dsk-log-agent/agent-config.yml` 경로에 구성 파일을 수정하십시오.
+
+다음은 로그 에이전트 구성 파일에서 각각의 설정 항목에 대한 설명입니다.
+
+```yaml
+agent:
+  metadata:
+    agent_name:
+    cluster_id:
+  logs:
+    - service:
+      tag: []
+      keyword: []
+      multiline:
+        format:
+        pattern: []
+      masking:
+        - pattern:
+          replace:
+      collect:
+        type:
+        category:
+        address:
+        file:
+          paths: []
+          exclude_paths: []
+```
+
+| **Settings**                        | **Description**                                                                        | **Default** |
+| ----------------------------------- | -------------------------------------------------------------------------------------- | :---------: |
+|  **metadata**                       | 에이전트 기본 정보                                                                                    |
+| `agent_name`                        | 로그 에이전트 이름                                                                       | `dsk-log-agent` |
+| `cluster_id`                        | 관제 대상이 되는 환경의 클러스터 정보                                                     |  `unknown`  |
+| **logs**                          | 로그 수집 대상 정보                                                                                    |
+| `service`                           | 로그 수집 대상의 서비스 이름                                                              |  `default`  |
+| `tag`                             | 로그 수집 대상의 태그                                                                    |     N/A     |
+| `keyword`                           | 로그 수집 키워드 (키워드가 포함된 로그만 수집)                                             |             |
+| **multiline**                       | 멀티라인 로그 수집 설정                                                                                 |
+| `format`                  | 멀티라인 로그 포맷 (예 : go, java, ruby, python)                                          |             |
+| `pattern`                 | 멀티라인 로그 패턴 (예 : ^\d{4}-\d{2}-\d{2}) - 사용자 커스텀 정규식 패턴 사용 가능           |             |
+| **masking**                       | 민감 정보 로그 마스킹 설정                                                                              |
+| `pattern`                           | 마스킹할 로그 패턴 (예 : ^\d{4}-\d{2}-\d{2}) - 사용자 커스텀 정규식 패턴 사용 가능           |            |
+| `replace`                           | 마스킹 패턴이 대체될 문자열 (예 : ******)                                                  |            |
+| **collect**                         | 로그 수집 대상 설정                                                                                    |
+| `type`                              | 로그 수집 방법 (`file`, `driver` 중 하나의 값을 작성)                                    |    `file`    |
+| `category`                          | 서비스 분류 (`app`, `database`, `syslog`, `etc` 중 하나의 값을 작성)                     |    `etc`    |
+| `address`                           | 데이터베이스 host 및 port 정보  (서비스 분류가 database인 경우 설정)                       |          |
+| **file**                            | 로그 수집 방법이 file 인 경우 설정                                                                   |
+| `paths`                           | 로그 수집 대상 경로 (예 : /var/log/sample/*.log)                                          | `/var/log/*.log` |
+| `exclude_paths`                   | 로그 수집 제외 대상 경로                                                                   |          |

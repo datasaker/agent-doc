@@ -16,16 +16,43 @@
 
 `Log agent`의 설정 값의 의미와 기본 설정값은 다음과 같습니다. 사용자마다 에이전트 설정에 대해 다른 요구사항이 있습니다. 따라서 에이전트 설정을 사용자 설정에 맞게 조정해야 합니다. 최적의 결과를 위해 에이전트 설정을 조정하세요. "\~/datasaker/config.yaml"에서 해당 값을 추가하거나 수정하세요.
 
+다음은 로그 에이전트 구성 파일에서 각각의 설정 항목에 대한 설명입니다.
+
+```yaml
+logAgent:
+  logs:
+    - service:
+      tag: []
+      keyword: []
+      multiline:
+        format:
+        pattern: []
+      masking:
+        - pattern:
+          replace:
+      collect:
+        type:
+        category:
+        address:
+        file:
+          paths: []
+          exclude_paths: []
+        kubernetes:
+          - namespace:
+            pod_name:
+            container_name:
+```
+
 | **Settings**                        | **Description**                                                                        | **Default** |
 | ----------------------------------- | -------------------------------------------------------------------------------------- | :---------: |
-| **logs[]**                          | 로그 수집 대상 정보                                                                                    |
+| **logs**                          | 로그 수집 대상 정보                                                                                    |
 | `service`                           | 로그 수집 대상의 서비스 이름                                                              |  `default`  |
-| `tag[]`                             | 로그 수집 대상의 태그                                                                    |     N/A     |
+| `tag`                             | 로그 수집 대상의 태그                                                                    |     N/A     |
 | `keyword`                           | 로그 수집 키워드 (키워드가 포함된 로그만 수집)                                             |             |
 | **multiline**                       | 멀티라인 로그 수집 설정                                                                                 |
 | `format`                  | 멀티라인 로그 포맷 (예 : go, java, ruby, python)                                          |             |
 | `pattern`                 | 멀티라인 로그 패턴 (예 : ^\d{4}-\d{2}-\d{2}) - 사용자 커스텀 정규식 패턴 사용 가능           |             |
-| **masking[]**                       | 민감 정보 로그 마스킹 설정                                                                              |
+| **masking**                       | 민감 정보 로그 마스킹 설정                                                                              |
 | `pattern`                           | 마스킹할 로그 패턴 (예 : ^\d{4}-\d{2}-\d{2}) - 사용자 커스텀 정규식 패턴 사용 가능           |            |
 | `replace`                           | 마스킹 패턴이 대체될 문자열 (예 : ******)                                                  |            |
 | **collect**                         | 로그 수집 대상 설정                                                                                    |
@@ -33,9 +60,9 @@
 | `category`                          | 서비스 분류 (`app`, `database`, `syslog`, `etc` 중 하나의 값을 작성)                     |    `etc`    |
 | `address`                           | 데이터베이스 host 및 port 정보  (서비스 분류가 database인 경우 설정)                       |          |
 | **file**                            | 로그 수집 방법이 file 인 경우 설정                                                                   |
-| `paths[]`                           | 로그 수집 대상 경로 (예 : /var/log/sample/*.log)                                          | `/var/log/*.log` |
-| `exclude_paths[]`                   | 로그 수집 제외 대상 경로                                                                  |      |
-| **kubernetes[]**                    | 로그 수집 방법이 kubernetes 인 경우 설정                                                                |
+| `paths`                           | 로그 수집 대상 경로 (예 : /var/log/sample/*.log)                                          | `/var/log/*.log` |
+| `exclude_paths`                   | 로그 수집 제외 대상 경로                                                                  |      |
+| **kubernetes**                    | 로그 수집 방법이 kubernetes 인 경우 설정                                                                |
 | `namespace`                         | 로그 수집 대상 네임스페이스                                                                    |  `*`   |
 | `pod_name`                          | 로그 수집 대상 파드 이름                                                                       |  `*`  |
 | `container_name`                    | 로그 수집 대상 컨테이너 이름                                                                    |  `*`  |

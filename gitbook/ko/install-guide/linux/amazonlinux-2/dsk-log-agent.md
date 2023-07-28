@@ -8,9 +8,17 @@
 
 ## Log agent 설치하기
 
+### fluent-bit 패키지 설치
+
 `Log agent` 는 fluent-bit을 통해 로그를 수집하여 에이전트 설치 시 반드시 fluent-bit 2.1.0 버전 이상이 설치되어 있어야 합니다.
 
-fluent-bit 패키지를 설치는 [공식문서](https://docs.fluentbit.io/manual/installation/linux/amazon-linux)를 참고하여 설치합니다.
+다음 명령어를 통해 fluent-bit 2.1.0 버전 이상을 설치합니다.
+
+```shell
+curl https://raw.githubusercontent.com/fluent/fluent-bit/master/install.sh | sh
+```
+
+fluent-bit 패키지 설치에 대한 자세한 내용은 [공식문서](https://docs.fluentbit.io/manual/installation/linux/amazon-linux)를 참고합니다.
 
 ### 1. 패키지 설치
 

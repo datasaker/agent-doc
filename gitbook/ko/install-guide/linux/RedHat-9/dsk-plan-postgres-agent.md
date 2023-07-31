@@ -9,7 +9,14 @@
 
 | version     | support |
 | ----------- | ------- |
+| postgres 15 | X       |
 | postgres 14 | O       |
+| postgres 13 | X       |
+| postgres 12 | X       |
+| postgres 11 | X       |
+| postgres 10 | X       |
+| postgres 9  | X       |
+| postgres 8  | X       |
 
 ## DataSaker 선행 작업을 진행하였나요?
 
@@ -18,22 +25,17 @@
 ## Plan Postgres Agent Install
 
 ### 1. Postgres User 권한 설정
-`plan-postgres agent`를 사용하기 위해서는 `pg_monitor`의 권한이 필요합니다.\
-`datasaker` 전용계정을 생성하세요, 전용계정을 생성할때는 `superuser`를 사용해야 합니다.
-#### datasaker 전용 계정
-```sql
-CREATE USER datasaker WITH password '<PASSWORD>';
-```
 
-#### datasaker 전용 데이터베이스 생성
-```sql
-CREATE DATABASE datasaker;
-GRANT USAGE ON SCHEMA public TO datasaker;
-GRANT pg_monitor TO datasaker;
-CREATE EXTENSION IF NOT EXISTS pg_stat_statements;
-```
+`plan-postgres-agent`를 설치하기 위해서는 `postgres user`의 권한이 필요합니다.\
+`postgres user`의 권한을 확인하고, 권한이 없다면 권한을 부여해주세요.\
+필요한 User 권한은 다음과 같습니다.
+
+* `SELECT`
+* `UPDATE`
+* `DELETE`
+* `INSERT`
+
 [postgres user 권한 참조사이트](https://www.postgresql.org/docs/14/sql-grant.html)
-
 
 ### 2. 패키지 설치
 
@@ -56,7 +58,7 @@ agent:
   metadata:
     agent_name: "dsk-plan-postgres-agent" # <agent_alias_name> default=dsk-plan-postgres-agent
   data_source_name:
-    user: datasaker
+    user: # <user_name>
     password: # <user_password>
     address: # <database_address>
     port: # <database_port>

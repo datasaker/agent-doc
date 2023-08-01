@@ -40,10 +40,6 @@ agent:
           exclude_paths: []
         docker-driver:
           container_name: []
-        kubernetes:
-          - namespace:
-            pod_name:
-            container_name:
 ```
 
 | **Settings**                        | **Description**                                                                        | **Default** |
@@ -141,5 +137,5 @@ docker  run -d --name dsk-log-agent \
 다음은 로그 수집을 위한 컨테이너 실행 예시입니다.
 
 ```shell
-docker  run --log-driver=fluentd --log-opt fluentd-address=21212:21212 your/application
+docker  run --log-driver=fluentd --log-opt fluentd-address=dsk-log-agent:21212 your/application
 ```

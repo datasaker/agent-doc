@@ -39,8 +39,8 @@ logAgent:
           exclude_paths: []
         kubernetes:
           - namespace:
-            pod_name:
-            container_name:
+            pod:
+            container:
 ```
 
 | **Settings**                        | **Description**                                                                        | **Default** |
@@ -64,8 +64,8 @@ logAgent:
 | `exclude_paths`                   | 로그 수집 제외 대상 경로                                                                  |      |
 | **kubernetes**                    | 로그 수집 방법이 kubernetes 인 경우 설정                                                                |
 | `namespace`                         | 로그 수집 대상 네임스페이스                                                                    |  `*`   |
-| `pod_name`                          | 로그 수집 대상 파드 이름                                                                       |  `*`  |
-| `container_name`                    | 로그 수집 대상 컨테이너 이름                                                                    |  `*`  |
+| `pod`                          | 로그 수집 대상 파드 이름                                                                       |  `*`  |
+| `container`                    | 로그 수집 대상 컨테이너 이름                                                                    |  `*`  |
 
 쿠버네티스 환경에서 로그 에이전트는 2가지 방법으로 로그를 수집할 수 있습니다.
 
@@ -83,8 +83,8 @@ logAgent:
         type: kubernetes
         kubernetes:
           - namespace: default
-            pod_name: awesome-saker-5f4b7f7b4f-2q9qz
-            container_name: awesome-saker
+            pod: awesome-saker-5f4b7f7b4f-2q9qz
+            container: awesome-saker
 EOF
 ```
 

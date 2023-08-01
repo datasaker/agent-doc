@@ -38,8 +38,8 @@ agent:
         file:
           paths: []
           exclude_paths: []
-        docker-driver:
-          container_name: []
+        driver:
+          containers: []
 ```
 
 | **Settings**                        | **Description**                                                                        | **Default** |
@@ -64,8 +64,8 @@ agent:
 | **file**                            | 로그 수집 방법이 file 인 경우 설정                                                                   |
 | `paths`                           | 로그 수집 대상 경로 (예 : /var/log/sample/*.log)                                          | `/var/log/*.log` |
 | `exclude_paths`                   | 로그 수집 제외 대상 경로                                                                   |          |
-| **docker-driver**                   | 로그 수집 방법이 driver 인 경우 설정                                                                   |
-| `container_name`                  | 로그 수집 대상 컨테이너 이름                                                                 |  `*`  |
+| **driver**                   | 로그 수집 방법이 driver 인 경우 설정                                                                   |
+| `containers`                  | 로그 수집 대상 컨테이너 이름                                                                 |  `*`  |
 
 Docker 환경에서 로그 에이전트는 2가지 방법으로 로그를 수집할 수 있습니다.
 
@@ -81,8 +81,8 @@ agent:
   logs:
     - collect:
         type: driver
-        docker-driver:
-          container:
+        driver:
+          containers:
            - awesome_saker
 EOF
 ```
@@ -97,7 +97,7 @@ agent:
         type: file
         file:
           paths:
-           - /var/log/awesome_saker/*.log
+           - /var/lib/docekr/containers/*awesome_saker*.log
 EOF
 ```
 
@@ -121,6 +121,7 @@ docker  run -d --name dsk-log-agent \
   -v /var/datasaker/:/var/datasaker/ \
   -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro \
   -v ~/.datasaker/log-agent-config.yml:/etc/datasaker/dsk-log-agent/agent-config.yml:ro \
+  -v -v /var/lib/docker/containers/:/var/lib/docker/containers/:ro \
   -p 21212:21212 \
   --restart=always \
   datasaker/dsk-log-agent:latest
@@ -128,11 +129,13 @@ docker  run -d --name dsk-log-agent \
 
 **\[주의]** 로그 파일을 직접 수집하는 경우에는 해당 로그를 에이전트에 마운트해야 합니다.
 
-### 3. 로그를 수집할 대상의 컨테이너를 실행합니다.
+### 3. (로깅 드라이버를 통해 수집하는 경우) 로그를 수집할 대상의 컨테이너를 실행합니다.
 
-* (로깅 드라이버를 통해 수집하는 경우) 로그 수집을 위한 필수 옵션을 설정합니다.
+* 로그 수집을 위한 필수 옵션을 설정합니다.
   * `--log-driver=fluentd`
   * `--log-opt fluentd-address=[LOG_AGENT_HOST]:[LOG_AGENT_HOST_PORT_NUMBER]`
+
+**\[주의]** 로깅 드라이버를 통해 로그를 수집하는 경우, 로그를 수집할 대상의 컨테이너를 재실행해야 합니다.
 
 다음은 로그 수집을 위한 컨테이너 실행 예시입니다.
 

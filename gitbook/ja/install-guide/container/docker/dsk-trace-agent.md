@@ -46,33 +46,25 @@ Trace agentの設定値の意味するデフォルト値は次のとおりです
 #### `agent-config.yml`
 ```yaml
 agent:
-  # 에이전트의 메타데이터
   metadata: <metadata>
-  # 에이전트의 실행 관련 옵션
   option:
     [ collector_config: <collector_config> ]
   [ reciever_config: <reciever_config> ]
 ```
 **`metadata`**
 ```yaml
-# 에이전트 이름 (별칭)
 [ agent_name: <string> | default = "dsk-trace-agent" ]
 
-# 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정
 [ cluster_id: <cluster_id> | default = "unknown" ]
 ```
 **`collector_config`**
 ```yaml
-# collector에 적용되는 샘플링 비율
-# 100 이상일 때 모든 데이터가 수집됩니다
 [ sampling_rate: <float> | default = 1 ]
 ```
 **`receiver_config`**
 ```yaml
-# collector로부터 데이터를 받을 포트 번호
 [ listen_port: <uint16> | default = 14251 ]
 
-# 각 span에 적용되는 커스텀 태크
 [ custom_tags: <map[string]string> | default = "" ]
 ```
 ## ApplicationにTrace Agentを連携する

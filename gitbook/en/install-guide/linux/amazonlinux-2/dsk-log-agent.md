@@ -4,7 +4,7 @@ A `Log agent` is an agent that collects, processes and transmits log data genera
 
 ## Did you run the DataSaker predecessor?
 
-If the preceding task of `DataSaker` has not been carried out in the current Amazon Linux 2 environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor](${PREPARATION_MANUAL_KR})
+If the preceding task of `DataSaker` has not been carried out in the current Amazon Linux 2 environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor](README.md)
 
 ## Install Log agent
 

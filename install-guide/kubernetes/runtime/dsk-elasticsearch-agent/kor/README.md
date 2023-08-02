@@ -3,7 +3,7 @@
 `Elasticsearch agent`는 DataSaker에서 elasitcsearch 정보를 수집하는 agent입니다.
 
 # DataSaker 선행 작업을 진행하였나요?
-현재 Kubernetes 환경에 `DataSaker`의 선행 작업이 진행되지 않으셨다면 `DataSaker` 선행 작업을 먼저 진행하여 주시기 바랍니다. [DataSaker 선행 작업](${PREPARATION_MANUAL_KR})
+현재 Kubernetes 환경에 `DataSaker`의 선행 작업이 진행되지 않으셨다면 `DataSaker` 선행 작업을 먼저 진행하여 주시기 바랍니다. [DataSaker 선행 작업](README.md)
 
 # Elasticsearch agent 설치하기
 ## 1. Elasticsearch agent 설정값 등록

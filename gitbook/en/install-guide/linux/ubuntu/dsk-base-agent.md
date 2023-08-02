@@ -7,7 +7,7 @@ We tailor agent settings to your needs to deliver optimal results.
 
 ## Have you done the Datasaker predecessor?
 
-If the preceding task of `DataSaker` has not been performed in the current environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor](${PREPARATION_MANUAL_KR})
+If the preceding task of `DataSaker` has not been performed in the current environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor](README.md)
 
 ## Install the base agent
 

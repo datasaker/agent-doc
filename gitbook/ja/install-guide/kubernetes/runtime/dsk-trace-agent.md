@@ -6,7 +6,7 @@
 
 ## DataSaker 先行作業を行いましたか？
 
-現在Kubernetes環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker 先行操作] (dsk-trace-agent/kor/$%7BPREPARATION\_MANUAL\_KR%7D/)
+現在Kubernetes環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker 先行操作] (README.md)
 
 ## Trace agentのインストール
 

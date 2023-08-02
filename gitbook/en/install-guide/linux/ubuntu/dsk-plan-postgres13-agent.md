@@ -7,7 +7,7 @@ It can also detect slow queries to improve database performance by creating inde
 We tailor agent settings to your needs to deliver optimal results.
 
 # Did you run the DataSaker predecessor?
-In the current Ubuntu environment, if the preceding task of `DataSaker` has not been carried out, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor](${PREPARATION_MANUAL_KR})
+In the current Ubuntu environment, if the preceding task of `DataSaker` has not been carried out, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor](README.md)
 
 # Install Plan Postgres13 Agent
 ## 1. agent-config settings

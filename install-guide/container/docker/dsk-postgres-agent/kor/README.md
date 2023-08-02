@@ -37,7 +37,7 @@ Postgres agent는 `postgres agent`와 `plan-postgres-agent`로 구성되어 있�
 
 # DataSaker 선행 작업을 진행하였나요?
 
-현재 Docker 환경에 `DataSaker`의 선행 작업이 진행되지 않으셨다면 `DataSaker` 선행 작업을 먼저 진행하여 주시기 바랍니다. [DataSaker 선행 작업](${PREPARATION_MANUAL_KR})
+현재 Docker 환경에 `DataSaker`의 선행 작업이 진행되지 않으셨다면 `DataSaker` 선행 작업을 먼저 진행하여 주시기 바랍니다. [DataSaker 선행 작업](README.md)
 
 # Postgres agent 설치하기
 

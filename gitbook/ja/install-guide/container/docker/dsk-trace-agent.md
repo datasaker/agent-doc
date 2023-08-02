@@ -6,7 +6,7 @@
 
 ## DataSaker 先行作業を行いましたか？
 
-現在Docker環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker 先行操作] (dsk-trace-agent/kor/$%7BPREPARATION\_MANUAL\_KR%7D/)
+現在、Docker環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker 先行操作] (dsk-trace-agent/kor/$%7BPREPARATION\_MANUAL\_KR%7D/)
 
 ## Trace agentのインストール
 
@@ -23,7 +23,6 @@ Trace agent は内部的に次のポートを使用しています。
 
 上記の必要なポートを公開してTrace agentを展開できます。\
 たとえば、otlpデータのみを受け取ると、次のように配布できます。
-
 ```shell
      docker run -d --name dsk-trace-agent\
        -v /var/datasaker/:/var/datasaker/\
@@ -34,7 +33,6 @@ Trace agent は内部的に次のポートを使用しています。
        --restart=always\
        datasaker/dsk-trace-agent
 ```
-
 ## Trace agentの設定
 
 必要に応じて、以下のドキュメントを参照してトレースエージェントの設定を変更できます。
@@ -46,45 +44,37 @@ Trace agentの設定値の意味するデフォルト値は次のとおりです
 ファイルの構造は以下の通りです。
 
 #### `agent-config.yml`
-
-``` yaml
+```yaml
 agent:
-  ＃エージェントのメタデータ
+  # 에이전트의 메타데이터
   metadata: <metadata>
-  ＃エージェントの実行関連オプション
+  # 에이전트의 실행 관련 옵션
   option:
     [ collector_config: <collector_config> ]
-[ reciever_config: <reciever_config> ]
+  [ reciever_config: <reciever_config> ]
 ```
-
 **`metadata`**
-
-``` yaml
-# エージェント名(エイリアス)
+```yaml
+# 에이전트 이름 (별칭)
 [ agent_name: <string> | default = "dsk-trace-agent" ]
 
-＃管理対象となる環境がどのクラスタにまとめられているかについての設定
-[cluster_id：<cluster_id> | default = "unknown" ]
+# 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정
+[ cluster_id: <cluster_id> | default = "unknown" ]
 ```
-
 **`collector_config`**
-
-``` yaml
-#collectorに適用されるサンプリング率
-＃100以上の場合、すべてのデータが収集されます
-[sampling_rate：<float> | default = 1 ]
+```yaml
+# collector에 적용되는 샘플링 비율
+# 100 이상일 때 모든 데이터가 수집됩니다
+[ sampling_rate: <float> | default = 1 ]
 ```
-
 **`receiver_config`**
+```yaml
+# collector로부터 데이터를 받을 포트 번호
+[ listen_port: <uint16> | default = 14251 ]
 
-``` yaml
-＃collectorからデータを受け取るポート番号
-[ listen_port: <uint16> | | default = 14251 ]
-
-＃各スパンに適用されるカスタムタック
+# 각 span에 적용되는 커스텀 태크
 [ custom_tags: <map[string]string> | default = "" ]
 ```
-
 ## ApplicationにTrace Agentを連携する
 
 連携するには、ターゲットアプリケーションに次の環境変数設定が必要です。
@@ -98,17 +88,15 @@ agent:
 | OTEL\_RESOURCE\_ATTRIBUTES | dsk\_host\_key=$(cat /var/datasaker/host\_key) | - |
 
 たとえば、次のようにアプリケーションをデプロイできます。
-
 ```shell
-docker run my-java-application\
-    -e OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=<trace-agent-address>:4317\
-    -e OTEL_SERVICE_NAME=your-service-name\
-    -e OTEL_METRICS_EXPORTER=none\
-    -e OTEL_LOGS_EXPORTER=none\
-    -e OTEL_RESOURCE_ATTRIBUTES=dsk_host_key=$(cat /var/datasaker/host_key)\
+docker run my-java-application \
+    -e OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=<trace-agent-address>:4317 \
+    -e OTEL_SERVICE_NAME=your-service-name \
+    -e OTEL_METRICS_EXPORTER=none \
+    -e OTEL_LOGS_EXPORTER=none \
+    -e OTEL_RESOURCE_ATTRIBUTES=dsk_host_key=$(cat /var/datasaker/host_key) \
     -d
 ```
-
 詳細については、以下を参照してください。
 
 [関連ドキュメントリンク]（https://github.com/datasaker/documentation/tree/main/settings/dsk-trace-agent/Instrumentation）

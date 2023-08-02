@@ -33,13 +33,11 @@
 [MySQL user権限参照サイト](https://dev.mysql.com/doc/refman/8.0/en/grant.html)
 
 ### 3. パッケージのインストール
-
-``` bash
+```bash
 curl -fsSL -o installer.sh https://dsk-agent-s3.s3.ap-northeast-2.amazonaws.com/dsk-agent-s3/public/install.sh
 chmod 700 installer.sh
 sudo ./installer.sh dsk-plan-mysql-agent
 ```
-
 ### 4. MySQL agent 設定値の登録
 
 #### 必須入力項目
@@ -55,17 +53,14 @@ sudo ./installer.sh dsk-plan-mysql-agent
 | agent.data\_source\_name.DBName | MySQLデータベース名を入力します。 |
 
 #### オプション入力
-
 ```shell
 vi /etc/datasaker/dsk-plan-mysql-agent/agent-config.yml
 ```
-
 必要に応じて次の内容を修正します。
-
-``` yaml
+```yaml
 agent:
   metadata:
-    agent_name: "dsk-plan-mysql-agent" # エージェント名 (エイリアス) default=dsk-plan-mysql-agent
+    agent_name: "dsk-plan-mysql-agent"
   data_source_name:
     user: 'user'
     password: 'pass'
@@ -81,41 +76,27 @@ agent:
     activity_query_buffer: 50
     plan_sender_buffer: 50
 ```
-
 ### 5. パッケージの実行
-
-``` bash
+```bash
 sudo dsk-plan-mysql-agent start
 ```
-
 ### 6. パッケージ実行状態の確認
 
 #### Running
-
-``` bash
+```bash
 systemctl status dsk-plan-mysql-agent
 ```
-
 または
-
 ```shell
 serivce dsk-plan-mysql-agent
 ```
-
-\
-\
-
-
 ## Log agentを削除する
 
 ### 1. パッケージの中断
-
-``` bash
+```bash
 sudo dsk-plan-mysql-agent stop
 ```
-
 ### 2. パッケージの削除
-
-``` bash
+```bash
 sudo apt remove dsk-plan-mysql-agent
 ```

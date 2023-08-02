@@ -11,27 +11,25 @@ Ansibleを使用してDatasaker Agentをインストールできます。
 ## Installation
 
 Ansible GalaxyからDatasaker roleをインストールします。
-
 ```shell
 ansible-galaxy install dsk_bot.datasaker
 ```
-
 エージェントを展開するためにAnsible playbookを作成します。
 
 以下は基本的なインストールの例です。
 
 #### Host Agent Default Install Example
-``` yml
+```yml
 - hosts: servers
   become: true
   roles:
     - role: dsk_bot.datasaker
   vars:
     datasaker_api_key: "<YOUR_API_KEY>"
-    datasaker_agents: ["dsk-node-agent"]
+    datasaker_agents: ["dsk-node-agent"] 
 ```
 #### Docker Agent Default Install Example
-``` yml
+```yml
 - hosts: servers
   become: true
   roles:
@@ -40,7 +38,6 @@ ansible-galaxy install dsk_bot.datasaker
     datasaker_api_key: "<YOUR_API_KEY>"
     datasaker_docker_agents: ["dsk-docker-node-agent","dsk-docker-log-agent"]
 ```
-
 #### 必須設定
 
 |変数名|説明
@@ -83,9 +80,8 @@ ansible-galaxy install dsk_bot.datasaker
 |`container_agent_restart_policy`| `dsk-container-agent` Container Restart Policyの設定。 <br>（デフォルト） `always` |
 |`node_agent_restart_policy`| `dsk-node-agent` Container Restart Policyの設定。 <br>（デフォルト） `always` |
 |`trace_agent_restart_policy`| `dsk-trace-agent` Container Restart Policyの設定。 <br>（デフォルト） `always` |
-|`log_agent_restart_policy`| `dsk-log-agent` Container Restart Policyの設定。 <br>（デフォルト） `always` |
-|`postgres_agent_restart_policy`| `dsk-postgres-agent` Container Restart Policyの設定。 <br>（デフォルト） `always` |
-| `plan_postgres_agent_restart_policy` |`dsk-plan-postgres-agent` Container Restart Policyの設定。 <br>（デフォルト） `always` |
+|`log_agent_restart_policy`| `dsk-log-agent` Container Restart Policyの設定。 <br>（デフォルト） `always` ||`postgres_agent_restart_policy`| `dsk-postgres-agent` Container Restart Policyの設定。 <br>（デフォルト） `always` |
+| `plan_postgres_agent_restart_policy` | `dsk-plan-postgres-agent` Container Restart Policyの設定。 <br>（デフォルト） `always` |
 |`container_agent_log_level`| `dsk-container-agent` Log Level設定。 <br>（Default） `INFO` |
 |`node_agent_log_level`| `dsk-node-agent` Log Level設定。 <br>（Default） `INFO` |
 |`trace_agent_log_level`| `dsk-trace-agent` Log Level設定。 <br>（Default） `INFO` |
@@ -123,8 +119,7 @@ ansible-galaxy install dsk_bot.datasaker
 | `postgres_user_password` | `dsk-postgres-agent`のPostgresユーザーパスワード設定。 <br>（デフォルト） `None` |
 |`postgres_database_address`| `dsk-postgres-agent`にPostgres addressを設定します。 <br>（デフォルト） `None` |
 |`postgres_database_port`| `dsk-postgres-agent`にPostgresポートを設定します。 <br>（デフォルト） `None` |
-| `plan_postgres_user_name` | `dsk-plan-postgres-agent`にPlan PostgresユーザーIDを設定します。 <br>（デフォルト） `None` |
-| `plan_postgres_user_password` | `dsk-plan-postgres-agent`のPlan Postgresユーザーパスワード設定。 <br>（デフォルト） `None` |
+| `plan_postgres_user_name` | `dsk-plan-postgres-agent`にPlan PostgresユーザーIDを設定します。 <br>（デフォルト） `None` || `plan_postgres_user_password` | `dsk-plan-postgres-agent`のPlan Postgresユーザーパスワード設定。 <br>（デフォルト） `None` |
 | `plan_postgres_database_address` | `dsk-plan-postgres-agent`にPlan Postgresアドレスを設定します。 <br>（デフォルト） `None` |
 |`plan_postgres_database_port`| `dsk-plan-postgres-agent`にPlan Postgresポートを設定します。 <br>（デフォルト） `None` |
 |`plan_postgres_database_name`| `dsk-plan-postgres-agent`にPlan Postgresデータベースを設定します。 <br>（デフォルト） `None` |
@@ -137,7 +132,7 @@ ansible-galaxy install dsk_bot.datasaker
 | `plan_postgres_plan_sender_buffer` | `dsk-plan-postgres-agent`にPlan Postgres plan sender bufferを設定します。 <br>（Default） `50` |
 
 ##### Ansible Playbook詳細設定 Example
-``` yml
+```yml
 - hosts: servers
   become: true
   roles:
@@ -145,10 +140,10 @@ ansible-galaxy install dsk_bot.datasaker
   vars:
     datasaker_api_key: "<YOUR_API_KEY>"
     datasaker_docker_agents:
-      - `dsk-docker-node-agent`
-      - `dsk-docker-trace-agent`
-      - `dsk-docker-log-agent`
-      - `dsk-docker-postgres-agent`
+      - "dsk-docker-node-agent"
+      - "dsk-docker-trace-agent"
+      - "dsk-docker-log-agent"
+      - "dsk-docker-postgres-agent"
     postgres_user_name: sample
     postgres_user_password: 1q2w3e4r
     postgres_database_address: 0.0.0.0
@@ -172,11 +167,10 @@ ansible-galaxy install dsk_bot.datasaker
           - "/var/log/sample/b4d5ac015a5a*/*.log"
         service:
           name: "docker-test"
-          category: "データベース"
+          category: "database"
           type: "postgres"
           address: "0.0.0.0:5432"
 ```
-
 ## Uninstallation
 
 Datasaker Agent を削除できます。
@@ -188,8 +182,7 @@ datasaker_clean は、uninstall を `True` に設定する必要があります�
 | `datasaker_clean` | `datasaker_agents` または `datasaker_docker_agents` に作成された Agent と、生成されたフォルダや設定ファイルまで削除。 <br>（Default） `False` |
 
 #### Datasaker Agents Uninstall Example
-
-``` yml
+```yml
 - hosts: servers
   become: true
   roles:

@@ -1,7 +1,6 @@
 # Configure Datasaker configuration file in Amazon Linux 2 environment
 
 ## Registering the yum repository
-
 ```shell
 cat <<EOF | sudo tee /etc/yum.repos.d/datasaker.repo
 [datasaker]
@@ -11,15 +10,18 @@ enabled=1
 gpgcheck=0
 EOF
 ```
-
 ## Configuring global-config.yml
+
+First, configure the environment to configure the `DataSaker` configuration file.
 ```shell
 sudo mkdir -p /etc/datasaker
 
 sudo touch /etc/datasaker/global-config.yml
-
+```
+Then configure the configuration file using the API Key issued from `Datasaker`.
+```shell
 echo 'global:
-  api_key: ${VAR_GLOBAL_APIKEY}
+  api_key: "<YOUR_API_KEY>"
   gates:
     metric_datagate:
       url: gate.kr.datasaker.io:31302

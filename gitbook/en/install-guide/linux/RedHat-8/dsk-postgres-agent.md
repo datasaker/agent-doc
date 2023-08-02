@@ -5,7 +5,8 @@ This allows you to collect various information such as database performance indi
 Based on the collected data, it is possible to identify and respond to performance bottlenecks in the database.\
 We tailor agent settings to your needs to deliver optimal results.
 
-# Supported version
+## Supported version
+
 |version|support|
 |---|---|
 |postgres 15|X|
@@ -17,18 +18,23 @@ We tailor agent settings to your needs to deliver optimal results.
 |postgres 9|X|
 |postgres 8|X|
 
-# Did you run the Datasaker predecessor?
-If the preceding task of `DataSaker` has not been carried out in the current RedHat 8 environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor](${PREPARATION_MANUAL_KR})
+## Have you done the Datasaker predecessor?
 
-# Install the Postgres agent
-## 1. Change Postgres Settings
+If the preceding task of `DataSaker` has not been performed in the current environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor](${PREPARATION_MANUAL_KR})
+
+## Install the Postgres agent
+
+### 1. Change Postgres settings
+
 Please check if the `pg_stat_statements` module of the database you want to monitor is active.\
 [pg_stat_statements reference site](https://www.postgresql.org/docs/14/pgstatstatements.html)
 
-## 2. Set Postgres User Permissions
+### 2. Set Postgres User Permissions
+
 In order to install `postgres agent`, permission of `postgres user` is required.\
 Check the permission of the `postgres user`, and if not, grant permission.\
 Required user rights are as follows.
+
 -`SELECT`
 -`UPDATE`
 -`DELETE`
@@ -36,31 +42,30 @@ Required user rights are as follows.
 
 [postgres user permission reference site](https://www.postgresql.org/docs/14/sql-grant.html)
 
-## 3. Install the package
+### 3. Install the package
 ```shell
-sudo yum install dsk-postgres-agent
+yum install dsk-postgres-agent
 ```
-
-## 4. Postgres agent configuration
+### 4. Postgres agent configuration
 ```shell
-sudo vi /etc/datasaker/dsk-postgres-agent/agent-config.yml
+vi /etc/datasaker/dsk-postgres-agent/agent-config.yml
 ```
 Modify the following as needed.
 
-### `agent-config.yml`
+#### `agent-config.yml`
 ```yaml
 agent:
   metadata:
-    agent_name: dsk-postgres-agent # Agent name (alias) default=dsk-postgres-agent
-  options:
+    agent_name: dsk-postgres-agent
+  option:
     exporter_config:
       command: "/usr/bin/dsk-postgres-exporter"
       port: 19187
       args:
         - --extend.query-path=/etc/datasaker/dsk-postgres-agent/queries.yaml
-        - --data-source-user= # <monitoring account name>
-        - --data-source-pass= # <monitoring account pass>
-        - --data-source-uri= # <monitoring database uri> # <ip>:<port>/dbname
+        - --data-source-user=<monitoring account name>
+        - --data-source-pass=<monitoring account pass>
+        - --data-source-uri=<monitoring database uri> # <ip>:<port>/dbname
     scrape_interval: 15s
     scrape_timeout: 5s
     scrape_configs:
@@ -69,49 +74,61 @@ agent:
         filtering_configs:
           rule: drop
 ```
-
-#### `metadata`
+##### `metadata`
 ```yaml
-# agent name (alias)
+# 에이전트 이름 (별칭)
 [ agent_name: <string> | default = "dsk-postgres-agent" ]
 
-# Settings for which clusters the environment to be controlled are grouped into
+# 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정
 [ cluster_id: <cluster_id> | default = "unknown" ]
 ```
+A description of each setting follows.
 
-#### `option.exporter_config.port`
+| **Settings** | **Description** | **Default** | **Required** |
+| -------------------------- | ---------------------------------------------------------------------------------------------------- | :----------: | :------------: |
+| `agent_name` | Agent Name (Alias) | dsk-postgres-agent | N/A |
+| `cluster_id` | Settings for which clusters the environment to be controlled are grouped into | unknown | N/A |
+
+##### `option.exporter_config.port`
 ```yaml
-# The port number used by the agent is changed to a random value when a port conflict occurs with an existing application.
 [ port: <uint16> | default = 19187 ]
 ```
+A description of each setting follows.
 
-#### `option.exporter_config.args`
+| **Settings** | **Description** | **Default** | **Required** |
+| ------------ | ---------------------------------------------------------------------------------------------------- | :----------: | :------------: |
+| `port` | The port number used by the agent is changed to a random value when a port conflict occurs with an existing application | 19187 | N/A |
+
+##### `option.exporter_config.args`
 ```yaml
-# Enter the account information and address that has access to the database you want to control.
+# 관제하려는 database의 접속권한을 가진 계정 정보와 주소를 입력합니다.
 - --data-source-user=<monitoring account name>
 - --data-source-pass=<monitoring account pass>
 - --data-source-uri=<monitoring database uri> # <ip>:<port>/dbname
 ```
+The explanation of each argument is as follows.
 
-## 5. Run the package
+| **Settings** | **Description** | **Default** | **Required** |
+| ------------ | ---------------------------------------------------------------------------------------------------- | :----------: | :------------: |
+| `--data-source-user` | Enter the account information that has access to the database you want to control. | N/A | **✓** |
+| `--data-source-pass` | Enter the password of the account that has access to the database you want to control. | N/A | **✓** |
+| `--data-source-uri` | Enter the address of the database you want to monitor. | N/A | **✓** |
+
+### 5. Run the package
 ```shell
-sudo systemctl enable dsk-postgres-agent --now
+systemctl enable dsk-postgres-agent --now
 ```
-
-## 6. Check package execution status
+### 6. Check package execution status
 ```shell
-sudo systemctl status dsk-postgres-agent
+systemctl status dsk-postgres-agent
 ```
+## Remove the Postgres agent
 
-# Uninstall the Postgres agent
-
-## 1. Package abort
+### 1. Abort the package
 ```shell
-sudo systemctl stop dsk-postgres-agent
+systemctl stop dsk-postgres-agent
 ```
-
-## 2. Remove packages
+### 2. Remove packages
 ```shell
-sudo systemctl stop dsk-postgres-agent &&
-sudo yum remove dsk-postgres-agent
+yum remove dsk-postgres-agent
 ```

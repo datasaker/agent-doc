@@ -5,7 +5,6 @@ This allows you to collect various information such as database performance indi
 Based on the collected data, it is possible to identify and respond to performance bottlenecks in the database.\
 We tailor agent settings to your needs to deliver optimal results.
 
-
 ## Supported version
 
 | version | support |
@@ -22,7 +21,6 @@ We tailor agent settings to your needs to deliver optimal results.
 ## Did you run the DataSaker predecessor?
 
 In the current Ubuntu environment, if the preceding task of `DataSaker` has not been carried out, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor]($%7BPREPARATION\_MANUAL\_KR%7D/)
-
 
 ## Install the Postgres agent
 
@@ -45,22 +43,23 @@ Required user rights are as follows.
 [postgres user permission reference site](https://www.postgresql.org/docs/14/sql-grant.html)
 
 ### 3. Install the package
-
 ```bash
 curl -fsSL -o installer.sh https://dsk-agent-s3.s3.ap-northeast-2.amazonaws.com/dsk-agent-s3/public/install.sh
 chmod 700 installer.sh
 sudo ./installer.sh dsk-postgres-agent
 ```
-
 ### 4. agent-config settings
+```shell
+vi /etc/datasaker/dsk-postgres-agent/agent-config.yml
+```
+Modify the following as needed.
 
-Write the contents to `/etc/datasaker/dsk-postgres-agent/agent-config.yml`.
-
+#### `agent-config.yml`
 ```yaml
 agent:
   metadata:
-    agent_name: dsk-postgres-agent # Agent name (alias) default=dsk-postgres-agent
-  options:
+    agent_name: dsk-postgres-agent
+  option:
     exporter_config:
       command: "/usr/bin/dsk-postgres-exporter"
       port: 19187
@@ -77,35 +76,65 @@ agent:
         filtering_configs:
           rule: drop
 ```
+##### `metadata`
+```yaml
+# 에이전트 이름 (별칭)
+[ agent_name: <string> | default = "dsk-postgres-agent" ]
+
+# 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정
+[ cluster_id: <cluster_id> | default = "unknown" ]
+```
+A description of each setting follows.
+
+| **Settings** | **Description** | **Default** | **Required** |
+| -------------------------- | ---------------------------------------------------------------------------------------------------- | :----------: | :------------: |
+| `agent_name` | Agent Name (Alias) | dsk-postgres-agent | N/A |
+| `cluster_id` | Settings for which clusters the environment to be controlled are grouped into | unknown | N/A |
+
+##### `option.exporter_config.port`
+```yaml
+[ port: <uint16> | default = 19187 ]
+```
+A description of each setting follows.
+
+| **Settings** | **Description** | **Default** | **Required** |
+| ------------ | ---------------------------------------------------------------------------------------------------- | :----------: | :------------: |
+| `port` | The port number used by the agent is changed to a random value when a port conflict occurs with an existing application | 19187 | N/A |
+
+##### `option.exporter_config.args`
+```yaml
+# 관제하려는 database의 접속권한을 가진 계정 정보와 주소를 입력합니다.
+- --data-source-user=<monitoring account name>
+- --data-source-pass=<monitoring account pass>
+- --data-source-uri=<monitoring database uri> # <ip>:<port>/dbname
+```
+The explanation of each argument is as follows.
+
+| **Settings** | **Description** | **Default** | **Required** |
+| ------------ | ---------------------------------------------------------------------------------------------------- | :----------: | :------------: |
+| `--data-source-user` | Enter the account information that has access to the database you want to control. | N/A | **✓** |
+| `--data-source-pass` | Enter the password of the account that has access to the database you want to control. | N/A | **✓** |
+| `--data-source-uri` | Enter the address of the database you want to monitor. | N/A | **✓** |
 
 ### 5. Run the package
-
 ```shell
 systemctl enable dsk-postgres-agent --now
 ```
-
 ### 6. Check package execution status
-
 ```shell
 systemctl status dsk-postgres-agent
 ```
-
 or
-
 ```shell
 service dsk-postgres-agent
 ```
-
 ## Remove the Postgres agent
 
 ### 1. Abort the package
-
 ```shell
 systemctl stop dsk-postgres-agent
 ```
-
 ### 2. Remove packages
-
 ```shell
 sudo apt remove dsk-postgres-agent
 ```

@@ -23,7 +23,6 @@ Trace agent is using the following ports internally.
 
 You can deploy the Trace agent by exposing the required ports above.\
 For example, when receiving only otlp data, it could be distributed like this:
-
 ```shell
      docker run -d --name dsk-trace-agent\
        -v /var/datasaker/:/var/datasaker/\
@@ -34,7 +33,6 @@ For example, when receiving only otlp data, it could be distributed like this:
        --restart=always\
        datasaker/dsk-trace-agent
 ```
-
 ## Configure Trace agent
 
 If necessary, you can change the settings of the trace agent by referring to the document below.
@@ -46,45 +44,37 @@ The meaning of default value of trace agent setting value is as follows. Differe
 The structure of the file is as follows.
 
 #### `agent-config.yml`
-
 ```yaml
 agent:
-  # Agent's metadata
+  # 에이전트의 메타데이터
   metadata: <metadata>
-  # Agent execution related options
-  options:
+  # 에이전트의 실행 관련 옵션
+  option:
     [ collector_config: <collector_config> ]
-[ receiver_config: <reciever_config> ]
+  [ reciever_config: <reciever_config> ]
 ```
-
 **`metadata`**
-
 ```yaml
-# agent name (alias)
+# 에이전트 이름 (별칭)
 [ agent_name: <string> | default = "dsk-trace-agent" ]
 
-# Settings for which clusters the environment to be controlled are grouped into
+# 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정
 [ cluster_id: <cluster_id> | default = "unknown" ]
 ```
-
 **`collector_config`**
-
 ```yaml
-# Sampling rate applied to the collector
-# All data is collected when above 100
+# collector에 적용되는 샘플링 비율
+# 100 이상일 때 모든 데이터가 수집됩니다
 [ sampling_rate: <float> | default = 1 ]
 ```
-
 **`receiver_config`**
-
 ```yaml
-# Port number to receive data from the collector
+# collector로부터 데이터를 받을 포트 번호
 [ listen_port: <uint16> | default = 14251 ]
 
-# Custom tags applied to each span
+# 각 span에 적용되는 커스텀 태크
 [ custom_tags: <map[string]string> | default = "" ]
 ```
-
 ## Connecting Trace Agent to Application
 
 For integration, the target application needs to set the following environment variables.
@@ -98,7 +88,6 @@ For integration, the target application needs to set the following environment v
 | OTEL\_RESOURCE\_ATTRIBUTES | dsk\_host\_key=$(cat /var/datasaker/host\_key) | - |
 
 For example, you can distribute your application like this:
-
 ```shell
 docker run my-java-application \
     -e OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=<trace-agent-address>:4317 \
@@ -108,7 +97,6 @@ docker run my-java-application \
     -e OTEL_RESOURCE_ATTRIBUTES=dsk_host_key=$(cat /var/datasaker/host_key) \
     -d
 ```
-
 For more detailed information, see:
 
 [link to related documentation](https://github.com/datasaker/documentation/tree/main/settings/dsk-trace-agent/Instrumentation)

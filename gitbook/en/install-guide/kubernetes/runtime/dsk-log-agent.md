@@ -10,82 +10,96 @@ If the preceding task of `DataSaker` has not been carried out in the current Kub
 
 ## Install Log agent
 
-By default, the `Log agent` is deployed as a daemonset in a Kubernetes environment. Thus, a `Log agent` is installed on all nodes. If you want to install `Log agent` only on a specific node, additionally set affinity or nodeSelector for that node.
+By default, the `Log agent` is deployed as a daemonset by default in a Kubernetes environment. Thus, a `Log agent` is installed on all nodes. If you want to install `Log agent` only on a specific node, additionally set affinity or nodeSelector for that node.
 
 ### 1. Log agent setting value registration
 
-In order for `Log agent` to operate normally, you must **must** set one or more workloads to collect logs in _**collect.workloads**_.
-
 The meaning and default setting values ​​of `Log agent` are as follows. Different users have different requirements for agent setup. Therefore, the agent settings must be adjusted to suit the user's settings. Tune your agent settings for optimal results. Add or edit these values ​​in "\~/datasaker/config.yaml".
 
-| **Settings** | **Description** | **Default** | **Required** |
-| ----------------------------------- | --------------------------------------------------------------------------------------- | :---------: | :----------: |
-| `logAgent.collect.workloads[]` | Log collection target workload name (Example: 'nginx') | N/A | **✓** |
-| `logAgent.collect.keywords` | Log Collection Keywords (collects only logs containing keywords) | N/A | |
-| `logAgent.collect.tag` | custom tags | N/A | |
-| `logAgent.collect.service.name` | service name | `default` | |
-| `logAgent.collect.service.category` | Service category (write one of `app`, `database`, `syslog`, `etc` value) | `etc` | |
-| `logAgent.collect.service.type` | Service database type and development language type (write one value among `postgres`, `mysql`, `java`, `etc`) | `etc` | |
-| `logAgent.collect.service.address` | Database host and port information (Set when the service category is database. If not set, certain functions may not be available.) | N/A | ⚠️ |
+Following is a description of each setting item in the log agent configuration file.
+```yaml
+logAgent:
+  logs:
+    - service:
+      tag: []
+      keyword: []
+      multiline:
+        format:
+        pattern: []
+      masking:
+        - pattern:
+          replace:
+      collect:
+        type:
+        category:
+        address:
+        file:
+          paths: []
+          exclude_paths: []
+        kubernetes:
+          - namespace:
+            pod:
+            container:
+```
+| **Settings** | **Description** | **Default** |
+| ----------------------------------- | --------------------------------------------------------------------------------------- |:-----------------:|
+| **logs** | Log collection target information | |
+| `service` | Service name of the log collection destination | `default` |
+| `tag` | Tag of log collection target | N/A |
+| `keyword` | Log Collection Keywords (collects only logs containing keywords) | |
+| **multiline** | Multi-line log collection settings | |
+| `format` | multi-line log formats (eg go, java, ruby, python) | |
+| `pattern` | Multi-line log pattern (e.g. ^\d{4}-\d{2}-\d{2}) - User custom regex pattern can be used | |
+| **masking** | Sensitive information log masking settings | |
+| `pattern` | Log pattern to mask (e.g. ^\d{4}-\d{2}-\d{2}) - user custom regex pattern available | |
+| `replace` | The string where the masking pattern is to be replaced (eg ******) | |
+| **collect** | Log Collection Target Settings | |
+| `type` | log collection method (write one value among `file`, `driver`, `kubernetes`) | `file` |
+| `category` | service classification (write a value of one of `app`, `database`, `syslog`, `etc`) | `etc` |
+| `address` | Database host and port information (set when the service category is database) | |
+| **file** | If the log collection method is file, set | |
+| `paths` | Log collection destination path (e.g. /var/log/sample/*.log) | `/var/log/*.log` |
+| `exclude_paths` | Log collection exclusion target path | |
+| **kubernetes** | If the log collection method is kubernetes, Settings | |
+| `namespace` | Log Collection Target Namespace | `*` |
+| `pod` | Pod name for log collection | `*` |
+| `container` | Log collection target container name | `*` |
+
+In a Kubernetes environment, log agents can collect logs in two ways.
+
+* **kubernetes** : Collects logs through the information of the workload to collect logs. Set the namespace, pod name, and container name of the workload to collect. (If you deploy your log agent as a Daemonset, use that method.)
+* **file** : Collect the log file directly. Mount the logs to be collected directly on the log agent and set the relative path to the log file to be collected. (If you deploy the log agent as a sidecar pattern, use that method.)
+
+For example, if you're collecting logs via Kubernetes workload information, you could write a configuration file like this:
+
 
 ```shell
 cat << EOF >> ~/datasaker/config.yaml
-
 logAgent:
   enabled: true
-  logLevel: 'INFO'
-  collect:
-    -workloads:
-      -WORKLOAD_NAME
-      service:
-        name: SERVICE_NAME
-        Category: APP
-        type: ETC
+  logs:
+    - collect:
+        type: kubernetes
+        kubernetes:
+          - namespace: default
+            pod: awesome-saker-5f4b7f7b4f-2q9qz
+            container: awesome-saker
 EOF
 ```
-
+If you collect log files yourself, you can write a configuration file like this:
+```shell
+cat << EOF >> ~/datasaker/config.yaml
+logAgent:
+  enabled: true
+  logs:
+    - collect:
+        type: file
+        file:
+          paths:
+           - /var/log/awesome_saker/*.log
+EOF
+```
 ### 2. Log agent installation
-
 ```shell
 helm upgrade datasaker datasaker/agent-helm -n datasaker -f ~/datasaker/config.yaml
-```
-
-## How to use Log agent
-
-### 1. Be sure to enter at least one workload name (`workloads`) for log collection.
-
-If the workload is not created, `Log agent` may not operate normally.
-
-```yaml
-collect:
-  - workloads: # [required] Enter the names of the workloads to collect.
-      -postgres
-```
-
-#### \[ Guide to Creating **Workloads** ]
-
-Workloads are applications running on Kubernetes. (Whether the workload is a single component or multiple components working together, in Kubernetes the workload runs within a set of pods.) Kubernetes has several built-in workloads: resources. (Deployment, Replicaset, StatefulSet, DaemonSet)
-
-If you write the name of the workload you want to collect in `collect.workloads`, the corresponding log file will be collected. (/var/log/containers/_WORKLOAD\_NAME_.log)
-
-For example, when a pod is deployed with a workload name of 'app-server', the container log for that pod is created as a file name with the hash value added to the workload name. (app-server-5f4b7f7b4f-2q9qz.log) To collect the log, write 'app-server' in `collect.workloads` to automatically collect the log.
-
-### 2. Note the setting of `keywords`.
-
-Only logs containing the string registered in the `keywords` setting are collected. If more than one `keywords` is set, logs are collected if at least one `keywords` is included.
-
-```yaml
-keywords: [] # Set to collect only logs containing specified keywords.
-```
-
-### 3. If the `type` of the log collection target is `database`, the `address` setting is recommended.
-
-Through this setting, log information from related `database agent` is mapped and displayed. If you do not set `address`, you may not be able to use the function.
-
-```yaml
-service:
-  name: custom-service-name
-  category: database
-  type: postgres
-  address: 0.0.0.0:5432
 ```

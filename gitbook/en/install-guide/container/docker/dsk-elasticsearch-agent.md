@@ -13,19 +13,14 @@ If the preceding task of `DataSaker` has not been carried out in the current Doc
 ### 1. Register Elasticsearch agent settings
 
 To connect the agent, the host and port address of the Elasticsearch server to be collected must be set on the agent.
-
 ```shell
  DSK_ES_URI=http(s)://<user>:<password>@<host>:<port>
 ```
-
 For example, to collect Elasticsearch serving on localhost 9200 port, you can set as follows.
-
 ```shell
  DSK_ES_URI=http://localhost:9200
 ```
-
 Enter the following command in Terminal to create the dsk-elasticsearch-agent configuration file.
-
 ```shell
 cd ~
 mkdir .datasaker
@@ -34,7 +29,7 @@ cat << EOF > ~/.datasaker/elasticsearch-config.yml
 agent:
   metadata:
   # agent_name: dsk-elasticsearch-agent
-  options:
+  option:
     exporter_config:
       command: "/etc/datasaker/target-exporter"
       args:
@@ -52,7 +47,6 @@ agent:
           rule: drop
 EOF
 ```
-
 In the above setup, each argument means:
 
 | Arguments | Description | Default |
@@ -73,6 +67,7 @@ In the above setup, each argument means:
      sudo mkdir -p /var/datasaker
      sudo chown -R datasaker:datasaker /var/datasaker/
     ```
+
 2. Enter the docker command into the server.
 
     ```shell

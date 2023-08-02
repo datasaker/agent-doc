@@ -1,50 +1,54 @@
 # dsk-base-agent
 
-`Base agent`はサーバから発生する様々な情報をリアルタイムで収集します。
-たとえば、メモリ、CPU使用率など、サーバーのパフォーマンス指標、ネットワークトラフィック、コンテナ情報など、さまざまな情報を収集できます。
-これにより、顧客はリアルタイムでサーバーの状態を監視でき、サーバーのパフォーマンスを最適化し、信頼性を向上させることができます。
+`base-agent` はサーバから発生する様々な情報をリアルタイムで収集します。
+たとえば、メモリ、CPU使用率など、サーバーのパフォーマンス指標、ネットワークトラフィック情報など、さまざまな情報を収集できます。
+これにより、お客様はリアルタイムでサーバーの状態を監視でき、サーバーのパフォーマンスを最適化し、信頼性を向上させることができます。
 お客様のニーズに合わせてエージェント設定を調整して、最適な結果を提供します。
 
-＃Datasaker先行作業を行いましたか？
-現在RedHat 7環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker先行操作]（$ {PREPARATION_MANUAL_JP}）
+## Datasaker先行作業を行いましたか？
 
-# Base agentのインストール
-## 1. パッケージのインストール
-`DataSaker`の `Base agent`をインストールするにはsudo権限が必要です。
+現在の環境で `DataSaker` の先行操作が進まない場合は、`DataSaker` 先行操作を先に進めてください。 [DataSaker先行操作]（$ {PREPARATION_MANUAL_JP}）
+
+## Base agentのインストール
+
+### 1. パッケージのインストール
+
+`DataSaker`の`Base agent`をインストールするにはsudo権限が必要です。
 ```shell
-sudo yum install dsk-node-agent
+yum install dsk-node-agent
 ```
-
-## 2. Base agentの設定
+### 2. Base agentの設定
 ```shell
-sudo vi /etc/datasaker/dsk-node-agent/agent-config.yml
+vi /etc/datasaker/dsk-node-agent/agent-config.yml
 ```
 必要に応じて次の内容を修正します。
-``` yaml
-# Base agent 設定ファイル
+```yaml
 agent:
-  agent_name: "dsk-base-agent" # エージェント名 (エイリアス) default=dsk-node-agent
-  cluster_id: "my-cluster-id" # 管理対象となる環境がどのクラスタにまとめられているかについての設定 default=unknown
+  agent_name: "dsk-base-agent"
+  cluster_id: "my-cluster-id"
 ```
+各設定の説明は次のとおりです。
 
-## 3. パッケージの実行
+| **Settings** | **Description** | **Default** | **Required** |
+| -------------------------- | ---------------------------------------------------------------------------------------------------- | :---------: | :----------: |
+| `agent_name` |エージェント名（エイリアス）| dsk-base-agent |いいえ
+| `cluster_id` |管理対象となる環境がどのクラスタにまとめられているかを設定します。 | unknown |いいえ
+
+### 3. パッケージの実行
 ```shell
-sudo systemctl enable dsk-node-agent --now
+systemctl enable dsk-node-agent --now
 ```
-
-## 4. パッケージ実行状態の確認
+### 4. パッケージ実行状態の確認
 ```shell
-sudo systemctl status dsk-node-agent
+systemctl status dsk-node-agent
 ```
+## Base agentを削除する
 
-# Base agentを削除する
-## 1. パッケージの中断
+### 1. パッケージの中断
 ```shell
-sudo systemctl stop dsk-node-agent
+systemctl stop dsk-node-agent
 ```
-
-## 2. パッケージの削除
+### 2. パッケージの削除
 ```shell
-sudo systemctl stop dsk-node-agent &&
-sudo yum remove dsk-node-agent
+yum remove dsk-node-agent
 ```

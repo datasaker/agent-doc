@@ -6,31 +6,26 @@
 
 ## DataSaker 先行作業を行いましたか？
 
-現在Docker環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker先行操作](dsk-elasticsearch-agent/ja/$%7BPREPARATION\_MANUAL\_JP%7D/)
+現在、Docker環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker先行操作](dsk-elasticsearch-agent/ja/$%7BPREPARATION\_MANUAL\_JP%7D/)
 
 ## Elasticsearch agentのインストール
 
 ### 1. Elasticsearch agent 設定値の登録
 
 エージェントを接続するには、収集したいElasticsearchサーバーのホストとポートアドレスをエージェントに設定する必要があります。
-
 ```shell
  DSK_ES_URI=http(s)://<user>:<password>@<host>:<port>
 ```
-
 たとえば、localhost 9200ポートにサービスしているElasticsearchを収集するには、次のように設定できます。
-
 ```shell
  DSK_ES_URI=http://localhost:9200
 ```
-
 端末に次のコマンドを入力して、dsk-elasticsearch-agent設定ファイルを生成します。
-
 ```shell
-cd~
+cd ~
 mkdir .datasaker
 DSK_ES_URI=http://localhost:9200
-cat << EOF> ~/.datasaker/elasticsearch-config.yml
+cat << EOF > ~/.datasaker/elasticsearch-config.yml
 agent:
   metadata:
   # agent_name: dsk-elasticsearch-agent
@@ -52,7 +47,6 @@ agent:
           rule: drop
 EOF
 ```
-
 上記の設定では、各 argument は次のことを意味します。
 
 | Argument |説明|デフォルト|
@@ -73,6 +67,7 @@ EOF
      sudo mkdir -p /var/datasaker
      sudo chown -R datasaker:datasaker /var/datasaker/
     ```
+
 2. ドッカー命令をサーバに入力します。
 
     ```shell

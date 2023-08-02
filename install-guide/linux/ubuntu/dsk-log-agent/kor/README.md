@@ -6,7 +6,7 @@
 고객의 요구사항에 맞게 에이전트 설정을 조정하여 최적의 결과를 제공해 드립니다.
 
 # DataSaker 선행 작업을 진행하였나요?
-현재 Ubuntu 환경에서는 `DataSaker`의 선행 작업이 진행되지 않으셨다면 `DataSaker` 선행 작업을 먼저 진행하여 주시기 바랍니다. [DataSaker 선행 작업](${PREPARATION_MANUAL_KR})
+현재 Ubuntu 환경에서는 `DataSaker`의 선행 작업이 진행되지 않으셨다면 `DataSaker` 선행 작업을 먼저 진행하여 주시기 바랍니다. [DataSaker 선행 작업](README.md)
 
 # Log agent 설치하기
 `Log agent`는 현재 Ubuntu 18.04.6 LTS (Bionic Beaver) 환경에서만 지원하고 있습니다.

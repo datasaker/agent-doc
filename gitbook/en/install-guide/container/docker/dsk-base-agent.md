@@ -6,7 +6,7 @@
 
 ## Did you run the DataSaker predecessor?
 
-If the preceding task of `DataSaker` has not been carried out in the current Docker environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor](dsk-base-agent/kor/$%7BPREPARATION\_MANUAL\_KR%7D/)
+If the preceding task of `DataSaker` has not been carried out in the current Docker environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor](README.md)
 
 ## Install the base agent
 

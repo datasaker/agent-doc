@@ -58,7 +58,6 @@
     <!-- * [dsk-mysql-agent](install-guide/linux/ubuntu/dsk-mysql-agent.md) -->
     <!-- * [dsk-plan-mysql-agent](install-guide/linux/ubuntu/dsk-plan-mysql-agent.md) -->
     * [dsk-plan-postgres-agent](install-guide/linux/ubuntu/dsk-plan-postgres-agent.md)
-    * [dsk-plan-postgres13-agent](install-guide/linux/ubuntu/dsk-plan-postgres13-agent.md)
     * [dsk-postgres-agent](install-guide/linux/ubuntu/dsk-postgres-agent.md)
     * [dsk-trace-agent](install-guide/linux/ubuntu/dsk-trace-agent.md)
 * [Ansible Datasaker Role](install-guide/ansible/README.md)

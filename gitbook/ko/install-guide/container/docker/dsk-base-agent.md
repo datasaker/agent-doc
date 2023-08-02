@@ -32,6 +32,7 @@ docker run -d --name dsk-node-agent\
    -v /var/datasaker/:/var/datasaker/\
    -v /proc/:/host/proc/:ro\
    -v /sys/:/host/sys/:ro\
+   -v /:/rootfs:ro,rslave\
    -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro\
    -e DSK_CLUSTER_ID=${DSK_CLUSTER_ID} \
    --privileged\

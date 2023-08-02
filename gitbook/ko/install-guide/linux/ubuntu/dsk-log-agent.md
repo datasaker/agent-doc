@@ -115,7 +115,7 @@ agent:
 | `cluster_id`                        | 관제 대상이 되는 환경의 클러스터 정보                                                     |  `unknown`  |
 | **logs**                          | 로그 수집 대상 정보                                                                                    |
 | `service`                           | 로그 수집 대상의 서비스 이름                                                              |  `default`  |
-| `tag`                             | 로그 수집 대상의 태그                                                                    |     N/A     |
+| `tag`                             | 로그 수집 대상의 태그                                                                    |           |
 | `keyword`                           | 로그 수집 키워드 (키워드가 포함된 로그만 수집)                                             |             |
 | **multiline**                       | 멀티라인 로그 수집 설정                                                                                 |
 | `format`                  | 멀티라인 로그 포맷 (예 : go, java, ruby, python)                                          |             |

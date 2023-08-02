@@ -30,7 +30,7 @@
     * [dsk-base-agent](install-guide/linux/RedHat-8/dsk-base-agent.md)
     * [dsk-log-agent](install-guide/linux/RedHat-8/dsk-log-agent.md)
     * [dsk-plan-postgres-agent](install-guide/linux/RedHat-8/dsk-plan-postgres-agent.md)
-    * [dsk-postgres-agent](install-guide/linux/RedHat-8/dsk-postgres-agen.md)
+    * [dsk-postgres-agent](install-guide/linux/RedHat-8/dsk-postgres-agent.md)
     * [dsk-trace-agent](install-guide/linux/RedHat-8/dsk-trace-agent.md)
   * [RedHat 9環境でDatasaker設定ファイルを構成する](install-guide/linux/RedHat-9/README.md)
     * [dsk-base-agent](install-guide/linux/RedHat-9/dsk-base-agent.md)
@@ -40,7 +40,7 @@
     * [dsk-trace-agent](install-guide/linux/RedHat-9/dsk-trace-agent.md)
   * [Amazon Linux 2環境でDatasaker設定ファイルを構成する]（install-guide/linux/amazonlinux-2/README.md）
     * [dsk-base-agent](install-guide/linux/amazonlinux-2/dsk-base-agent.md)
-    * [dsk-log-agent](install-guide/linux/amazonlinux-2/dsk-log-agent/README.md)
+    * [dsk-log-agent](install-guide/linux/amazonlinux-2/dsk-log-agent.md)
     * [dsk-plan-postgres-agent](install-guide/linux/amazonlinux-2/dsk-plan-postgres-agent.md)
     * [dsk-postgres-agent](install-guide/linux/amazonlinux-2/dsk-postgres-agent.md)
     * [dsk-trace-agent](install-guide/linux/amazonlinux-2/dsk-trace-agent.md)

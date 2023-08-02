@@ -9,7 +9,6 @@
 ## Mongo agentのインストール
 
 ### 1. Mongo agent 設定値登録
-
 ```shell
 cat << EOF >> ~/datasaker/config.yaml
 
@@ -17,16 +16,12 @@ mongoAgent:
   list: []
 EOF
 ```
-
 #### Mongo agent設定値
 
 Mongo agentの設定値の意味とdefault値は次のとおりです。ユーザーごとにエージェント設定に異なる要件があります。したがって、エージェント設定をユーザー設定に合わせて調整する必要があります。最適な結果を得るためにエージェント設定を調整してください。 `\~/datasaker/config.yaml`でその値を追加または変更します。
-
-``` yaml
+```yaml
 ```
-
 ### 2. Mongo agentのインストール
-
 ```shell
 helm upgrade datasaker datasaker/agent-helm -n datasaker \
   -f ~/datasaker/config.yaml

@@ -5,7 +5,6 @@
 収集したデータに基づいて、データベースのパフォーマンスのボトルネックを特定して対応できます。\
 お客様のニーズに合わせてエージェント設定を調整して、最適な結果を提供します。
 
-
 ## Supported version
 
 | version |サポート|
@@ -22,7 +21,6 @@
 ## DataSaker 先行作業を行いましたか？
 
 現在のUbuntu環境では、`DataSaker`の先行作業が進行しなかった場合は、`DataSaker`先行作業を先に進めてください。 [DataSaker 先行操作]($%7BPREPARATION\_MANUAL\_KR%7D/)
-
 
 ## Postgres agentのインストール
 
@@ -45,21 +43,22 @@
 [postgres user権限参照サイト]（https://www.postgresql.org/docs/14/sql-grant.html）
 
 ### 3. パッケージのインストール
-
-``` bash
+```bash
 curl -fsSL -o installer.sh https://dsk-agent-s3.s3.ap-northeast-2.amazonaws.com/dsk-agent-s3/public/install.sh
 chmod 700 installer.sh
 sudo ./installer.sh dsk-postgres-agent
 ```
-
 ### 4. agent-configの設定
+```shell
+vi /etc/datasaker/dsk-postgres-agent/agent-config.yml
+```
+必要に応じて次の内容を修正します。
 
-`/etc/datasaker/dsk-postgres-agent/agent-config.yml`に内容を書き込みます。
-
-``` yaml
+#### `agent-config.yml`
+```yaml
 agent:
   metadata:
-    agent_name: dsk-postgres-agent # エージェント名 (エイリアス) default=dsk-postgres-agent
+    agent_name: dsk-postgres-agent
   option:
     exporter_config:
       command: "/usr/bin/dsk-postgres-exporter"
@@ -68,7 +67,7 @@ agent:
         - --extend.query-path=/etc/datasaker/dsk-postgres-agent/queries.yaml
         - --data-source-user=<monitoring account name>
         - --data-source-pass=<monitoring account pass>
-        - --data-source-uri=<monitoring database uri>#<ip>:<port>/dbname
+        - --data-source-uri=<monitoring database uri> # <ip>:<port>/dbname
     scrape_interval: 15s
     scrape_timeout: 5s
     scrape_configs:
@@ -77,35 +76,65 @@ agent:
         filtering_configs:
           rule: drop
 ```
+##### `metadata`
+```yaml
+# 에이전트 이름 (별칭)
+[ agent_name: <string> | default = "dsk-postgres-agent" ]
+
+# 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정
+[ cluster_id: <cluster_id> | default = "unknown" ]
+```
+各設定の説明は次のとおりです。
+
+| **Settings** | **Description** | **Default** | **Required** |
+| -------------------------- | ---------------------------------------------------------------------------------------------------- | :-----------: | :------------: |
+| `agent_name` |エージェント名（エイリアス）| dsk-postgres-agent | N / A |
+| `cluster_id` |管理対象となる環境がどのクラスタにまとめられているかについての設定unknown | N / A |
+
+##### `option.exporter_config.port`
+```yaml
+[ port: <uint16> | default = 19187 ]
+```
+各設定の説明は次のとおりです。
+
+| **Settings** | **Description** | **Default** | **Required** |
+| ------------ | ---------------------------------------------------------------------------------------------------- | :-----------: | :------------: |
+| `port` |エージェントが使用するポート番号既存の使用中のアプリケーションとポートの競合が発生したときに任意の値に変更する19187 | N / A |
+
+##### `option.exporter_config.args`
+```yaml
+# 관제하려는 database의 접속권한을 가진 계정 정보와 주소를 입력합니다.
+- --data-source-user=<monitoring account name>
+- --data-source-pass=<monitoring account pass>
+- --data-source-uri=<monitoring database uri> # <ip>:<port>/dbname
+```
+各 argument の説明は次のとおりです。
+
+| **Settings** | **Description** | **Default** | **Required** |
+| ------------ | ---------------------------------------------------------------------------------------------------- | :-----------: | :------------: |
+| `--data-source-user` |管理したいデータベースのアクセス権を持つアカウント情報を入力します。 | N / A | **✓** |
+| `--data-source-pass` |管理したいデータベースのアクセス権を持つアカウントのパスワードを入力します。 | N / A | **✓** |
+| `--data-source-uri` |管理するデータベースのアドレスを入力します。 | N / A | **✓** |
 
 ### 5. パッケージの実行
-
 ```shell
 systemctl enable dsk-postgres-agent --now
 ```
-
 ### 6. パッケージ実行状態の確認
-
 ```shell
 systemctl status dsk-postgres-agent
 ```
-
 または
-
 ```shell
 service dsk-postgres-agent
 ```
-
 ## Postgresエージェントを削除する
 
 ### 1. パッケージの中断
-
 ```shell
 systemctl stop dsk-postgres-agent
 ```
-
 ### 2. パッケージの削除
-
 ```shell
 sudo apt remove dsk-postgres-agent
 ```

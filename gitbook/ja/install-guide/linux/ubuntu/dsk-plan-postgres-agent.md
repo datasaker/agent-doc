@@ -20,9 +20,9 @@
 
 ## DataSaker 先行作業を行いましたか？
 
-現在のUbuntu環境では、`DataSaker`の先行作業が進行しなかった場合は、`DataSaker`先行作業を先に進めてください。 [DataSaker 先行操作]($%7BPREPARATION\_MANUAL\_KR%7D/)
+現在のUbuntu環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker 先行操作]($%7BPREPARATION\_MANUAL\_KR%7D/)
 
-## Plan Postgres Agent install
+## Plan Postgres Agentのインストール
 
 ### 1. Postgres設定の変更
 
@@ -43,87 +43,74 @@
 [postgres user権限参照サイト]（https://www.postgresql.org/docs/14/sql-grant.html）
 
 ### 3. パッケージのインストール
-
 ```shell
 curl -fsSL -o installer.sh https://dsk-agent-s3.s3.ap-northeast-2.amazonaws.com/dsk-agent-s3/public/install.sh
 chmod 700 installer.sh
 sudo ./installer.sh dsk-plan-postgres-agent
 ```
-
-### 4. Postgres agent 設定値の登録
-
-#### 必須入力項目
-
-必須入力項目は次のとおりです。 Postgres設定に合わせて値を入れてください
-
-|エンティティ説明|
-| --------------------------------- | -------------------------- |
-| agent.data\_source\_name.user | Postgres user IDを入力します。 |
-| agent.data\_source\_name.password | Postgres user パスワードを入力します。 |
-| agent.data\_source\_name.address | Postgresアドレスを入力してください。 |
-| agent.data\_source\_name.port | Postgresポートを入力してください。 |
-| agent.data\_source\_name.DBName | Postgresデータベースを入力します。 |
-
-#### オプション入力
-
+### 4. Plan Postgres Agent の設定
 ```shell
-vi /etc/datasaker/dsk-plan-mysql-agent/agent-config.yml
+vi /etc/datasaker/dsk-plan-postgres-agent/agent-config.yml
 ```
-
 必要に応じて次の内容を修正します。
 
-``` yaml
+#### `agent-config.yml`
+```yaml
 agent:
   metadata:
-    agent_name: "dsk-plan-postgres-agent" # エージェント名 (エイリアス) default=dsk-plan-postgres-agent
+    agent_name: "dsk-plan-postgres-agent" # <agent_alias_name> default=dsk-plan-postgres-agent
   data_source_name:
-    user: 'user'
-    password: 'pass'
-    address: '127.0.0.1'
-    port: '5432'
-    DBName: 'database'
+    user: # <user_name>
+    password: # <user_password>
+    address: # <database_address>
+    port: # <database_port>
+    DBName: # <database_name>
   explain:
-    scrape_interval: 30s
-    scrape_timeout: 5s
-    slow_query_standard: 5s
-    executor_number: 10
-    sender_number: 10
-    activity_query_buffer: 50
-    plan_sender_buffer: 50
+    scrape_interval: 30s # <activity_session_scrape_time>
+    scrape_timeout: 5s # <activity_session_scrape_query_timeout>
+    slow_query_standard: 5s # <slow_query_standard> 
+    executor_number: 10 # <explain executor number>
+    sender_number: 10 # <explain sender number>
+    activity_query_buffer: 50 # <activity query buffer>
+    plan_sender_buffer: 50 # <explain result buffer>
 ```
+各設定の説明は次のとおりです。
+
+| **Settings** | **Description** | **Default** | **Required** |
+| -------------------------- | ---------------------------------------------------------------------------------------------------- | :---------: | :----------: |
+| `agent.metadata.agent_name` |エージェント名（エイリアス）| dsk-plan-postgres-agent | **✓** |
+| `agent.data_source_name.user` | postgresアカウント名| N / A | **✓** |
+| `agent.data_source_name.password` | postgresアカウントパスワード| N / A | **✓** |
+| `agent.data_source_name.address` | postgresサーバーurl | N / A | **✓** |
+| `agent.data_source_name.port` | postgresサーバーポート| N / A | **✓** |
+| `agent.data_source_name.DBName` | postgresサーバーデータベース名| N / A | **✓** |
+| `agent.explain.scrape_interval` | activity session scrapeサイクル| 30秒| |
+| `agent.explain.scrape_timeout` | activity session scrape queryのタイムアウト時間| 5秒| |
+| `agent.explain.slow_query_standard` |スロークエリ基準| 5秒| |
+| `agent.explain.executor_number` | explainを実行するためのスレッド数10 | |
+| `agent.explain.sender_number` | explain結果を送信するスレッドの数| 10 | |
+| `agent.explain.activity_query_buffer` | activity query buffer | 50 | |
+| `agent.explain.plan_sender_buffer` | explain result buffer | 50 | |
 
 ### 5. パッケージの実行
-
 ```shell
 systemctl enable dsk-plan-postgres-agent --now
 ```
-
 ### 6. パッケージ実行状態の確認
-
 ```shell
 systemctl status dsk-plan-postgres-agent
 ```
-
 または
-
 ```shell
 serivce dsk-plan-postgres-agent
 ```
-
-\
-\
-
-
 ## Plan Postgres Agentを削除する
 
 ### 1. パッケージの中断
-
 ```shell
 systemctl stop dsk-plan-postgres-agent
 ```
-
 ### 2. パッケージの削除
-
 ```shell
 sudo apt remove dsk-plan-postgres-agent
 ```

@@ -11,7 +11,6 @@
 ## Trace agentのインストール
 
 ### 1. Trace agent 設定値の登録
-
 ```shell
 cat << EOF >> ~/datasaker/config.yaml
 
@@ -20,14 +19,11 @@ traceAgent:
   logLevel: 'INFO'
 EOF
 ```
-
 ### 2. Trace agentのインストール
-
 ```shell
 helm upgrade datasaker datasaker/agent-helm -n datasaker \
   -f ~/datasaker/config.yaml
 ```
-
 ## Trace agent ポート情報
 
 |ポート| Protocol | Describe |
@@ -44,38 +40,26 @@ helm upgrade datasaker datasaker/agent-helm -n datasaker \
 ### Trace agent設定値
 
 Trace agentの設定値の意味とdefault値は次のとおりです。ユーザーごとにエージェント設定に異なる要件があります。したがって、エージェント設定をユーザー設定に合わせて調整する必要があります。最適な結果を得るためにエージェント設定を調整してください。各項目に設定される値はデフォルト設定値です。
-
-``` yaml
+```yaml
 traceAgent:
-  # falseに設定すると、他の値は無視されます。
   enabled: false
   tolerations: []
-  ＃エージェントイメージをインポートするときに使用するイメージプールポリシーを設定します。
   imgPolicy: 'Always' # [Always, IfNotPresent, Never]
-  ＃エージェントイメージのバージョンを設定します。
   imgVersion: 'latest'
-  # tagsはトレースエージェントのカスタムタグで、key = value、key2 = value2の形式で作成できます。
   tags: []
-  # resources はトレースエージェントのリソース制限を設定します。
   resource:
     requests:
-      cpu: 100 m
+      cpu: 100m
       memory: 512Mi
     limits:
       cpu: 1000m
       memory: 1000Mi
-  # logLevel はエージェントのログレベルを設定します。
   logLevel: 'INFO'
-  # nodeSelector を設定すると、特定のノードにのみエージェントがデプロイされます。
   nodeSelector: {}
-  # affinity はエージェントの affinity 設定です。
   affinity: {}
-  # collector 設定は Trace データ収集に関する設定です。
   collector:
-    ＃sampleRateは、トレースデータを収集する確率を設定します。 100以上の場合は、トレースデータをすべて収集します。 (0<sampleRate<=100)
     samplingRate: 1
 ```
-
 各設定値の詳細な説明は以下の通りである。
 
 |設定値|説明

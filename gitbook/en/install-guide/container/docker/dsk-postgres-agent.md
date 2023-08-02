@@ -66,7 +66,6 @@ Required user rights are as follows.
 #### Required input information
 
 To connect the agent, the address of the PostgreSQL server to be collected, database, user ID and password must be set on the agent.
-
 ```shell
  DSK_PG_USER=<user>
  DSK_PG_SOURCE_PASS=<password>
@@ -74,9 +73,7 @@ To connect the agent, the address of the PostgreSQL server to be collected, data
  DSK_PG_HOST=<host>
  DSK_PG_PORT=<port>
 ```
-
-For example, to collect PostgreSQL serviced at the address `192.168.123.132` and the default port `5432`, the terminal can be set as follows.
-
+For example, to collect PostgreSQL serviced at the address `192.168.123.132` and the default port `5432`, you can set the terminal as follows.
 ```shell
  DSK_PG_USER=postgres
  DSK_PG_SOURCE_PASS=postgres
@@ -84,11 +81,9 @@ For example, to collect PostgreSQL serviced at the address `192.168.123.132` and
  DSK_PG_HOST=192.168.123.132
  DSK_PG_PORT=5432
 ```
-
 #### Register Postgres agent settings
 
-Now, enter the following command in the terminal to create configuration files for dsk-postgres-agent and dsk-plan-postgres-agent.
-
+Now, enter the following command in the terminal to create the dsk-postgres-agent and dsk-plan-postgres-agent configuration files.
 ```shell
 cd ~
 mkdir .datasaker
@@ -96,7 +91,7 @@ cat << EOF > ~/.datasaker/postgres-config.yml
 agent:
   metadata:
     agent_name: dsk-postgres-agent
-  options:
+  option:
     exporter_config:
       command: /etc/datasaker/target-exporter
       port: 9187
@@ -129,7 +124,6 @@ agent:
     slow_query_standard: 1s
 EOF
 ```
-
 | set value | Description |
 | ----------------------------- | ------------------------ |
 | data\_source\_name.user | DB user name |
@@ -144,14 +138,11 @@ EOF
 #### Install the Postgres agent
 
 1. Create a local directory to be used by Data Shaker.
-
 ```shell
  sudo mkdir -p /var/datasaker
- sudo chown -R datasaker:datasaker /var/datasaker/
+ sudo chown -R datasaker:datasaker /var/datasaker/ 
 ```
-
 2. Enter the docker command into the server.
-
 ```shell
  DSK_PG_URI=${DSK_PG_HOST}:${DSK_PG_PORT}/${DSK_PG_DB_NAME}?sslmode=disable
  docker run -d --name dsk-postgres-agent\
@@ -160,7 +151,8 @@ EOF
   -v ~/.datasaker/postgres-config.yml:/etc/datasaker/dsk-postgres-agent/agent-config.yml:ro\
   -e DKS_LOG_LEVEL=info\
   -e DATA_SOURCE_USER=${DSK_PG_USER}\
-  -e DATA_SOURCE_PASS=${DSK_PG_SOURCE_PASS}\-e DATA_SOURCE_URI=${DSK_PG_URI}\
+  -e DATA_SOURCE_PASS=${DSK_PG_SOURCE_PASS}\
+  -e DATA_SOURCE_URI=${DSK_PG_URI}\
   --restart=always\
   datasaker/dsk-postgres-agent
   docker run -d --name dsk-plan-postgres-agent\

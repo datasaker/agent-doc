@@ -11,11 +11,9 @@ You can install Datasaker Agent using Ansible.
 ## Installation
 
 Install the Datasaker role in Ansible Galaxy.
-
 ```shell
 ansible-galaxy install dsk_bot.datasaker
 ```
-
 Write an Ansible playbook to deploy the agent.
 
 Below is an example of a basic installation.
@@ -28,7 +26,7 @@ Below is an example of a basic installation.
     - role: dsk_bot.datasaker
   vars:
     datasaker_api_key: "<YOUR_API_KEY>"
-    datasaker_agents: ["dsk-node-agent"]
+    datasaker_agents: ["dsk-node-agent"] 
 ```
 #### Docker Agent Default Install Example
 ```yml
@@ -40,7 +38,6 @@ Below is an example of a basic installation.
     datasaker_api_key: "<YOUR_API_KEY>"
     datasaker_docker_agents: ["dsk-docker-node-agent","dsk-docker-log-agent"]
 ```
-
 #### Required settings
 
 | variable name | Description |
@@ -83,9 +80,8 @@ Below is an example of a basic installation.
 |`container_agent_restart_policy`| `dsk-container-agent` Container Restart Policy settings. <br> (Default) `always`|
 |`node_agent_restart_policy`| `dsk-node-agent` Container Restart Policy settings. <br> (Default) `always`|
 |`trace_agent_restart_policy`| `dsk-trace-agent` Container Restart Policy settings. <br> (Default) `always`|
-|`log_agent_restart_policy`| `dsk-log-agent` Container Restart Policy settings. <br> (Default) `always`|
-|`postgres_agent_restart_policy`| `dsk-postgres-agent` Container Restart Policy settings. <br> (Default) `always`|
-|`plan_postgres_agent_restart_policy`|`dsk-plan-postgres-agent` Container Restart Policy settings. <br> (Default) `always`|
+|`log_agent_restart_policy`| `dsk-log-agent` Container Restart Policy settings. <br> (Default) `always`||`postgres_agent_restart_policy`| `dsk-postgres-agent` Container Restart Policy settings. <br> (Default) `always`|
+|`plan_postgres_agent_restart_policy`| `dsk-plan-postgres-agent` Container Restart Policy settings. <br> (Default) `always`|
 |`container_agent_log_level`| `dsk-container-agent` Log Level settings. <br> (Default) `INFO` |
 |`node_agent_log_level`| `dsk-node-agent` Log Level settings. <br> (Default) `INFO` |
 |`trace_agent_log_level`| `dsk-trace-agent` Log Level settings. <br> (Default) `INFO` |
@@ -123,8 +119,7 @@ Below is an example of a basic installation.
 |`postgres_user_password`| Set Postgres user password in `dsk-postgres-agent`. <br> (Default) `None` |
 |`postgres_database_address`| Set Postgres address in `dsk-postgres-agent`. <br> (Default) `None` |
 |`postgres_database_port`| Set Postgres port in `dsk-postgres-agent`. <br> (Default) `None` |
-|`plan_postgres_user_name`| Set the Plan Postgres user ID in `dsk-plan-postgres-agent`. <br> (Default) `None` |
-|`plan_postgres_user_password`| Set Plan Postgres user password in `dsk-plan-postgres-agent`. <br> (Default) `None` |
+|`plan_postgres_user_name`| Set the Plan Postgres user ID in `dsk-plan-postgres-agent`. <br> (Default) `None` ||`plan_postgres_user_password`| Set Plan Postgres user password in `dsk-plan-postgres-agent`. <br> (Default) `None` |
 |`plan_postgres_database_address`| Set the Plan Postgres address in `dsk-plan-postgres-agent`. <br> (Default) `None` |
 |`plan_postgres_database_port`| Set the Plan Postgres port in `dsk-plan-postgres-agent`. <br> (Default) `None` |
 |`plan_postgres_database_name`| Configure the Plan Postgres database in `dsk-plan-postgres-agent`. <br> (Default) `None` |
@@ -133,7 +128,7 @@ Below is an example of a basic installation.
 |`plan_postgres_slow_query_standard`| Set Plan Postgres slow query standard in `dsk-plan-postgres-agent`. <br> (Default) `5s` |
 |`plan_postgres_executor_number`| Set the Plan Postgres executor number in `dsk-plan-postgres-agent`. <br> (Default) `10` |
 |`plan_postgres_sender_number`| Set the Plan Postgres sender number in `dsk-plan-postgres-agent`. <br> (Default) `10` |
-|`plan_postgres_activity_query_buffer`| `dsk-plan-posSet the Plan Postgres activity query buffer in tgres-agent`. <br> (Default) `50` |
+|`plan_postgres_activity_query_buffer`| Set the Plan Postgres activity query buffer in `dsk-plan-postgres-agent`. <br> (Default) `50` |
 |`plan_postgres_plan_sender_buffer`| Configure the Plan Postgres plan sender buffer in `dsk-plan-postgres-agent`. <br> (Default) `50` |
 
 ##### Ansible Playbook Detailed Settings Example
@@ -159,7 +154,7 @@ Below is an example of a basic installation.
     plan_postgres_database_name: sample
     plan_postgres_database_port: 5432
     log_collects:
-      -paths:
+      - paths:
           - "/var/log/sample/*/*.log"
         exclude_paths: []
         keywords: []
@@ -168,7 +163,7 @@ Below is an example of a basic installation.
           name: "default"
           category: "etc"
           type: "etc"
-      -paths:
+      - paths:
           - "/var/log/sample/b4d5ac015a5a*/*.log"
         service:
           name: "docker-test"
@@ -176,7 +171,6 @@ Below is an example of a basic installation.
           type: "postgres"
           address: "0.0.0.0:5432"
 ```
-
 ## Uninstallation
 
 You can uninstall Datasaker Agent.
@@ -188,7 +182,6 @@ datasaker_clean requires uninstall set to `True`.
 |`datasaker_clean`| Remove Agents written in `datasaker_agents` or `datasaker_docker_agents`, as well as created folders and configuration files. <br> (Default) `False` |
 
 #### Datasaker Agents Uninstall Example
-
 ```yml
 - hosts: servers
   become: true

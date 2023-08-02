@@ -35,7 +35,6 @@ docker run -d --name dsk-node-agent\
    -v /sys/:/host/sys/:ro\
    -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro\
    -e DSK_CLUSTER_ID=${DSK_CLUSTER_ID} \
-   -e DSK_LOG_LEVEL=DEBUG\
    --privileged\
    --restart=always\
    --network host\
@@ -50,7 +49,6 @@ docker run -d --name dsk-container-agent\
    -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro\
    -e DSK_CLUSTER_ID=${DSK_CLUSTER_ID} \
    -e GOMAXPROCS=1\
-   -e DSK_LOG_LEVEL=DEBUG\
    --privileged\
    --restart=always\
    datasaker/dsk-container-agent

@@ -52,6 +52,7 @@ ansible-galaxy install dsk_bot.datasaker
 |`datasaker_api_key`|API Key를 입력합니다.|
 |`datasaker_agents`| 각 호스트에 설치하고자 하는 Host Agent 리스트입니다. <br>`dsk-node-agent` `dsk-trace-agent` `dsk-log-agent` `dsk-postgres-agent` `dsk-plan-postgres-agent`<br>| `dsk-node-agent`|
 |`datasaker_docker_agents`| 각 호스트에 설치하고자 하는 Docker Container Agent 리스트입니다. <br>Docker Container Agents를 넣으면 Host Agent 설치는 자동으로 비활성화 됩니다. <br>`dsk-docker-node-agent` `dsk-docker-trace-agent` `dsk-docker-log-agent` `dsk-docker-postgres-agent`<br>| `dsk-docker-node-agent`|
+
 <!--
 #### Datasaker 공통 설정
 | 변수명                                      | 설명                                      | Default                                      |
@@ -96,7 +97,8 @@ ansible-galaxy install dsk_bot.datasaker
 |`postgres_agent_log_level`| `dsk-postgres-agent` Log Level 설정. <br> | `INFO`|
 |`plan_postgres_agent_log_level`| `dsk-plan-postgres-agent` Log Level 설정. <br> | `INFO`|
 
-<!--|`datasaker_docker_user`| Datasaker Docker Container Directory Ownership 설정. <br> | `datasaker`|
+<!--
+|`datasaker_docker_user`| Datasaker Docker Container Directory Ownership 설정. <br> | `datasaker`|
 |`datasaker_docker_group`| Datasaker Docker Container Directory Group 설정. <br> | `datasaker`|
 |`datasaker_docker_user_uid`| Datasaker Docker Container Agent User UID 설정 <br> | `202306`|
 |`datasaker_docker_user_gid`| Datasaker Docker Container Agent User GID 설정 <br> | `202306`|
@@ -105,7 +107,8 @@ ansible-galaxy install dsk_bot.datasaker
 |`trace_agent_image_tag`| `dsk-trace-agent` Image tag 설정. <br> | `latest`|
 |`log_agent_image_tag`| `dsk-log-agent` Image tag 설정. <br> | `latest`|
 |`postgres_agent_image_tag`| `dsk-postgres-agent` Image tag 설정. <br> | `latest`|
-|`plan_postgres_agent_image_tag`| `dsk-plan-postgres-agent` Image tag 설정. <br> | `latest`|-->
+|`plan_postgres_agent_image_tag`| `dsk-plan-postgres-agent` Image tag 설정. <br> | `latest`|
+-->
 
 ### Datasaker Agent 상세 설정
 - Host Agent 와 Docker Container Agent는 같은 설정값을 사용합니다.

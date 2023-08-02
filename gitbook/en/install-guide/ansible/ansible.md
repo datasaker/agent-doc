@@ -53,6 +53,7 @@ In this example:
 |`datasaker_api_key`|Your Datasaker API key.|
 |`datasaker_agents`|Set to Datasaker Host Agent.<br>`dsk-node-agent` `dsk-trace-agent` `dsk-log-agent` `dsk-postgres-agent` `dsk-plan-postgres-agent`<br>| `dsk-node-agent`|
 |`datasaker_docker_agents`|Set to Datasaker Docker Agent.<br>`dsk-docker-node-agent` `dsk-docker-trace-agent` `dsk-docker-log-agent` `dsk-docker-postgres-agent`<br>| `dsk-docker-node-agent`|
+
 <!--
 #### Agent Global Config Role variables
 | Variable                                   | Description                                      | Default                                      |
@@ -97,7 +98,9 @@ In this example:
 |`postgres_agent_log_level`| Override the `dsk-postgres-agent` log level <br> | `INFO`|
 |`plan_postgres_agent_log_level`| Override the `dsk-plan-postgres-agent` log level <br> | `INFO`|
 
-<!--|`datasaker_docker_user`| Override Owner in the datasaker docker agent containers directory. <br> | `datasaker`|
+
+<!--
+|`datasaker_docker_user`| Override Owner in the datasaker docker agent containers directory. <br> | `datasaker`|
 |`datasaker_docker_group`| Override Group in the datasaker docker agent containers directory. <br> | `datasaker`|
 |`datasaker_docker_user_uid`| Override uid in the datasaker user. <br> | `202306`|
 |`datasaker_docker_user_gid`| Override gid in the datasaker user. <br> | `202306`|
@@ -106,7 +109,8 @@ In this example:
 |`trace_agent_image_tag`| Override the `dsk-trace-agent` Image tag. <br> | `latest`|
 |`log_agent_image_tag`| Override the `dsk-log-agent` Image tag. <br> | `latest`|
 |`postgres_agent_image_tag`| Override the `dsk-postgres-agent` Image tag. <br> | `latest`|
-|`plan_postgres_agent_image_tag`| Override the `dsk-plan-postgres-agent` Image tag. <br> | `latest`|-->
+|`plan_postgres_agent_image_tag`| Override the `dsk-plan-postgres-agent` Image tag. <br> | `latest`|
+-->
 
 #### Agents Setting Role variables
 | Variable                                   | Description                                      | Default                                      |

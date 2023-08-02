@@ -30,7 +30,7 @@
     * [dsk-base-agent](install-guide/linux/RedHat-8/dsk-base-agent.md)
     * [dsk-log-agent](install-guide/linux/RedHat-8/dsk-log-agent.md)
     * [dsk-plan-postgres-agent](install-guide/linux/RedHat-8/dsk-plan-postgres-agent.md)
-    * [dsk-postgres-agent](install-guide/linux/RedHat-8/dsk-postgres-agen.md)
+    * [dsk-postgres-agent](install-guide/linux/RedHat-8/dsk-postgres-agent.md)
     * [dsk-trace-agent](install-guide/linux/RedHat-8/dsk-trace-agent.md)
   * [RedHat 9 환경에 Datasaker 설정파일 구성하기](install-guide/linux/RedHat-9/README.md)
     * [dsk-base-agent](install-guide/linux/RedHat-9/dsk-base-agent.md)

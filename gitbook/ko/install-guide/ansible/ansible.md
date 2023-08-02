@@ -19,7 +19,8 @@ ansible-galaxy install dsk_bot.datasaker
 ```
 
 에이전트를 배포하기 위하여 Ansible playbook을 작성합니다.
-****`dsk-log-agent` 설치 시 `fluent-bit` 이 자동으로 설치됩니다.*** 
+
+***`dsk-log-agent` 설치 시 `fluent-bit` 이 자동으로 설치됩니다.*** 
 
 
 아래는 기본 설치에 대한 예시입니다.

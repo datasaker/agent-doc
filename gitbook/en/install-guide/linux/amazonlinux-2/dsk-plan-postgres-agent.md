@@ -20,7 +20,7 @@ We tailor agent settings to your needs to deliver optimal results.
 
 ## Did you run the DataSaker predecessor?
 
-In the current Amazon Linux 2 environment, if the preceding task of `DataSaker` has not been carried out, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor]($%7BPREPARATION\_MANUAL\_KR%7D/)
+If the preceding task of `DataSaker` has not been performed in the current environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor]($%7BPREPARATION\_MANUAL\_KR%7D/)
 
 ## Plan Postgres Agent Install
 
@@ -38,25 +38,20 @@ Required user rights are as follows.
 [postgres user permission reference site](https://www.postgresql.org/docs/14/sql-grant.html)
 
 ### 2. Install the package
-
 ```shell
 yum install dsk-plan-postgres-agent
 ```
-
 ### 3. Plan Postgres Agent Settings
-
 ```shell
 vi /etc/datasaker/dsk-plan-postgres-agent/agent-config.yml
 ```
-
 Modify the following as needed.
 
 #### `agent-config.yml`
-
 ```yaml
 agent:
   metadata:
-    agent_name: "dsk-plan-postgres-agent" # agent name (alias) default=dsk-plan-postgres-agent
+    agent_name: "dsk-plan-postgres-agent" # <agent_alias_name> default=dsk-plan-postgres-agent
   data_source_name:
     user: # <user_name>
     password: # <user_password>
@@ -66,79 +61,79 @@ agent:
   explain:
     scrape_interval: 30s # <activity_session_scrape_time>
     scrape_timeout: 5s # <activity_session_scrape_query_timeout>
-    slow_query_standard: 5s # <slow_query_standard>
+    slow_query_standard: 5s # <slow_query_standard> 
     executor_number: 10 # <explain executor number>
     sender_number: 10 # <explain sender number>
     activity_query_buffer: 50 # <activity query buffer>
     plan_sender_buffer: 50 # <explain result buffer>
 ```
+A description of each setting follows.
+
+| **Settings** | **Description** | **Default** | **Required** |
+| -------------------------- | ---------------------------------------------------------------------------------------------------- | :---------: | :----------: |
+| `agent.metadata.agent_name` | Agent Name (Alias) | dsk-plan-postgres-agent | **✓** |
+| `agent.data_source_name.user` | postgres account name | N/A | **✓** |
+| `agent.data_source_name.password` | postgres account password | N/A | **✓** |
+| `agent.data_source_name.address` | postgres server url | N/A | **✓** |
+| `agent.data_source_name.port` | postgres server port | N/A | **✓** |
+| `agent.data_source_name.DBName` | postgres server database name | N/A | **✓** |
+| `agent.explain.scrape_interval` | activity session scrape cycle | 30s | |
+| `agent.explain.scrape_timeout` | timeout time of activity session scrape query | 5s | |
+| `agent.explain.slow_query_standard` | slow query criteria | 5s | |
+| `agent.explain.executor_number` | number of threads to run explain | 10 | |
+| `agent.explain.sender_number` | Number of threads sending explain results | 10 | |
+| `agent.explain.activity_query_buffer` | activity query buffer | 50 | |
+| `agent.explain.plan_sender_buffer` | explain result buffer | 50 | |
 
 **`metadata`**
-
 ```yaml
-# agent name (alias)
 [ agent_name: <string> | default = "dsk-trace-agent" ]
 
-# Settings for which clusters the environment to be controlled are grouped into
 [ cluster_id: <cluster_id> | default = "unknown" ]
 ```
-
 **`data_source_name`**
-
 ```yaml
-# postgres account name
-[ user: <string> | required]
-# postgres account password
-[ password: <string> | required]
-# postgres server url
-[ address: <string> | required]
-# postgres server port
-[ port: <uint16> | required]
-# postgres server database name
-[ DBName: <string> | required]
+[ user: <string> | required ]
+
+[ password: <string> | required ]
+
+[ address: <string> | required ]
+
+[ port: <uint16> | required ]
+
+[ DBName: <string> | required ]
 ```
-
 **`explain`**
-
 ```yaml
-# activity session scrape cycle
-[scrape_interval: <seconds> | default=30s]
-# timeout time of activity session scrape query
+[scrape_interval: <seconds> | default=30s] 
+
 [scrape_timeout: <seconds> | default=5s]
-# based on slow query
+
 [slow_query_standard: <seconds> | default=5s ]
-# number of threads to run explain
+
 [executor_number: <int8> | default=10 ]
-# Number of threads sending explain results
+
 [sender_number: <int8> | default=10 ]
-# activity query buffer
+
 [activity_query_buffer: <int16> | default=50 ]
-# explain result buffer
+
 [plan_sender_buffer: <int16> | default=50 ]
 ```
-
 ### 4. Run the package
-
 ```shell
 systemctl enable dsk-plan-postgres-agent --now
 ```
-
 ### 5. Check package execution status
-
 ```shell
 systemctl status dsk-plan-postgres-agent
 ```
-
 ## Remove Plan Postgres Agent
 
 ### 1. Abort the package
-
 ```shell
 systemctl stop dsk-plan-postgres-agent
 ```
-
 ### 2. Remove packages
-
 ```shell
 yum remove dsk-plan-postgres-agent
 ```

@@ -12,20 +12,15 @@ If the preceding task of `DataSaker` has not been carried out in the current Doc
 
 ### 1. Register Mongo agent settings
 
-To connect the agent, the host and port address of the MongoDB server to be collected must be set on the agent.
-
+To connect the agent, the host and port address of the MongoDB server to be collected must be set in the agent.
 ```shell
  DSK_MONGO_URI=mongodb://<user>:<password>@<host>:<port>
 ```
-
 For example, to collect MongoDB with address `192.168.123.132` and port `27017`, you can set as follows.
-
 ```shell
  DSK_MONGO_URI=mongodb://192.168.123.132:27017
 ```
-
 Enter the following command in Terminal to create the dsk-mongo-agent configuration file.
-
 ```shell
 cd ~
 mkdir .datasaker
@@ -34,7 +29,7 @@ cat << EOF > ~/.datasaker/mongo-config.yml
 agent:
   metadata:
     agent_name: dsk-mongo-agent
-  options:
+  option:
     exporter_config:
       command: "/etc/datasaker/target-exporter"
       args:
@@ -47,7 +42,6 @@ agent:
           rule: drop
 EOF
 ```
-
 | Arguments | Description |
 | ------------- | ------------------------ |
 | --collect-all | Set up to collect all kinds of metrics. |
@@ -61,6 +55,7 @@ EOF
      sudo mkdir -p /var/datasaker
      sudo chown -R datasaker:datasaker /var/datasaker/
     ```
+
 2. Enter the docker command into the server.
 
     ```shell

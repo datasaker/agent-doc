@@ -5,52 +5,40 @@ This allows you to trace communication between the various services inside your 
 Collected data is quickly processed and can be monitored and analyzed in real time.
 We will adjust the "Trace Agent" settings to suit your requirements to provide optimal results.
 
-# Did you run the DataSaker predecessor?
+## Have you done the Datasaker predecessor?
 
-In the current Ubuntu environment, if the preceding task of `DataSaker` has not been carried out, please proceed with the preceding task of `DataSaker` first.
-wish. [DataSaker predecessor](${PREPARATION_MANUAL_KR})
+If the preceding task of `DataSaker` has not been performed in the current environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor](${PREPARATION_MANUAL_KR})
 
-# Install trace agent
+## Install Trace agent
 
-## 1. Install the package
+### 1. Install the package
 
 <!--
 example API Key : VAR_GLOBAL_APIKEY=1234567890abcdef1234567890abcdef
  -->
-
 ``` shell
 curl -fsSL -o installer.sh https://dsk-agent-s3.s3.ap-northeast-2.amazonaws.com/dsk-agent-s3/public/install.sh
 chmod 700 installer.sh
 sudo ./installer.sh dsk-trace-agent
 ```
-
-## 2. Trace agent settings
-
-``` shell
-vi /etc/datasaker/dsk-trace-agent/agent-config.yaml
+### 2. Trace agent setting
+```shell
+vi /etc/datasaker/dsk-trace-agent/agent-config.yml
 ```
-
 Modify the following as needed.
-
-``` yaml
-# Trace agent configuration file
+```yaml
 agent:
-  agent_name: "your_agent_name_what_you_want" # default=trace-agent
+  agent_name: "dsk-trace-agent"
 ```
-
-## 3. Run the package
-
+### 3. Run the package
 ```shell
 systemctl enable dsk-trace-agent --now
 ```
-
-## 4. Check Package Execution Status
-
+### 4. Check package execution status
 ```shell
 sudo systemctl status dsk-trace-agent
 ```
-
-# Trace agent port information
+## Trace agent port information
 
 | Port | Protocol | Describe |
 |---------|---------|----------------|
@@ -61,83 +49,85 @@ sudo systemctl status dsk-trace-agent
 | 4317 | TCP | otlp-grpc |
 | 4318 | TCP | otlp-http |
 
-# Linking Trace Agent to Application
+## Integrating the trace agent into the application
 
-To use the Trace agent, you must first instrument your application with the SDK. Please see the link for more details.
+To use the Trace agent, you must first instrument your application with the SDK.
+Please see the link for more details.
 [link to related documentation](https://github.com/datasaker/documentation/tree/main/settings/dsk-trace-agent/Instrumentation)
 
-# Set trace agent
+## Configure Trace agent
 
 If necessary, you can change the settings of the trace agent by referring to the document below.
 
-## Trace agent settings
+### Trace agent settings
 
-The meanings and default values ​​of Trace agent settings are as follows. Different users have different requirements for agent setup. Therefore, the agent settings must be adjusted to suit the user's settings. for optimal results
-Tune your agent settings. The agent preference file path is `/etc/datasaker/dsk-trace-agent/agent-config.yaml`.
+The meaning of default value of trace agent setting value is as follows.
+Different users have different requirements for agent setup.
+Therefore, the agent settings must be adjusted to suit the user's settings.
+Tune your agent settings for optimal results.
+The agent preference file path is `/etc/datasaker/dsk-trace-agent/agent-config.yml`.
 Add or edit values ​​in the config file.
 
 The structure of the file is as follows.
 
 ### `agent-config.yml`
-
 ```yaml
 agent:
-  # Agent's metadata
   metadata: <metadata>
-  # Agent execution related options
-  options:
+  option:
     [ collector_config: <collector_config> ]
-    [ receiver_config: <reciever_config> ]
+  [ reciever_config: <reciever_config> ]
 ```
-
 #### `metadata`
-
 ```yaml
-# agent name (alias)
 [ agent_name: <string> | default = "dsk-trace-agent" ]
 
-# Settings for which clusters the environment to be controlled are grouped into
 [ cluster_id: <cluster_id> | default = "unknown" ]
 ```
+A detailed explanation of each setting value is as follows.
+
+| **Settings** | **Description** | **Default** | **Required** |
+| -------------------------- | ---------------------------------------------------------------------------------------------------- | :---------: | :----------: |
+| `agent_name` | Set the agent's name. | dsk-trace-agent | No |
+| `cluster_id` | Set the cluster to which the environment to be monitored is grouped. | unknown | No |
 
 #### `collector_config`
-
 ```yaml
-# Sampling rate applied to the collector
-# All data is collected when above 100
 [ sampling_rate: <float> | default = 1 ]
 ```
+A detailed description of each setting follows.
 
-#### `reciever_config`
+| **Settings** | **Description** | **Default** | **Required** |
+| -------------------------- | ---------------------------------------------------------------------------------------------------- | :---------: | :----------: |
+| `sampling_rate` | Sets the sampling rate applied to the collector. When above 100 all data is collected. | 1 | No |
 
+#### `receiver_config`
 ```yaml
-# Port number to receive data from the collector
-[ listen_port: <uint16> | default = 14251 ]
-
-# Custom tags applied to each span
 [ custom_tags: <map[string]string> | default = "" ]
 ```
+A detailed description of each setting follows.
+
+| **Settings** | **Description** | **Default** | **Required** |
+| -------------------------- | ---------------------------------------------------------------------------------------------------- | ----------- | ------------ |
+| `listen_port` | Set the port number to receive data from the collector. | 14251 | No |
+| `custom_tags` | Set custom tags applied to each span. | "" | No |
 
 ### Example
 ```yaml
 agent:
   metadata:
-    agent_name: dsk-trace-agent # agent name (alias) default=dsk-trace-agent
-  options:
-    collector_config:
-      sampling_rate: 1 # span data sampling rate (0~100) default=1
+    agent_name: dsk-trace-agent 
+  option:
+    collector_configs:
+    sampling_rate: 1
 ```
+## Remove trace agent
 
-# Remove trace agent
-
-## 1. Package abort
-
+### 1. Abort the package
 ```shell
 systemctl stop dsk-trace-agent
 ```
-
-## 2. Remove packages
-
+### 2. Remove packages
 ```shell
 sudo apt remove dsk-trace-agent
 ```

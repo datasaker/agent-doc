@@ -4,18 +4,20 @@
 
 Configure the environment for configuring `DataSaker` configuration files and register user tenant information.
 
+First, configure the environment to configure the `DataSaker` configuration file.
 Open a terminal on the server and enter the following command.
-
 ```shell
 sudo groupadd -g 202306 datasaker
 sudo useradd -r -u 202306 -g datasaker -s /usr/sbin/nologin datasaker
 
 mkdir -p ~/.datasaker
 chmod 755 ~/.datasaker
-
+```
+Then configure the configuration file using the API Key issued from `Datasaker`.
+```shell
 cat << EOF > ~/.datasaker/config.yml
 global:
-  api_key: ${VAR_GLOBAL_APIKEY}
+  api_key: "<YOUR_API_KEY>"
   gates:
     trace_datagate:
       url: gate.kr.datasaker.io:31300

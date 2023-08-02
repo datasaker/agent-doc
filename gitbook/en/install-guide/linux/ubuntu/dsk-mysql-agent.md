@@ -1,4 +1,4 @@
-#Coming Soon
+# Coming Soon
 <!--
 # Installing DataSaker Mysql agent in Ubuntu environment (Beta)
 'Mysql agent' collects database status and slow queries in real time.
@@ -41,20 +41,18 @@ curl -fsSL -o installer.sh https://dsk-agent-s3.s3.ap-northeast-2.amazonaws.com/
 chmod 700 installer.sh
 sudo ./installer.sh dsk-mysql-agent
 ```
-
 ## 4. Register MySQL agent settings
 ### Register environment variables
 ```
-env DATA_SOURCE_NAME=ID:Password@MySQLIP:Port
+env DATA_SOURCE_NAME=아이디:패스워드@MySQL아이피:포트
 ```
-
 ### Option input
 Write the contents to `/etc/datasaker/dsk-mysql-agent/agent-config.yml`.
 ```yaml
 agent:
   metadata:
-    agent_name: 'dsk-mysql-agent' # agent name (alias) default=dsk-node-agent
-  options:
+    agent_name: 'dsk-mysql-agent' # 에이전트 이름 (별칭) default=dsk-node-agent
+  option:
     exporter_config:
       command: "/usr/bin/dsk-mysqld-exporter"
       port: 19104
@@ -88,18 +86,15 @@ agent:
         - --collect.perf_schema.replication_applier_status_by_worker
     scrape_configs:
       - job_name: 'dsk-mysql-agent'
-        url: localhost:19104 #
+        url: localhost:19104                                              # 
         filtering_configs:
           rule: drop
 ```
-
-
 ## 5. Run the package
 ```bash
 $ sudo -E dsk-mysql-agent start
 Agent is running
 ```
-
 ## 6. Check package execution status
 ### Running
 ```bash
@@ -118,7 +113,6 @@ Agent is not running
 ```bash
 sudo dsk-mysql-agent stop
 ```
-
 ## 2. Remove packages
 ```bash
 sudo apt remove dsk-mysql-agent

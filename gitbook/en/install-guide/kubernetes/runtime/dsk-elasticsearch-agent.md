@@ -13,7 +13,6 @@ If the preceding task of `DataSaker` has not been carried out in the current Kub
 ### 1. Register Elasticsearch agent settings
 
 Be sure to register elasticsearch addresses information in elasticsearchAgent.list\[].uri
-
 ```shell
 cat << EOF >> ~/datasaker/config.yaml
 
@@ -21,7 +20,7 @@ elasticsearchAgent:
   list:
     - name: 'es-1'
       uri: 'https://es_id:es_pw@elasticsearch_service.namespace.svc.cluster.local:9200'
-      tolerances: []
+      tolerations: []
       imgPolicy: 'Always'
       imgVersion: 'latest'
       logLevel: 'INFO'
@@ -34,14 +33,13 @@ elasticsearchAgent:
           value: ENV_1
       resources:
         requests:
-          CPU: 100m
-          Memory: 512 Mi
+          cpu: 100m
+          memory: 512Mi
         limits:
-          CPU: 1000m
-          Memory: 1000 Mi
+          cpu: 1000m
+          memory: 1000Mi
 EOF
 ```
-
 A detailed explanation of each setting value is as follows.
 
 | settings | Description |
@@ -59,10 +57,8 @@ A detailed explanation of each setting value is as follows.
 | resources | Agent Kubernetes Resource Settings |
 
 ### 2. Install the Elasticsearch agent
-
 ```shell
 helm upgrade datasaker datasaker/agent-helm -n datasaker \
   -f ~/datasaker/config.yaml
 ```
-
 For more detailed information, please refer to the following document. [Related Documents](../../../settings/dsk-elasticsearch-agent/settings.md)

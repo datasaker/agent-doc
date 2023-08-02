@@ -41,7 +41,6 @@ We tailor agent settings to your needs to deliver optimal results.
 
 If the preceding task of `DataSaker` has not been carried out in the current Kubernetes environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor](dsk-postgres-agent/en/$%7BPREPARATION\_MANUAL\_KR%7D/)
 
-
 ## Install the Postgres agent
 
 ### 1. Change Postgres settings
@@ -78,7 +77,6 @@ Required input items are as follows. Enter the values ​​according to your Po
 | postgresAgents.list\[].pass | Enter the Postgres user password. |
 
 #### Enter options
-
 ```shell
 cat << EOF >> ~/datasaker/config.yaml
 
@@ -89,7 +87,7 @@ postgresAgents:
       imgVersion: 'latest'
       logLevel: 'INFO'
       listenPort: 19187
-      tolerances: []
+      tolerations: []
       targetAddr: '127.0.0.1'
       targetPort: '5432'
       database: "database"
@@ -105,16 +103,14 @@ postgresAgents:
         sender_number: 10
       resources:
         requests:
-          CPU: 100m
-          Memory: 512 Mi
+          cpu: 100m
+          memory: 512Mi
         limits:
-          CPU: 1000m
-          Memory: 1000 Mi
+          cpu: 1000m
+          memory: 1000Mi
 EOF
 ```
-
 ### 4. Activate the Postgres agent
-
 ```shell
 helm upgrade datasaker datasaker/agent-helm -n datasaker \
   -f ~/datasaker/config.yaml

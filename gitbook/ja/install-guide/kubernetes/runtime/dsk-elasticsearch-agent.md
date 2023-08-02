@@ -13,7 +13,6 @@
 ### 1. Elasticsearch agent 設定値の登録
 
 elasticsearchAgent.list\[].uri に elasticsearch addresss 情報を必ず登録してください
-
 ```shell
 cat << EOF >> ~/datasaker/config.yaml
 
@@ -34,14 +33,13 @@ elasticsearchAgent:
           value: ENV_1
       resources:
         requests:
-          cpu: 100 m
+          cpu: 100m
           memory: 512Mi
         limits:
           cpu: 1000m
           memory: 1000Mi
 EOF
 ```
-
 各設定値の詳細な説明は以下の通りである。
 
 |設定|説明
@@ -59,10 +57,8 @@ EOF
 |リソース|エージェントクーバーネティスリソース設定|
 
 ### 2. Elasticsearch agentのインストール
-
 ```shell
 helm upgrade datasaker datasaker/agent-helm -n datasaker \
   -f ~/datasaker/config.yaml
 ```
-
 詳細情報が必要な場合は、次の記事を参照してください。 [関連文書](../../../settings/dsk-elasticsearch-agent/settings.md)

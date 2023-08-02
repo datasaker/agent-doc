@@ -41,7 +41,6 @@ Postgresエージェントは `postgresエージェント'と `plan-postgresエ�
 
 現在Kubernetes環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker先行操作](dsk-postgres-agent/ja/$%7BPREPARATION\_MANUAL\_JP%7D/)
 
-
 ## Postgres agentのインストール
 
 ### 1. Postgres設定の変更
@@ -78,7 +77,6 @@ Postgresエージェントは `postgresエージェント'と `plan-postgresエ�
 | postgresAgents.list\[].pass | Postgres user パスワードを入力します。 |
 
 #### オプション入力
-
 ```shell
 cat << EOF >> ~/datasaker/config.yaml
 
@@ -105,16 +103,14 @@ postgresAgents:
         sender_number: 10
       resources:
         requests:
-          cpu: 100 m
+          cpu: 100m
           memory: 512Mi
         limits:
           cpu: 1000m
           memory: 1000Mi
 EOF
 ```
-
 ### 4. Postgresエージェントを有効にする
-
 ```shell
 helm upgrade datasaker datasaker/agent-helm -n datasaker \
   -f ~/datasaker/config.yaml

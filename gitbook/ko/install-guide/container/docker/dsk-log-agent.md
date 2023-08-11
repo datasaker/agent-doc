@@ -121,7 +121,7 @@ docker  run -d --name dsk-log-agent \
   -v /var/datasaker/:/var/datasaker/ \
   -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro \
   -v ~/.datasaker/log-agent-config.yml:/etc/datasaker/dsk-log-agent/agent-config.yml:ro \
-  -v -v /var/lib/docker/containers/:/var/lib/docker/containers/:ro \
+  -v /var/lib/docker/containers/:/var/lib/docker/containers/:ro \
   -p 21212:21212 \
   --restart=always \
   datasaker/dsk-log-agent:latest

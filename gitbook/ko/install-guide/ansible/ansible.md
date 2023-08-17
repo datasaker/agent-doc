@@ -204,7 +204,7 @@ ansible-galaxy install dsk_bot.datasaker
           paths:
           - /var/log/*.log
           - /var/lib/docker/containers/*/*.log
-	custom_log_volume:
+    custom_log_volume:
     - /var/log/
     - /var/lib/docker/containers
 ```

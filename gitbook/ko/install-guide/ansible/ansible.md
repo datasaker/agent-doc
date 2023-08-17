@@ -20,7 +20,8 @@ ansible-galaxy install dsk_bot.datasaker
 
 에이전트를 배포하기 위하여 Ansible playbook을 작성합니다.
 
-***`dsk-log-agent` 설치 시 `fluent-bit` 이 자동으로 설치됩니다.*** 
+
+****`dsk-log-agent` 설치 시 `fluent-bit` 이 자동으로 설치됩니다.*** 
 
 
 아래는 기본 설치에 대한 예시입니다.
@@ -53,7 +54,6 @@ ansible-galaxy install dsk_bot.datasaker
 |`datasaker_api_key`|API Key를 입력합니다.|
 |`datasaker_agents`| 각 호스트에 설치하고자 하는 Host Agent 리스트입니다. <br>`dsk-node-agent` `dsk-trace-agent` `dsk-log-agent` `dsk-postgres-agent` `dsk-plan-postgres-agent`<br>| `dsk-node-agent`|
 |`datasaker_docker_agents`| 각 호스트에 설치하고자 하는 Docker Container Agent 리스트입니다. <br>Docker Container Agents를 넣으면 Host Agent 설치는 자동으로 비활성화 됩니다. <br>`dsk-docker-node-agent` `dsk-docker-trace-agent` `dsk-docker-log-agent` `dsk-docker-postgres-agent`<br>| `dsk-docker-node-agent`|
-
 <!--
 #### Datasaker 공통 설정
 | 변수명                                      | 설명                                      | Default                                      |
@@ -98,8 +98,7 @@ ansible-galaxy install dsk_bot.datasaker
 |`postgres_agent_log_level`| `dsk-postgres-agent` Log Level 설정. <br> | `INFO`|
 |`plan_postgres_agent_log_level`| `dsk-plan-postgres-agent` Log Level 설정. <br> | `INFO`|
 
-<!--
-|`datasaker_docker_user`| Datasaker Docker Container Directory Ownership 설정. <br> | `datasaker`|
+<!--|`datasaker_docker_user`| Datasaker Docker Container Directory Ownership 설정. <br> | `datasaker`|
 |`datasaker_docker_group`| Datasaker Docker Container Directory Group 설정. <br> | `datasaker`|
 |`datasaker_docker_user_uid`| Datasaker Docker Container Agent User UID 설정 <br> | `202306`|
 |`datasaker_docker_user_gid`| Datasaker Docker Container Agent User GID 설정 <br> | `202306`|
@@ -108,8 +107,7 @@ ansible-galaxy install dsk_bot.datasaker
 |`trace_agent_image_tag`| `dsk-trace-agent` Image tag 설정. <br> | `latest`|
 |`log_agent_image_tag`| `dsk-log-agent` Image tag 설정. <br> | `latest`|
 |`postgres_agent_image_tag`| `dsk-postgres-agent` Image tag 설정. <br> | `latest`|
-|`plan_postgres_agent_image_tag`| `dsk-plan-postgres-agent` Image tag 설정. <br> | `latest`|
--->
+|`plan_postgres_agent_image_tag`| `dsk-plan-postgres-agent` Image tag 설정. <br> | `latest`|-->
 
 ### Datasaker Agent 상세 설정
 - Host Agent 와 Docker Container Agent는 같은 설정값을 사용합니다.
@@ -129,6 +127,7 @@ ansible-galaxy install dsk_bot.datasaker
 |`logs[*].collect.address`|데이터베이스 host 및 port 정보 설정 (서비스 분류가 database인 경우 설정).|`None`|
 |`logs[*].collect.file.paths`|로그 수집 대상 경로 설정. 예 : /var/log/sample/*.log.|`['/var/log/*.log']`|
 |`logs[*].collect.file.exclude_paths`|로그 수집 제외 대상 경로 설정.|`None`|
+|`custom_log_volume`| Docker 사용 시 수집할 로그가 있는 경로 마운트.|`/var/lib/docker/containers/`|
 |`postgres_user_name`| `dsk-postgres-agent`에 Postgres user ID 설정. <br> | `None` |
 |`postgres_user_password`| `dsk-postgres-agent`에 Postgres user password 설정. <br> | `None` |
 |`postgres_database_address`| `dsk-postgres-agent`에 Postgres address 설정. <br> | `None` |
@@ -154,7 +153,7 @@ ansible-galaxy install dsk_bot.datasaker
     - role: dsk_bot.datasaker
   vars:
     datasaker_api_key: "<YOUR_API_KEY>"
-    datasaker_docker_agents:
+    datasaker_agents:
       - "dsk-node-agent"
       - "dsk-trace-agent"
       - "dsk-log-agent"
@@ -169,12 +168,11 @@ ansible-galaxy install dsk_bot.datasaker
     plan_postgres_database_name: sample
     plan_postgres_database_port: 5432
     logs:
-      - collect:
-          type: file
-          file:
-            paths: 
-              - /var/log/*.log
-              - /datasaker/log/*.log
+    - collect:
+        type: file
+        file:
+          paths:
+          - /var/log/*.log
 ```
 
 #### Ansible Playbook 상세 설정 Example (Docker)
@@ -186,10 +184,10 @@ ansible-galaxy install dsk_bot.datasaker
   vars:
     datasaker_api_key: "<YOUR_API_KEY>"
     datasaker_docker_agents:
-      - "dsk-docker-node-agent"
-      - "dsk-docker-trace-agent"
-      - "dsk-docker-log-agent"
-      - "dsk-docker-postgres-agent"
+    - "dsk-docker-node-agent"
+    - "dsk-docker-trace-agent"
+    - "dsk-docker-log-agent"
+    - "dsk-docker-postgres-agent"
     postgres_user_name: sample
     postgres_user_password: 1q2w3e4r
     postgres_database_address: 0.0.0.0
@@ -200,12 +198,15 @@ ansible-galaxy install dsk_bot.datasaker
     plan_postgres_database_name: sample
     plan_postgres_database_port: 5432
     logs:
-      - collect:
-          type: file
-          file:
-            paths: 
-              - /var/log/*.log
-              - /datasaker/log/*.log
+    - collect:
+        type: file
+        file:
+          paths:
+          - /var/log/*.log
+          - /var/lib/docker/containers/*/*.log
+	custom_log_volume:
+    - /var/log/
+    - /var/lib/docker/containers
 ```
 
 

@@ -97,7 +97,7 @@ agent:
         type: file
         file:
           paths:
-           - /var/lib/docekr/containers/*awesome_saker*.log
+           - /var/lib/docker/containers/*awesome_saker*.log
 EOF
 ```
 

@@ -53,7 +53,6 @@ In this example:
 |`datasaker_api_key`|Your Datasaker API key.|
 |`datasaker_agents`|Set to Datasaker Host Agent.<br>`dsk-node-agent` `dsk-trace-agent` `dsk-log-agent` `dsk-postgres-agent` `dsk-plan-postgres-agent`<br>| `dsk-node-agent`|
 |`datasaker_docker_agents`|Set to Datasaker Docker Agent.<br>`dsk-docker-node-agent` `dsk-docker-trace-agent` `dsk-docker-log-agent` `dsk-docker-postgres-agent`<br>| `dsk-docker-node-agent`|
-
 <!--
 #### Agent Global Config Role variables
 | Variable                                   | Description                                      | Default                                      |
@@ -98,9 +97,7 @@ In this example:
 |`postgres_agent_log_level`| Override the `dsk-postgres-agent` log level <br> | `INFO`|
 |`plan_postgres_agent_log_level`| Override the `dsk-plan-postgres-agent` log level <br> | `INFO`|
 
-
-<!--
-|`datasaker_docker_user`| Override Owner in the datasaker docker agent containers directory. <br> | `datasaker`|
+<!--|`datasaker_docker_user`| Override Owner in the datasaker docker agent containers directory. <br> | `datasaker`|
 |`datasaker_docker_group`| Override Group in the datasaker docker agent containers directory. <br> | `datasaker`|
 |`datasaker_docker_user_uid`| Override uid in the datasaker user. <br> | `202306`|
 |`datasaker_docker_user_gid`| Override gid in the datasaker user. <br> | `202306`|
@@ -109,8 +106,7 @@ In this example:
 |`trace_agent_image_tag`| Override the `dsk-trace-agent` Image tag. <br> | `latest`|
 |`log_agent_image_tag`| Override the `dsk-log-agent` Image tag. <br> | `latest`|
 |`postgres_agent_image_tag`| Override the `dsk-postgres-agent` Image tag. <br> | `latest`|
-|`plan_postgres_agent_image_tag`| Override the `dsk-plan-postgres-agent` Image tag. <br> | `latest`|
--->
+|`plan_postgres_agent_image_tag`| Override the `dsk-plan-postgres-agent` Image tag. <br> | `latest`|-->
 
 #### Agents Setting Role variables
 | Variable                                   | Description                                      | Default                                      |
@@ -128,6 +124,7 @@ In this example:
 |`logs[*].collect.address`|Sets the database host and port information (required if service category is database).|`None`|
 |`logs[*].collect.file.paths`|Sets the paths for log collection. Example: /var/log/sample/.log.|`['/var/log/*.log']`|
 |`logs[*].collect.file.exclude_paths`|Sets the paths to be excluded from log collection.|`None`|
+|`custom_log_volume`| Volume mount in Docker Log Agent. |`/var/lib/docker/containers`|
 |`postgres_user_name`| Enter the Postgres user ID. <br> | `None` |
 |`postgres_user_password`| Enter the Postgres user password. <br> | `None` |
 |`postgres_database_address`| Enter the Postgres address. <br> | `None` |
@@ -156,7 +153,7 @@ In this example:
     - role: dsk_bot.datasaker
   vars:
     datasaker_api_key: "<YOUR_API_KEY>"
-    datasaker_docker_agents:
+    datasaker_agents:
       - "dsk-node-agent"
       - "dsk-trace-agent"
       - "dsk-log-agent"
@@ -171,12 +168,11 @@ In this example:
     plan_postgres_database_name: sample
     plan_postgres_database_port: 5432
     logs:
-      - collect:
-          type: file
-          file:
-            paths: 
-              - /var/log/*.log
-              - /datasaker/log/*.log
+    - collect:
+        type: file
+        file:
+          paths:
+          - /var/log/*.log
 ```
 
 ###### Ansible Playbook Setting Example (Docker)
@@ -202,12 +198,15 @@ In this example:
     plan_postgres_database_name: sample
     plan_postgres_database_port: 5432
     logs:
-      - collect:
-          type: file
-          file:
-            paths: 
-              - /var/log/*.log
-              - /datasaker/log/*.log
+    - collect:
+        type: file
+        file:
+          paths:
+          - /var/log/*.log
+          - /var/lib/docker/containers/*/*.log
+    custom_log_volume:
+    - /var/log/
+    - /var/lib/docker/containers
 ```
 
 ## Uninstallation

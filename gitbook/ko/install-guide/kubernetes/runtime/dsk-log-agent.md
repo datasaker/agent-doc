@@ -74,6 +74,34 @@ logAgent:
 
 예를 들어, 쿠버네티스 워크로드 정보를 통해 로그를 수집하는 경우 다음과 같이 구성 파일을 작성할 수 있습니다.
 
+만약 다음과 같은 manifest 파일로 구성된 워크로드가 있다면,
+
+ ```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+ ```
+
+다음과 같이 로그 에이전트 YAML 구성 파일을 작성할 수 있습니다.
+
 ```shell
 cat << EOF >> ~/datasaker/config.yaml
 logAgent:
@@ -83,8 +111,25 @@ logAgent:
         type: kubernetes
         kubernetes:
           - namespace: default
-            pod: awesome-saker-5f4b7f7b4f-2q9qz
-            container: awesome-saker
+            pod: nginx-deployment
+            container: nginx
+EOF
+```
+
+특정 namespace/pod/container 이름의 워크로드에 대해 모든 로그 파일을 수집하고 싶은 경우, 공통된 키워드만 작성하여 해당 키워드가 포함된 모든 워크로드의 로그를 수집할 수 있습니다.
+
+만약, 모든 namespace에 nginx라는 이름이 포함된 pod에 대해 모든 컨테이너의 로그를 수집하고 싶다면, 다음과 같이 구성 파일을 작성할 수 있습니다.
+(주의 : namespace/pod/container에 어떠한 값도 작성하지 않으면, 모든 namespace/pod/container에 대해 모든 컨테이너의 로그를 수집합니다.)
+
+```shell
+cat << EOF >> ~/datasaker/config.yaml
+logAgent:
+  enabled: true
+  logs:
+    - collect:
+        type: kubernetes
+        kubernetes:
+          - pod: nginx
 EOF
 ```
 
@@ -99,7 +144,7 @@ logAgent:
         type: file
         file:
           paths:
-           - /var/log/awesome_saker/*.log
+           - /var/log/containers/nginx-deployment*default*nginx*.log
 EOF
 ```
 

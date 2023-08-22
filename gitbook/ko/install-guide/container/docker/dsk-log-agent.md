@@ -142,3 +142,77 @@ docker  run -d --name dsk-log-agent \
 ```shell
 docker  run --log-driver=fluentd --log-opt fluentd-address=dsk-log-agent:21212 your/application
 ```
+
+## Log agent 로그 수집 설정하기
+
+`Log agent`는 에이전트 구성 YAML 파일을 통해 다중 라인 로그 수집 및 로그 마스킹 설정을 지원합니다.
+
+### 1. 다중 라인 로그 수집 설정
+
+로그 에이전트 구성 YAML 파일에서 다중 라인 로그 수집 설정을 2가지 방법으로 지원합니다.
+
+* **format** : 다중 라인 로그의 포맷을 설정합니다. 현재, `go`, `java`, `python`의 3가지 포맷을 지원합니다.
+* **pattern** : 다중 라인 로그의 패턴을 설정합니다. 사용자 커스텀 정규식 패턴을 사용할 수 있습니다.
+
+```yaml
+logs:
+  - multiline:
+      format:
+      pattern: []
+```
+
+예를 들어, 다음과 같은 다중 라인 로그가 있다면,
+
+```shell
+Dec 14 06:41:08 Exception in thread "main" java.lang.RuntimeException: Something has gone wrong, aborting!
+    at com.myproject.module.MyProject.badMethod(MyProject.java:22)
+    at com.myproject.module.MyProject.oneMoreMethod(MyProject.java:18)
+    at com.myproject.module.MyProject.anotherMethod(MyProject.java:14)
+    at com.myproject.module.MyProject.someMethod(MyProject.java:10)
+    at com.myproject.module.MyProject.main(MyProject.java:6)
+```
+
+`pattern`에 다음과 같이 정규식 패턴을 작성하여 다중 라인 로그를 수집할 수 있습니다.
+
+```yaml
+logs:
+  - multiline:
+      pattern: 
+        - '^\w*\s\d{1,2}\s\d{1,2}\:\d{1,2}\:\d{1,2}'
+```
+
+다중 라인 로그에 대해 로그 시작 부분의 패턴을 작성하면, 해당 패턴으로 시작하는 로그를 기준으로 다중 라인 로그를 수집합니다.
+
+**\[주의]** 다중 라인 로그 수집에서 두 번째 라인부터는 공백으로 시작하는 것으로 판단합니다.
+
+### 2. 민감 정보 로그 마스킹 설정
+
+로그 에이전트 구성 YAML 파일에서 민감 정보 로그 마스킹 설정을 지원합니다.
+
+* **pattern** : 마스킹할 로그 패턴을 설정합니다. 사용자 커스텀 정규식 패턴을 사용할 수 있습니다.
+* **replace** : 마스킹 패턴이 대체될 문자열을 설정합니다.
+
+```yaml
+logs:
+  - masking:
+      - pattern:
+        replace:
+```
+
+예를 들어, 다음과 같은 로그가 있고,
+
+```shell
+2023-08-18 06:35:38.993 GMT [739243] LOG:  statement:
+            SELECT * 
+            FROM address 
+            WHERE id = '1234567890';
+```
+
+해당 로그에서 `statement:` 뒤에 오는 쿼리문을 `PRIVATE_QUERY` 문자열로 마스킹하고 싶다면, `pattern`에 다음과 같이 정규식 패턴을 작성하여 마스킹할 수 있습니다.
+
+```yaml
+logs:
+  - masking:
+      - pattern: 'statement: .*'
+        replace: 'statement: PRIVATE_QUERY'
+```

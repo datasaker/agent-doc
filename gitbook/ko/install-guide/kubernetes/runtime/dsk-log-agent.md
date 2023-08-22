@@ -183,7 +183,17 @@ Dec 14 06:41:08 Exception in thread "main" java.lang.RuntimeException: Something
     at com.myproject.module.MyProject.main(MyProject.java:6)
 ```
 
-`pattern`에 다음과 같이 정규식 패턴을 작성하여 다중 라인 로그를 수집할 수 있습니다.
+`format` 설정을 통해 다음과 같이 다중 라인 로그를 수집할 수 있습니다.
+
+```yaml
+logs:
+  - multiline:
+      format: 'java'
+```
+
+**\[주의]** `format`을 통한 다중 라인 로그를 수집 방법이 모든 패턴의 다중 라인 로그를 수집할 수는 없습니다. 정확한 다중 라인 로그 수집을 위해서는 `pattern`을 통한 다중 라인 로그 수집 설정을 권장합니다.
+
+다른 방법인 `pattern`을 통해 다중 라인 로그를 수집할 경우에는 다음과 같이 작성할 수 있습니다.
 
 ```yaml
 logs:

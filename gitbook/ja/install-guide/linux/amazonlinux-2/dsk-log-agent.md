@@ -4,7 +4,7 @@
 
 ## DataSaker 先行作業を行いましたか？
 
-現在、Amazon Linux 2環境で `DataSaker`の先行操作が行われていない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker先行操作]（$ {PREPARATION_MANUAL_JP}）
+現在、Amazon Linux 2環境で `DataSaker`の先行操作が行われていない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker先行操作](README.md)
 
 ## Log agentのインストール
 
@@ -93,10 +93,10 @@ agent:
 | `cluster_id` |管理対象となる環境のクラスタ情報`unknown` |
 | **logs** |ログ収集対象情報|
 | `service` |ログ収集先のサービス名`default` |
-| `tag` |ログ収集対象のタグN / A |
+| `tag` |ログ収集対象のタグ|
 | `keyword` |ログ収集キーワード（キーワードを含むログのみを収集）| |
-| **multiline** |マルチラインログ収集設定| |
-| `format` |マルチラインログフォーマット（例：go、java、ruby、python）| |
+| **マルチライン** |マルチラインログ収集設定| |
+| `format` |マルチラインログフォーマット（例：go、java、python）| |
 | `pattern` |マルチラインログパターン（例：^\d{4}-\d{2}-\d{2}） - ユーザーカスタム正規表現パターンが利用可能です。 |
 | **masking** |機密情報ログマスキング設定| |
 | `pattern` |マスクするログパターン（たとえば、^\d{4}-\d{2}-\d{2}） - ユーザーカスタム正規表現パターンを使用可能|
@@ -105,6 +105,77 @@ agent:
 | `type` |ログ収集方法（ `file`、`driver`のいずれかの値を作成する）| `file` |
 | `カテゴリー`|サービス分類（ `app`、`database`、`syslog`、`etc`のいずれかの値を作成する） `etc` |
 | `address` |データベースホストとポート情報（サービス分類がデータベースの場合は設定） |
-| **file** |ログ収集方法がfileの場合|
+| **ファイル** |ログ収集方法がファイルの場合|
 | `paths` |ログ収集先のパス（例：/var/log/sample/*.log） `/var/log/*.log` |
 | `exclude_paths` |ログ収集除外ターゲットパス|
+
+## Log agent ログ収集の設定
+
+`Log agent`は、エージェント構成YAMLファイルを介したマルチラインログ収集とログマスキング設定をサポートします。
+
+### 1. マルチラインログ収集設定
+
+ログエージェントの設定YAMLファイルのマルチラインログ収集設定は2つの方法でサポートされています。
+
+***format**: マルチラインログのフォーマットを設定します。現在、`go`、`java`、`python`の3つのフォーマットをサポートしています。
+***pattern**: マルチラインログのパターンを設定します。ユーザーカスタム正規表現パターンを使用できます。
+```yaml
+logs:
+  - multiline:
+      format:
+      pattern: []
+```
+たとえば、次のようなマルチラインログがある場合、
+```shell
+Dec 14 06:41:08 Exception in thread "main" java.lang.RuntimeException: Something has gone wrong, aborting!
+    at com.myproject.module.MyProject.badMethod(MyProject.java:22)
+    at com.myproject.module.MyProject.oneMoreMethod(MyProject.java:18)
+    at com.myproject.module.MyProject.anotherMethod(MyProject.java:14)
+    at com.myproject.module.MyProject.someMethod(MyProject.java:10)
+    at com.myproject.module.MyProject.main(MyProject.java:6)
+```
+`format`設定により、次のようにマルチラインログを収集できます。
+```yaml
+logs:
+  - multiline:
+      format: 'java'
+```
+**\[注意]** `format`を介してマルチラインログを収集する方法は、すべてのパターンのマルチラインログを収集することはできません。正確なマルチラインログ収集のためには、 `pattern`によるマルチラインログ収集の設定をお勧めします。
+
+別の方法である `pattern` を介して複数行ログを収集する場合は、次のように書くことができます。
+```yaml
+logs:
+  - multiline:
+      pattern: 
+        - '^\w*\s\d{1,2}\s\d{1,2}\:\d{1,2}\:\d{1,2}'
+```
+マルチラインログのログの先頭にパターンを作成すると、そのパターンで始まるログに基づいてマルチラインログが収集されます。
+
+**\[注意]** ログエージェントは、複数行のログ収集で、2 行目から空白で始まると判断します。
+
+### 2. 機密情報ログマスキングの設定
+
+ログエージェントの設定YAMLファイルの機密情報ログマスキング設定をサポートします。
+
+* **pattern**：マスクするログパターンを設定します。ユーザーカスタム正規表現パターンを使用できます。
+* **replace**：マスキングパターンを置き換える文字列を設定します。
+```yaml
+logs:
+  - masking:
+      - pattern:
+        replace:
+```
+たとえば、次のログがあり、
+```shell
+2023-08-18 06:35:38.993 GMT [739243] LOG:  statement:
+            SELECT * 
+            FROM address 
+            WHERE id = '1234567890';
+```
+そのログで `statement:` の後に続く問合せステートメントを `PRIVATE_QUERY` 文字列でマスキングしたい場合は、 `pattern` に次のように正規表現パターンを作成してマスキングできます。
+```yaml
+logs:
+  - masking:
+      - pattern: 'statement: .*'
+        replace: 'statement: PRIVATE_QUERY'
+```

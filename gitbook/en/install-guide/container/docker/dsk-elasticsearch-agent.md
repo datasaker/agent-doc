@@ -6,13 +6,13 @@
 
 ## Did you run the DataSaker predecessor?
 
-If the preceding task of `DataSaker` has not been carried out in the current Docker environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor](dsk-elasticsearch-agent/en/$%7BPREPARATION\_MANUAL\_KR%7D/)
+If the preceding task of `DataSaker` has not been carried out in the current Docker environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessors] (README.md)
 
 ## Install the Elasticsearch agent
 
 ### 1. Register Elasticsearch agent settings
 
-To connect the agent, the host and port address of the Elasticsearch server to be collected must be set on the agent.
+In order to connect the agent, the host and port address of the Elasticsearch server to be collected must be set on the agent.
 ```shell
  DSK_ES_URI=http(s)://<user>:<password>@<host>:<port>
 ```

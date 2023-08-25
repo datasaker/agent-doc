@@ -4,7 +4,7 @@
 
 ## DataSaker 先行作業を行いましたか？
 
-現在の環境では、`DataSaker`の先行作業が進行しなかった場合は、`DataSaker`先行作業を先に進めてください。 [DataSaker先行操作]（$ {PREPARATION_MANUAL_JP}）
+現在の環境では、`DataSaker`の先行作業が進行しなかった場合は、`DataSaker`先行作業を先に進めてください。 [DataSaker先行操作](README.md)
 
 ## Elasticsearch agentのインストール
 

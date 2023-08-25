@@ -7,13 +7,13 @@
 
 ## Datasaker先行作業を行いましたか？
 
-現在の環境で `DataSaker` の先行操作が進まない場合は、`DataSaker` 先行操作を先に進めてください。 [DataSaker先行操作]（$ {PREPARATION_MANUAL_JP}）
+現在の環境で `DataSaker` の先行操作が進まない場合は、`DataSaker` 先行操作を先に進めてください。 [DataSaker先行操作](README.md)
 
 ## Base agentのインストール
 
 ### 1. パッケージのインストール
 
-`DataSaker`の`Base agent`をインストールするにはsudo権限が必要です。
+`DataSaker`の `Base agent`をインストールするにはsudo権限が必要です。
 ```shell
 yum install dsk-node-agent
 ```

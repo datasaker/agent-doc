@@ -6,7 +6,7 @@
 
 ## DataSaker 先行作業を行いましたか？
 
-現在、Docker環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker先行操作](dsk-elasticsearch-agent/ja/$%7BPREPARATION\_MANUAL\_JP%7D/)
+現在、Docker環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker先行操作](README.md)
 
 ## Elasticsearch agentのインストール
 

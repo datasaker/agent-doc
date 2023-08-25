@@ -6,13 +6,13 @@ Describes how to install `Mongo agent` in Docker environment.
 
 ## Did you run the DataSaker predecessor?
 
-If the preceding task of `DataSaker` has not been carried out in the current Docker environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor](dsk-mongo-agent/en/$%7BPREPARATION\_MANUAL\_KR%7D/)
+If the preceding task of `DataSaker` has not been carried out in the current Docker environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessors] (README.md)
 
 ## Install Mongo Agent
 
 ### 1. Register Mongo agent settings
 
-To connect the agent, the host and port address of the MongoDB server to be collected must be set in the agent.
+To connect the agent, the host and port address of the MongoDB server to be collected must be set on the agent.
 ```shell
  DSK_MONGO_URI=mongodb://<user>:<password>@<host>:<port>
 ```

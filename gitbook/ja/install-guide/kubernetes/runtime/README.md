@@ -1,6 +1,6 @@
 # Kubernetes環境でDatasaker設定ファイルを構成する
 
-`DataSaker`は、`Kubernetes`環境で`Helm`を介したインストールガイドに進みます。 （`ヘルム`がインストールされていない場合は、ヘルムのインストールを先に進んでください。https://helm.sh/ja/docs/intro/install/）
+`DataSaker`は、`Kubernetes`環境で`Helm`を介したインストールガイドに進みます。 （`ヘルム`がインストールされていない場合は、まずヘルムのインストールを進めてください。https://helm.sh/ja/docs/intro/install/）
 
 ## ユーザー情報を登録する
 

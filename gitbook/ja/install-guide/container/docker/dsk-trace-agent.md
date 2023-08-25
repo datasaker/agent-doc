@@ -6,7 +6,7 @@
 
 ## DataSaker 先行作業を行いましたか？
 
-現在、Docker環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker 先行操作] (README.md)
+現在、Docker環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker先行操作](README.md)
 
 ## Trace agentのインストール
 
@@ -71,7 +71,7 @@ agent:
 
 連携するには、ターゲットアプリケーションに次の環境変数設定が必要です。
 
-|環境変数|値|説明
+|環境変数値|説明
 | -------------------------------------- | ---------------------------------------------- | ------------------ |
 | OTEL\_EXPORTER\_OTLP\_TRACES\_ENDPOINT | （トレースエージェント）：（ポート）| trace-agentアドレス|
 | OTEL \ _SERVICE \ _NAME | your-service-name |画面に表示したいサービス名|

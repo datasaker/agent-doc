@@ -84,7 +84,8 @@ ansible-galaxy install dsk_bot.datasaker
 |`datasaker_docker_path`| Datasaker Docker Agent Containerの場所を設定します。 <br> | `/var/datasaker` |
 |`container_agent_restart_policy`| `dsk-container-agent` Container Restart Policyの設定。 <br> | `always` |
 |`node_agent_restart_policy`| `dsk-node-agent` Container Restart Policyの設定。 <br> | `always` |
-|`trace_agent_restart_policy`| `dsk-trace-agent` Container Restart Policyの設定。 <br> | `always` ||`log_agent_restart_policy`| `dsk-log-agent` Container Restart Policyの設定。 <br> | `always` |
+|`trace_agent_restart_policy`| `dsk-trace-agent` Container Restart Policyの設定。 <br> | `always` |
+|`log_agent_restart_policy`| `dsk-log-agent` Container Restart Policyの設定。 <br> | `always` |
 |`postgres_agent_restart_policy`| `dsk-postgres-agent` Container Restart Policyの設定。 <br> | `always` |
 | `plan_postgres_agent_restart_policy` | `dsk-plan-postgres-agent` Container Restart Policyの設定。 <br> | `always` |
 |`container_agent_log_level`| `dsk-container-agent` Log Level設定。 <br> | `INFO` |
@@ -99,8 +100,7 @@ ansible-galaxy install dsk_bot.datasaker
 |`datasaker_docker_user_uid`| Datasaker Docker Container Agent User UID設定<br> | `202306` |
 |`datasaker_docker_user_gid`| Datasaker Docker Container Agent User GID設定<br> | `202306` |
 |`container_agent_image_tag`| `dsk-container-agent` Image tag設定。 <br> | `latest` |
-|`node_agent_image_tag`| `dsk-node-agent` Image tag設定。 <br> | `latest` |
-|`trace_agent_image_tag`| `dsk-trace-agent` Image tag設定。 <br> | `latest` |
+|`node_agent_image_tag`| `dsk-node-agent` Image tag設定。 <br> | `latest` ||`trace_agent_image_tag`| `dsk-trace-agent` Image tag設定。 <br> | `latest` |
 |`log_agent_image_tag`| `dsk-log-agent` Image tag設定。 <br> | `latest` |
 |`postgres_agent_image_tag`| `dsk-postgres-agent` Image tag設定。 <br> | `latest` |
 |`plan_postgres_agent_image_tag`| `dsk-plan-postgres-agent` Image tag設定。 <br> | `latest`|-->
@@ -128,7 +128,8 @@ ansible-galaxy install dsk_bot.datasaker
 | `postgres_user_password` | `dsk-postgres-agent`のPostgresユーザーパスワード設定。 <br> | `None` |
 |`postgres_database_address`| `dsk-postgres-agent`にPostgres addressを設定します。 <br> | `None` |
 |`postgres_database_port`| `dsk-postgres-agent`にPostgresポートを設定します。 <br> | `None` |
-| `plan_postgres_user_name` | `dsk-plan-postgres-agent`にPlan PostgresユーザーIDを設定します。 <br> | `None` || `plan_postgres_user_password` | `dsk-plan-postgres-agent`のPlan Postgresユーザーパスワード設定。 <br> | `None` |
+| `plan_postgres_user_name` | `dsk-plan-postgres-agent`にPlan PostgresユーザーIDを設定します。 <br> | `None` |
+| `plan_postgres_user_password` | `dsk-plan-postgres-agent`のPlan Postgresユーザーパスワード設定。 <br> | `None` |
 | `plan_postgres_database_address` | `dsk-plan-postgres-agent`にPlan Postgresアドレスを設定します。 <br> | `None` |
 |`plan_postgres_database_port`| `dsk-plan-postgres-agent`にPlan Postgresポートを設定します。 <br> | `None` |
 |`plan_postgres_database_name`| `dsk-plan-postgres-agent`にPlan Postgresデータベースを設定します。 <br> | `None` |

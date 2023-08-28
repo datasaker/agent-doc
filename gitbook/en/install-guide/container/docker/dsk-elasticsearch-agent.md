@@ -12,7 +12,7 @@ If the preceding task of `DataSaker` has not been carried out in the current Doc
 
 ### 1. Register Elasticsearch agent settings
 
-In order to connect the agent, the host and port address of the Elasticsearch server to be collected must be set on the agent.
+To connect the agent, the host and port address of the Elasticsearch server to be collected must be set on the agent.
 ```shell
  DSK_ES_URI=http(s)://<user>:<password>@<host>:<port>
 ```

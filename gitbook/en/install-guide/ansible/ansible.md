@@ -84,7 +84,8 @@ Below is an example of a basic installation.
 |`datasaker_docker_path`| Datasaker Docker Agent Container location settings. <br> | `/var/datasaker`|
 |`container_agent_restart_policy`| `dsk-container-agent` Container Restart Policy settings. <br> | `always` |
 |`node_agent_restart_policy`| `dsk-node-agent` Container Restart Policy settings. <br> | `always` |
-|`trace_agent_restart_policy`| `dsk-trace-agent` Container Restart Policy settings. <br> | `always` ||`log_agent_restart_policy`| `dsk-log-agent` Container Restart Policy settings. <br> | `always` |
+|`trace_agent_restart_policy`| `dsk-trace-agent` Container Restart Policy settings. <br> | `always` |
+|`log_agent_restart_policy`| `dsk-log-agent` Container Restart Policy settings. <br> | `always` |
 |`postgres_agent_restart_policy`| `dsk-postgres-agent` Container Restart Policy settings. <br> | `always` |
 |`plan_postgres_agent_restart_policy`| `dsk-plan-postgres-agent` Container Restart Policy settings. <br> | `always` |
 |`container_agent_log_level`| `dsk-container-agent` Log Level settings. <br> | `INFO`|
@@ -99,8 +100,7 @@ Below is an example of a basic installation.
 |`datasaker_docker_user_uid`| Set Datasaker Docker Container Agent User UID <br> | `202306`|
 |`datasaker_docker_user_gid`| Set Datasaker Docker Container Agent User GID <br> | `202306`|
 |`container_agent_image_tag`| `dsk-container-agent` Image tag configuration. <br> | `latest`|
-|`node_agent_image_tag`| `dsk-node-agent` Image tag configuration. <br> | `latest`|
-|`trace_agent_image_tag`| `dsk-trace-agent` Image tag configuration. <br> | `latest`|
+|`node_agent_image_tag`| `dsk-node-agent` Image tag configuration. <br> | `latest`||`trace_agent_image_tag`| `dsk-trace-agent` Image tag configuration. <br> | `latest`|
 |`log_agent_image_tag`| `dsk-log-agent` Image tag configuration. <br> | `latest`|
 |`postgres_agent_image_tag`| `dsk-postgres-agent` Image tag configuration. <br> | `latest`|
 |`plan_postgres_agent_image_tag`| `dsk-plan-postgres-agent` Image tag configuration. <br> | `latest`|-->
@@ -128,7 +128,8 @@ Below is an example of a basic installation.
 |`postgres_user_password`| Set Postgres user password in `dsk-postgres-agent`. <br> | `None` |
 |`postgres_database_address`| Set Postgres address in `dsk-postgres-agent`. <br> | `None` |
 |`postgres_database_port`| Set Postgres port in `dsk-postgres-agent`. <br> | `None` |
-|`plan_postgres_user_name`| Set the Plan Postgres user ID in `dsk-plan-postgres-agent`. <br> | `None` ||`plan_postgres_user_password`| Set Plan Postgres user password in `dsk-plan-postgres-agent`. <br> | `None` |
+|`plan_postgres_user_name`| Set the Plan Postgres user ID in `dsk-plan-postgres-agent`. <br> | `None` |
+|`plan_postgres_user_password`| Set Plan Postgres user password in `dsk-plan-postgres-agent`. <br> | `None` |
 |`plan_postgres_database_address`| Set the Plan Postgres address in `dsk-plan-postgres-agent`. <br> | `None` |
 |`plan_postgres_database_port`| Set the Plan Postgres port in `dsk-plan-postgres-agent`. <br> | `None` |
 |`plan_postgres_database_name`| Configure the Plan Postgres database in `dsk-plan-postgres-agent`. <br> | `None` |

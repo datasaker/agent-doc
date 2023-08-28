@@ -8,7 +8,7 @@
 
 ### ディレクトリの作成
 
-まず、`DataSaker`設定ファイルを設定するための環境を設定します。
+まず、 `DataSaker`設定ファイルを設定するための環境を設定します。
 ```shell
 mkdir -p ~/datasaker
 chmod 755 ~/datasaker

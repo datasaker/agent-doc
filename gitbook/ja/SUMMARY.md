@@ -38,13 +38,13 @@
     * [dsk-plan-postgres-agent](install-guide/linux/RedHat-9/dsk-plan-postgres-agent.md)
     * [dsk-postgres-agent](install-guide/linux/RedHat-9/dsk-postgres-agent.md)
     * [dsk-trace-agent](install-guide/linux/RedHat-9/dsk-trace-agent.md)
-  * [Amazon Linux 2環境でDatasaker設定ファイルを構成する]（install-guide/linux/amazonlinux-2/README.md）
+  * [Amazon Linux 2環境でDatasaker設定ファイルを構成する](install-guide/linux/amazonlinux-2/README.md)
     * [dsk-base-agent](install-guide/linux/amazonlinux-2/dsk-base-agent.md)
     * [dsk-log-agent](install-guide/linux/amazonlinux-2/dsk-log-agent.md)
     * [dsk-plan-postgres-agent](install-guide/linux/amazonlinux-2/dsk-plan-postgres-agent.md)
     * [dsk-postgres-agent](install-guide/linux/amazonlinux-2/dsk-postgres-agent.md)
     * [dsk-trace-agent](install-guide/linux/amazonlinux-2/dsk-trace-agent.md)
-  * [Amazon Linux 2023環境でDatasaker設定ファイルを構成する]（install-guide/linux/amazonlinux-2023/README.md）
+  * [Amazon Linux 2023環境でDatasaker設定ファイルを構成する](install-guide/linux/amazonlinux-2023/README.md)
     * [dsk-base-agent](install-guide/linux/amazonlinux-2023/dsk-base-agent.md)
     * [dsk-log-agent](install-guide/linux/amazonlinux-2023/dsk-log-agent.md)
     * [dsk-plan-postgres-agent](install-guide/linux/amazonlinux-2023/dsk-plan-postgres-agent.md)
@@ -60,4 +60,5 @@
     <!-- * [dsk-mongo-agent](install-guide/linux/ubuntu/dsk-mongo-agent.md) -->
     <!-- * [dsk-mysql-agent](install-guide/linux/ubuntu/dsk-mysql-agent.md) -->
     <!-- * [dsk-plan-mysql-agent](install-guide/linux/ubuntu/dsk-plan-mysql-agent.md) -->
-* [Ansible Datasaker Role](install-guide/ansible/README.md)* [Ansible Datasaker Role](install-guide/ansible/ansible.md)
+* [Ansible Datasaker Role](install-guide/ansible/README.md)
+  * [Ansible Datasaker Role](install-guide/ansible/ansible.md)

@@ -37,9 +37,9 @@ Postgresエージェントは `postgresエージェント'と `plan-postgresエ�
 スロークエリを検出して、インデックスの作成、クエリの最適化などの方法でデータベースのパフォーマンスを向上させることができます。\
 お客様のニーズに合わせてエージェント設定を調整して、最適な結果を提供します。
 
-## DataSaker 先行作業を行いましたか？
+## DataSaker先行作業を進めましたか？
 
-現在Kubernetes環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker先行操作](dsk-postgres-agent/ja/$%7BPREPARATION\_MANUAL\_JP%7D/)
+現在Kubernetes環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker先行操作](README.md)
 
 ## Postgres agentのインストール
 
@@ -61,7 +61,7 @@ Postgresエージェントは `postgresエージェント'と `plan-postgresエ�
 
 [postgres user権限参照サイト]（https://www.postgresql.org/docs/14/sql-grant.html）
 
-### 3. Postgres agent 設定値登録
+### 3. Postgres agent 設定値の登録
 
 #### 必須入力項目
 

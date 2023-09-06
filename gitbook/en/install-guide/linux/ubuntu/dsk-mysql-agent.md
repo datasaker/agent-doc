@@ -16,7 +16,7 @@ We tailor agent settings to your needs to deliver optimal results.
 <br><br>
 
 # Did you run the DataSaker predecessor?
-In the current Ubuntu environment, if the preceding task of `DataSaker` has not been carried out, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor](README.md)
+In the current Ubuntu environment, if the preceding task of `DataSaker` has not been carried out, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessors] (README.md)
 <br><br>
 
 # Install Mysql agent

@@ -18,9 +18,9 @@
 | postgres 9 | X |
 | postgres 8 | X |
 
-## DataSaker 先行作業を行いましたか？
+## DataSaker先行作業を進めましたか？
 
-現在の環境で `DataSaker` の先行操作が進まない場合は、`DataSaker` 先行操作を先に進めてください。 [DataSaker 先行操作]($%7BPREPARATION\_MANUAL\_KR%7D/)
+現在の環境で `DataSaker`の先行操作が進行しなかった場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker 先行操作]($%7BPREPARATION\_MANUAL\_KR%7D/)
 
 ## Plan Postgres Agent Install
 

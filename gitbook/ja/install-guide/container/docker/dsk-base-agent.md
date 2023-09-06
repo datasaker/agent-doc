@@ -2,11 +2,11 @@
 
 ## Docker環境にDataSaker Base agentをインストールする
 
-`Base agent`はサーバから発生する様々な情報をリアルタイムで収集します。たとえば、メモリ、CPU使用率など、サーバーのパフォーマンス指標、ネットワークトラフィック、コンテナ情報など、さまざまな情報を収集できます。これにより、お客様はリアルタイムでサーバーの状態を監視でき、サーバーのパフォーマンスを最適化し、信頼性を向上させることができます。お客様のニーズに合わせてエージェント設定を調整して、最適な結果を提供します。
+`Base agent`はサーバから発生する様々な情報をリアルタイムで収集します。たとえば、メモリ、CPU使用率など、サーバーのパフォーマンス指標、ネットワークトラフィック、コンテナ情報など、さまざまな情報を収集できます。これにより、顧客はリアルタイムでサーバーの状態を監視でき、サーバーのパフォーマンスを最適化し、信頼性を向上させることができます。お客様のニーズに合わせてエージェント設定を調整して、最適な結果を提供します。
 
-## DataSaker 先行作業を行いましたか？
+## DataSaker先行作業を進めましたか？
 
-現在、Docker環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker 先行操作] (dsk-base-agent/ja/$%7BPREPARATION\_MANUAL\_KR%7D/)
+現在、Docker環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker先行操作](README.md)
 
 ## Base agentのインストール
 
@@ -21,7 +21,7 @@ export DSK_CLUSTER_ID=my-cluster
    sudo mkdir -p /var/datasaker
    sudo chown -R datasaker:datasaker /var/datasaker/ 
 ```
-2. ドッカー命令をサーバに入力します。
+2. ドッカー命令をサーバーに入力します。
 ```shell
 docker run -d --name dsk-node-agent\
    -v /var/datasaker/:/var/datasaker/\

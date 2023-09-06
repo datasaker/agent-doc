@@ -3,11 +3,8 @@
 * [Kubernetes](install-guide/kubernetes/README.md)
   * [Kubernetes 환경에 Datasaker 설정파일 구성하기](install-guide/kubernetes/runtime/README.md)
     * [dsk-base-agent](install-guide/kubernetes/runtime/dsk-base-agent.md)
-    <!-- * [dsk-elasticsearch-agent](install-guide/kubernetes/runtime/dsk-elasticsearch-agent.md) -->
     * [dsk-kubernetes-agent](install-guide/kubernetes/runtime/dsk-kubernetes-agent.md)
     * [dsk-log-agent](install-guide/kubernetes/runtime/dsk-log-agent.md)
-    <!-- * [dsk-mongo-agent](install-guide/kubernetes/runtime/dsk-mongo-agent.md) -->
-    <!-- * [dsk-mysql-agent](install-guide/kubernetes/runtime/dsk-mysql-agent.md) -->
     * [dsk-postgres-agent](install-guide/kubernetes/runtime/dsk-postgres-agent.md)
     * [dsk-trace-agent](install-guide/kubernetes/runtime/dsk-trace-agent.md)
 * [Docker](install-guide/container/README.md)

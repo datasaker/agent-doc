@@ -20,7 +20,7 @@ We tailor agent settings to your needs to deliver optimal results.
 
 ## Did you run the DataSaker predecessor?
 
-If the preceding task of 'DataSaker' has not been performed in the current environment, please proceed with the preceding task of 'DataSaker' first. [DataSaker predecessor]($%7BPREPARATION\_MANUAL\_KR%7D/)
+If the preceding task of `DataSaker` has not been performed in the current environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor]($%7BPREPARATION\_MANUAL\_KR%7D/)
 
 ## Plan Postgres Agent Install
 

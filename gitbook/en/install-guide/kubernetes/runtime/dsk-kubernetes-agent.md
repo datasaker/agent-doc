@@ -6,7 +6,7 @@ The `Kubernetes agent` collects the state of your Kubernetes cluster in real tim
 
 ## Did you run the DataSaker predecessor?
 
-If the preceding task of `DataSaker` has not been carried out in the current Kubernetes environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessors] (README.md)
+If the preceding task of `DataSaker` has not been carried out in the current Kubernetes environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor](README.md)
 
 ## Install the Kubernetes agent
 

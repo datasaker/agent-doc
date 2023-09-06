@@ -7,7 +7,7 @@ We will adjust the "Trace Agent" settings to suit your requirements to provide o
 
 ## Have you done the Datasaker predecessor?
 
-If the preceding task of 'DataSaker' has not been performed in the current environment, please proceed with the preceding task of 'DataSaker' first. [DataSaker predecessors] (README.md)
+If the preceding task of `DataSaker` has not been performed in the current environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor](README.md)
 
 ## Install Trace agent
 

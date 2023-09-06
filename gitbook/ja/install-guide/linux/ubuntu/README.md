@@ -2,7 +2,7 @@
 
 ## global-config.ymlの設定
 
-まず、 `DataSaker`設定ファイルを設定するための環境を設定します。
+まず、`DataSaker`設定ファイルを設定するための環境を設定します。
 ```shell
 sudo mkdir -p /etc/datasaker
 

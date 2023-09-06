@@ -2,12 +2,12 @@
 
 `base-agent` collects various information from the server in real time.
 For example, you can collect various information such as server performance indicators such as memory and CPU usage, network traffic, and container information.
-This allows customers to monitor server status in real time, and based on this, optimize server performance and increase stability.
+Through this, customers can monitor the server's status in real time, and based on this, optimize the server's performance and increase stability.
 We tailor agent settings to your needs to deliver optimal results.
 
 ## Have you done the Datasaker predecessor?
 
-If the preceding task of 'DataSaker' has not been performed in the current environment, please proceed with the preceding task of 'DataSaker' first. [DataSaker predecessors] (README.md)
+If the preceding task of `DataSaker` has not been performed in the current environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor](README.md)
 
 ## Install the base agent
 

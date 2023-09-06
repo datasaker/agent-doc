@@ -16,7 +16,7 @@
 <br><br>
 
 ＃DataSaker先行作業を行いましたか？
-現在のUbuntu環境では、`DataSaker`の先行作業が進行しなかった場合は、`DataSaker`先行作業を先に進めてください。 [DataSaker先行操作](README.md)
+現在のUbuntu環境では、`DataSaker`の先行作業が進行しなかった場合は、`DataSaker`先行作業を先に進めてください。 [DataSaker先行操作]（$ {PREPARATION_MANUAL_JP}）
 <br><br>
 
 # Mysql agentのインストール
@@ -24,7 +24,7 @@
 管理したいデータベース `performance_schema=ON` モジュールがアクティブであることを確認してください。
 [performance_schemaリファレンスサイト]（https://dev.mysql.com/doc/refman/8.0/en/performance-schema-quick-start.html）
 
-## 2. MySQL User権限の設定
+## 2. MySQL User 権限の設定
 `MySQL agent`をインストールするには、 `MySQL User`に権限を付与する必要があります。\
 `MySQL user`の権限を確認し、権限がない場合は権限を付与してください。
 必要なユーザー権限は次のとおりです。

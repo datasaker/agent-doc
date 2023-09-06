@@ -12,7 +12,7 @@
 # Plan Postgres13 Agentのインストール
 ## 1. agent-configの設定
 
-```` yaml
+``` yaml
 agent:
   metadata:
     agent_name: "dsk-plan-postgres13-agent" # replace you want
@@ -34,34 +34,34 @@ agent:
 
 ## 2. パッケージのインストール
 sudo 権限が必要です。
-```` bash
+``` bash
 curl -fsSL -o installer.sh https://dsk-agent-s3.s3.ap-northeast-2.amazonaws.com/dsk-agent-s3/public/install.sh
 chmod 700 installer.sh
 sudo ./installer.sh dsk-postgres13-agent
 ```
 
 ## 3. パッケージの実行
-```` bash
+``` bash
 sudo dsk-plan-postgres13-agent start
 ```
 
 ## 4. パッケージ実行状態の確認
 ### Running
-```` bash
+``` bash
 sudo dsk-plan-postgres13-agent status
 ```
 ### Not Running
-```` bash
+``` bash
 sudo dsk-plan-postgres13-agent status
 ```
 
 # Plan Postgres13 Agent を削除する
 ## 1. パッケージの中断
-```` bash
+``` bash
 sudo dsk-plan-postgres13-agent stop
 ```
 
 ## 2. パッケージの削除
-```` bash
+``` bash
 sudo apt remove dsk-plan-postgres13-agent
 ```

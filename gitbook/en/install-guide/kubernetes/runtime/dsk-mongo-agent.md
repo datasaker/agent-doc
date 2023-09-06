@@ -4,7 +4,7 @@
 
 ## Did you run the DataSaker predecessor?
 
-If the preceding task of `DataSaker` has not been carried out in the current Kubernetes environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessors] (README.md)
+If the preceding task of `DataSaker` has not been carried out in the current Kubernetes environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor](dsk-mongo-agent/en/$%7BPREPARATION\_MANUAL\_KR%7D/)
 
 ## Install Mongo agent
 

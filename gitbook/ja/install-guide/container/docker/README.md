@@ -1,10 +1,10 @@
-＃Docker環境でDataSaker設定ファイルを構成する
+# Docker環境でDataSaker設定ファイルを構成する
 
 ## ユーザー情報を登録する
 
 `DataSaker`設定ファイルを構成するための環境を構成し、ユーザーテナント情報を登録します。
 
-まず、 `DataSaker`設定ファイルを設定するための環境を設定します。
+まず、`DataSaker`設定ファイルを設定するための環境を設定します。
 サーバーの端末を開き、次のコマンドを入力します。
 ```shell
 sudo groupadd -g 202306 datasaker

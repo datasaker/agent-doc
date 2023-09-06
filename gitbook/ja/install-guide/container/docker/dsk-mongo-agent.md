@@ -4,9 +4,9 @@
 
 `Mongo agent`をドッカー環境にインストールする方法について説明します。
 
-## DataSaker先行作業を進めましたか？
+## DataSaker 先行作業を行いましたか？
 
-現在、Docker環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker先行操作](README.md)
+現在、Docker環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker先行操作](dsk-mongo-agent/ja/$%7BPREPARATION\_MANUAL\_JP%7D/)
 
 ## Mongo Agentのインストール
 
@@ -56,7 +56,7 @@ EOF
      sudo chown -R datasaker:datasaker /var/datasaker/
     ```
 
-2. ドッカー命令をサーバーに入力します。
+2. ドッカー命令をサーバに入力します。
 
     ```shell
      docker run -d --name dsk-mongo-agent\

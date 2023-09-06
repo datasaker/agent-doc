@@ -2,9 +2,9 @@
 
 ## Kubernetes環境でDataSaker Mongo agentをインストールする
 
-## DataSaker 先行作業を行いましたか？
+## DataSaker先行作業を進めましたか？
 
-現在Kubernetes環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker先行操作](dsk-mongo-agent/ja/$%7BPREPARATION\_MANUAL\_JP%7D/)
+現在Kubernetes環境で `DataSaker`の先行操作が進行していない場合は、 `DataSaker`先行操作を先に進んでください。 [DataSaker先行操作](README.md)
 
 ## Mongo agentのインストール
 

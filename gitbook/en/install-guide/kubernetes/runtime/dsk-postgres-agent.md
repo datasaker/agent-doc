@@ -39,7 +39,7 @@ We tailor agent settings to your needs to deliver optimal results.
 
 ## Did you run the DataSaker predecessor?
 
-If the preceding task of `DataSaker` has not been carried out in the current Kubernetes environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessor](dsk-postgres-agent/en/$%7BPREPARATION\_MANUAL\_KR%7D/)
+If the preceding task of `DataSaker` has not been carried out in the current Kubernetes environment, please proceed with the preceding task of `DataSaker` first. [DataSaker predecessors] (README.md)
 
 ## Install the Postgres agent
 

@@ -22,6 +22,8 @@ baseAgent:
     logLevel: 'INFO'
   containerAgent:
     logLevel: 'INFO'
+  processAgent:
+    logLevel: 'INFO'
 EOF
 ```
 
@@ -33,6 +35,7 @@ EOF
 | `baseAgent.enableMaster`            | `base agent`를 `control-plane` 노드에도 배포할지 여부를 결정합니다. |
 | `baseAgent.nodeAgent.logLevel`      | `node agent`의 로그 레벨을 설정합니다.                        |
 | `baseAgent.containerAgent.logLevel` | `container agent`의 로그 레벨을 설정합니다.                   |
+| `baseAgent.processAgent.logLevel` | `process agent`의 로그 레벨을 설정합니다.                   |
 
 ### 2. Base agent 설치
 
@@ -66,5 +69,7 @@ baseAgent:
     logLevel: 'INFO'
     listenPort: 19111
   containerAgent:
+    logLevel: 'INFO'
+  processAgent:
     logLevel: 'INFO'
 ```

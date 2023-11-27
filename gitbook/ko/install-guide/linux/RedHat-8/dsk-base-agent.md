@@ -43,13 +43,15 @@ agent:
 ### 3. 패키지 실행
 
 ```shell
-systemctl enable dsk-node-agent --now
+systemctl enable dsk-node-agent --now && systemctl enable dsk-process-agent --now
 ```
 
 ### 4. 패키지 실행 상태 확인
 
 ```shell
 systemctl status dsk-node-agent
+
+systemctl status dsk-process-agent
 ```
 
 ## Base agent 제거하기
@@ -57,7 +59,7 @@ systemctl status dsk-node-agent
 ### 1. 패키지 중단
 
 ```shell
-systemctl stop dsk-node-agent
+systemctl stop dsk-node-agent && systemctl stop dsk-process-agent
 ```
 
 ### 2. 패키지 제거

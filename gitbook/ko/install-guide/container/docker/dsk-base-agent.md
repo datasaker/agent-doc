@@ -52,6 +52,14 @@ docker run -d --name dsk-container-agent\
    --privileged\
    --restart=always\
    datasaker/dsk-container-agent
+docker run -d --name dsk-process-agent\
+   -v /var/datasaker/:/var/datasaker/\
+   -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro\
+   -v /proc/:/host/proc/\
+   -e DSK_CLUSTER_ID=${DSK_CLUSTER_ID} \
+   --privileged \
+   --net host \
+   datasaker/dsk-process-agent
 
 sudo chown -R datasaker:datasaker /var/datasaker/ 
 ```

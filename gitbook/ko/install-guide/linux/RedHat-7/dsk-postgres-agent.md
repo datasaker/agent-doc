@@ -9,7 +9,7 @@
 
 |version|support|
 |---|---|
-|postgres 15|X|
+|postgres 15|O|
 |postgres 14|O|
 |postgres 13|X|
 |postgres 12|X|
@@ -67,14 +67,28 @@ agent:
       command: "/usr/bin/dsk-postgres-exporter"
       port: 19187
       args:
-        - --extend.query-path=/etc/datasaker/dsk-postgres-agent/queries.yaml
         - --data-source-user=<monitoring account name>
         - --data-source-pass=<monitoring account pass>
-        - --data-source-uri=<monitoring database uri> # <ip>:<port>/dbname
+        - --data-source-uri=<monitoring database uri> # <ip>:<port>
+        - --data-source-dbname=<monitoring database name>
     scrape_interval: 15s
     scrape_timeout: 5s
     scrape_configs:
-      - job_name: dsk-postgres-agent
+      - job_name: dsk-postgres-agent-5s
+        scrape_interval: 5s
+        metrics_path: /metrics/5s
+        url: localhost:19187
+        filtering_configs:
+          rule: drop
+      - job_name: dsk-postgres-agent-15s
+        metrics_path: /metrics/15s
+        url: localhost:19187
+        filtering_configs:
+          rule: drop
+      - job_name dsk-postgres-agent-60s
+        scrape_interval: 60s
+        scrape_timeout: 10s
+        metrics_path: /metrics/60s
         url: localhost:19187
         filtering_configs:
           rule: drop
@@ -115,7 +129,8 @@ agent:
 # 관제하려는 database의 접속권한을 가진 계정 정보와 주소를 입력합니다.
 - --data-source-user=<monitoring account name>
 - --data-source-pass=<monitoring account pass>
-- --data-source-uri=<monitoring database uri> # <ip>:<port>/dbname
+- --data-source-uri=<monitoring database uri> # <ip>:<port>
+- --data-source-dbname=<monitoring database name>
 ```
 
 각 argument에 대한 설명은 다음과 같습니다.
@@ -125,6 +140,7 @@ agent:
 | `--data-source-user`       | 관제하려는 database의 접속권한을 가진 계정 정보를 입력합니다. | N/A       | **✓**             |
 | `--data-source-pass`       | 관제하려는 database의 접속권한을 가진 계정의 비밀번호를 입력합니다. | N/A       | **✓**             |
 | `--data-source-uri`       | 관제하려는 database의 주소를 입력합니다. | N/A       | **✓**             |
+| `--data-source-dbname` | 관제하려는 논리적 database명을 입력합니다. | N/A | **✓** |
 
 ### 5. 패키지 실행
 

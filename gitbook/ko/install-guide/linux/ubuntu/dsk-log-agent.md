@@ -27,9 +27,7 @@ fluent-bit 패키지 설치에 대한 자세한 내용은 [공식문서](https:/
 `DataSaker`의 `log-agent`를 설치하기 위해서는 sudo 권한이 필요합니다.
 
 ```shell
-curl -fsSL -o installer.sh https://dsk-agent-s3.s3.ap-northeast-2.amazonaws.com/dsk-agent-s3/public/dsk-log-agent-install.sh
-chmod 700 installer.sh
-sudo ./installer.sh dsk-log-agent
+sudo apt install dsk-log-agent
 ```
 
 ### 2. agent-config 설정

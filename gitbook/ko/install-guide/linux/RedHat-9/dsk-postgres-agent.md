@@ -1,168 +1,197 @@
 # dsk-postgres-agent
 
-`postgres agent`는 데이터베이스의 상태를 실시간으로 수집합니다.\
-이를 통해 데이터베이스의 성능 지표, 리소스 사용량 등 다양한 정보를 수집할 수 있습니다.\
-수집된 데이터를 기반으로 데이터베이스의 성능 병목 현상을 파악하고, 대응할 수 있습니다.\
-고객의 요구사항에 맞게 에이전트 설정을 조정하여 최적의 결과를 제공해 드립니다.
+Postgres Agent는 PostgreSQL의 모니터링 및 관리를 위한 도구입니다.
+데이터베이스 운영 및 성능 향상을 위한 모니터링 기능을 제공합니다.
+이 문서에서는 Postgres Agent의 설치, 설정에 대해 설명합니다.
 
-## Supported version
+## Support Version
+| version | support |
+|---------|:-------:|
+| ver >= 13 | O |
 
-|version|support|
-|---|---|
-|postgres 15|O|
-|postgres 14|O|
-|postgres 13|X|
-|postgres 12|X|
-|postgres 11|X|
-|postgres 10|X|
-|postgres 9|X|
-|postgres 8|X|
+## DataSaker 선행 작업을 진행하였나요?
+현재 환경에서는 `DataSaker`의 선행 작업이 진행되지 않으셨다면 \
+`DataSaker`선행 작업을 먼저 진행하여 주시기 바랍니다. \
+[DataSaker 선행작업](README.md)
 
-## Datasaker 선행 작업을 진행하였나요?
-
-현재 환경에서 `DataSaker`의 선행 작업이 진행되지 않으셨다면 `DataSaker` 선행 작업을 먼저 진행하여 주시기 바랍니다. [DataSaker 선행 작업](README.md)
-
-## Postgres agent 설치하기
-
+## Postgres Agent 설치하기
 ### 1. Postgres 설정 변경
+관제하려는 데이터베이스의 `pg_stat_statements` 활성화가 필요합니다.
+#### 활성화 확인
+```
+postgres=# show shared_preload_libraries;
 
-관제하려는 데이터베이스의 `pg_stat_statements` 모듈이 활성화 된 상태인지 확인 부탁드립니다.\
-[pg_stat_statements 참조사이트](https://www.postgresql.org/docs/14/pgstatstatements.html)
+ shared_preload_libraries
+--------------------------
+ pg_stat_statements
+(1 row)
+```
+shared_preload_libraries에 `pg_stat_statements` 활성화가 필요합니다.
 
-### 2. Postgres User 권한 설정
+#### 필수 설정
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| shared_preload_libraries | pg_stat_statements | `pg_stat_statements` extension을 이용하여 `pg_dsk_sql_stat.*` metric을 추출. |
+| track_activity_query_size | 4096 | `pg_stat_activity`, `pg_stat_statements`의 SQL 텍스트 길이를 증가. |
 
-`postgres agent`를 설치하기 위해서는 `postgres user`의 권한이 필요합니다.\
-`postgres user`의 권한을 확인하고, 권한이 없다면 권한을 부여해주세요.\
-필요한 User 권한은 다음과 같습니다.
+#### 선택 설정
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| pg_stat_statements.track | ALL | `stored producers`, `function` 내에서의 구문을 추척. |
+| pg_stat_statements.max | 10000 | `pg_stat_statements`의 추적 쿼리 증가 |
+| pg_stat_statements.track_utility | 0 | `PREPARE`, `EXPLAIN`같은 유틸리티 명령에 대한 추적을 비활성화 |
 
-- `SELECT`
-- `UPDATE`
-- `DELETE`
-- `INSERT`
-
-[postgres user 권한 참조사이트](https://www.postgresql.org/docs/14/sql-grant.html)
+### 2. PostgreSQL User 권한 설정
+`datasaker` 사용자를 생성하고 `pg_monitor` 및 기본 권한을 부여합니다.
+```shell
+CREATE USER datasaker WITH password '<PASSWORD>';
+GRANT USAGE ON SCHEMA '<monitoring schema list>' TO datasaker
+GRANT pg_monitor TO datasaker;
+```
 
 ### 3. 패키지 설치
-
 ```shell
 yum install dsk-postgres-agent
 ```
 
-### 4. Postgres agent 설정
-
+### 4. agent-config 설정
 ```shell
 vi /etc/datasaker/dsk-postgres-agent/agent-config.yml
 ```
 
-필요에 따라 다음 내용을 수정합니다.
-
-#### `agent-config.yml`
-
+#### agent-config.yml
 ```yaml
 agent:
   metadata:
-    agent_name: dsk-postgres-agent
-  option:
-    exporter_config:
-      command: "/usr/bin/dsk-postgres-exporter"
-      port: 19187
-      args:
-        - --data-source-user=<monitoring account name>
-        - --data-source-pass=<monitoring account pass>
-        - --data-source-uri=<monitoring database uri> # <ip>:<port>
-        - --data-source-dbname=<monitoring database name>
-    scrape_interval: 15s
-    scrape_timeout: 5s
-    scrape_configs:
-      - job_name: dsk-postgres-agent-5s
-        scrape_interval: 5s
-        metrics_path: /metrics/5s
-        url: localhost:19187
-        filtering_configs:
-          rule: drop
-      - job_name: dsk-postgres-agent-15s
-        metrics_path: /metrics/15s
-        url: localhost:19187
-        filtering_configs:
-          rule: drop
-      - job_name dsk-postgres-agent-60s
-        scrape_interval: 60s
-        scrape_timeout: 10s
-        metrics_path: /metrics/60s
-        url: localhost:19187
-        filtering_configs:
-          rule: drop
+    agent_name:
+    cluster_id:
+  instances:
+  - username:
+    password:
+    host:
+    port:
+    sslmode:
+    ssl-ca:
+    ssl-cert:
+    ssl-key:
+    dbname:
+    append_session:
+      scrape_interval:
+      db_list:
+      - dbname:
+        long_session_standard:
 ```
+##### **metadata**
+| **Settings** | **Description** | **Default** | **Required** |
+|--------------|-----------------|:-----------:|:------------:|
+| agent_name   | 에이전트 이름(별칭) | dsk-postgres-agent | N/A |
+| cluster_id   | 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정 | unknown | N/A |
 
-##### `metadata`
+##### **instances**
+| **Settings** | **Description** | **Default** | **Required** |
+|--------------|-----------------|:-----------:|:------------:|
+| username     | 데이터베이스의 접속 권한을 가진 계정 정보 | N/A | **✓** |
+| password     | 데이터베이스의 접속 권한을 가진 계정 비밀번호 | N/A | **✓** |
+| host         | 데이터베이스의 주소 | N/A | **✓** |
+| port         | 데이터베이스의 포트번호 | N/A | **✓** |
+| sslmode      | SSL 활성화 유무 | disable | N/A |
+| ssl-ca       | CA 파일의 경로 | N/A | N/A |
+| ssl-cert     | SSL 인증서 파일 경로 | N/A | N/A |
+| ssl-key      | SSL 키 파일 경로 | N/A | N/A |
+| dbname       | 데이터베이스의 schema 이름 | N/A | **✓** |
 
-```yaml
-# 에이전트 이름 (별칭)
-[ agent_name: <string> | default = "dsk-postgres-agent" ]
+##### **instances.append_session**
+| **Settings** | **Description** | **Default** | **Required** |
+|--------------|-----------------|:-----------:|:------------:|
+| scrape_interval | append session 수집 주기 | N/A | N/A |
 
-# 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정
-[ cluster_id: <cluster_id> | default = "unknown" ]
-```
+##### **instances.apped_session.db_list**
+| **Settings** | **Description** | **Default** | **Required** |
+|--------------|-----------------|:-----------:|:------------:|
+| dbname       | 데이터베이스의 schema 이름 | N/A | N/A |
+| long_session_standard | long session 기준 시간 | N/A | N/A |
 
-각 설정에 대한 설명은 다음과 같습니다.
+##### example
+* One DB Instance
+	```yaml
+	agent:
+	  metadata:
+	    agent_name: dsk-postgres-agent
+	    cluster_id: example-cluster
+	  instances:
+	  - username: datasaker
+	    password: <account password>
+	    host: 127.0.0.1
+	    port: 5432
+	    dbname: example
+	```
+* One DB Instance, Append Session
+	```yaml
+	agent:
+	  metadata:
+	    agent_name: dsk-postgres-agent
+	    cluster_id: example-cluster
+	  instances:
+	  - username: datasaker
+	    password: <account password>
+	    host: 127.0.0.1
+	    port: 5432
+	    dbname: example
+	    append_session:
+	      scrape_interval: 3s
+	      db_list:
+	      - dbname: append1
+	        long_session_standard: 1s
+	```
 
-| **Settings**               | **Description**                                                                                     | **Default** | **Required** |
-| -------------------------- | --------------------------------------------------------------------------------------------------- | :-----------: | :------------: |
-| `agent_name`               | 에이전트 이름 (별칭)                                                                                | dsk-postgres-agent            | N/A             |
-| `cluster_id`               | 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정                                        | unknown     | N/A             |
-
-##### `option.exporter_config.port`
-
-```yaml
-[ port: <uint16> | default = 19187 ]
-```
-
-각 설정에 대한 설명은 다음과 같습니다.
-
-| **Settings** | **Description**                                                                                     | **Default** | **Required** |
-| ------------ | --------------------------------------------------------------------------------------------------- | :-----------: | :------------: |
-| `port`       | agent가 사용하는 port number 기존 사용중인 application과 포트 충돌 발생시 임의 값으로 변경 | 19187       | N/A             |
-
-##### `option.exporter_config.args`
-
-```yaml
-# 관제하려는 database의 접속권한을 가진 계정 정보와 주소를 입력합니다.
-- --data-source-user=<monitoring account name>
-- --data-source-pass=<monitoring account pass>
-- --data-source-uri=<monitoring database uri> # <ip>:<port>
-- --data-source-dbname=<monitoring database name>
-```
-
-각 argument에 대한 설명은 다음과 같습니다.
-
-| **Settings** | **Description**                                                                                     | **Default** | **Required** |
-| ------------ | --------------------------------------------------------------------------------------------------- | :-----------: | :------------: |
-| `--data-source-user`       | 관제하려는 database의 접속권한을 가진 계정 정보를 입력합니다. | N/A       | **✓**             |
-| `--data-source-pass`       | 관제하려는 database의 접속권한을 가진 계정의 비밀번호를 입력합니다. | N/A       | **✓**             |
-| `--data-source-uri`       | 관제하려는 database의 주소를 입력합니다. | N/A       | **✓**             |
+* Many DB Instance
+	```yaml
+	agent:
+	  metadata:
+	    agent_name: dsk-postgres-agent
+	    cluster_id: example-cluster
+	  instances:
+	  - username: datasaker
+	    password: <account password>
+	    host: 127.0.0.1
+	    port: 5432
+	    dbname: example
+	    append_session:
+	      scrape_interval: 3s
+	      db_list:
+	      - dbname: append1
+	        long_session_standard: 1s
+	  - username: datasaker
+	    password: <account password>
+	    host: 127.0.0.2
+	    port: 5432
+	    dbname: example
+	    append_session:
+	      scrape_interval: 3s
+	      db_list:
+	      - dbname: append1
+	        long_session_standard: 1s
+	      - dbname: append2
+	        long_session_standard: 3s
+	```
 
 ### 5. 패키지 실행
-
 ```shell
 systemctl enable dsk-postgres-agent --now
 ```
 
 ### 6. 패키지 실행 상태 확인
-
 ```shell
 systemctl status dsk-postgres-agent
 ```
 
-## Postgres agent 제거하기
-
+## Postgres Agent 제거하기
 ### 1. 패키지 중단
-
 ```shell
 systemctl stop dsk-postgres-agent
 ```
 
 ### 2. 패키지 제거
-
 ```shell
 yum remove dsk-postgres-agent
 ```

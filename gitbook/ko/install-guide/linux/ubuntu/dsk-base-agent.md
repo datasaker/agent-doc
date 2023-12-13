@@ -14,13 +14,9 @@
 ### 1. 패키지 설치
 
 `DataSaker`의 `base-agent`를 설치하기 위해서는 sudo 권한이 필요합니다.
-<!-- 
-example API Key : VAR_GLOBAL_APIKEY=1234567890abcdef1234567890abcdef
- -->
+
 ```shell
-curl -fsSL -o installer.sh https://dsk-agent-s3.s3.ap-northeast-2.amazonaws.com/dsk-agent-s3/public/install.sh
-chmod 700 installer.sh
-sudo ./installer.sh dsk-node-agent
+sudo apt install dsk-node-agent
 ```
 
 ## 2. Base agent 설정

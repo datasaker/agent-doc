@@ -15,9 +15,7 @@
 example API Key : VAR_GLOBAL_APIKEY=1234567890abcdef1234567890abcdef
  -->
 ```bash
-curl -fsSL -o installer.sh https://dsk-agent-s3.s3.ap-northeast-2.amazonaws.com/dsk-agent-s3/public/install.sh
-chmod 700 installer.sh
-sudo ./installer.sh dsk-elasticsearch-agent
+sudo apt install dsk-elasticsearch-agent
 ```
 
 ### 2. Elasticsearch agent 설정값 등록

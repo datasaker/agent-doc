@@ -13,9 +13,7 @@
 ```shell
 
 ```bash
-curl -fsSL -o installer.sh https://dsk-agent-s3.s3.ap-northeast-2.amazonaws.com/dsk-agent-s3/public/install.sh
-chmod 700 installer.sh
-sudo ./installer.sh dsk-redis-agent
+sudo apt install dsk-redis-agent
 ```
 
 ### 1. Redis agent 설정

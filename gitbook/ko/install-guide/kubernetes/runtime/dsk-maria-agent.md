@@ -1,25 +1,25 @@
-# dsk-mysql-agent
+# dsk-maria-agent
 
-MySQL Agent는 MySQL의 모니터링 및 관리를 위한 도구입니다.
+MariaDB Agent는 MariaDBL의 모니터링 및 관리를 위한 도구입니다.
 데이터베이스 운영 및 성능 향상을 위한 모니터링 기능을 제공합니다.
-이 문서에는 MySQL Agent의 설치, 설정에 대해 설명합니다.
+이 문서에는 MariaDB Agent의 설치, 설정에 대해 설명합니다.
 
 ## Support Version
 | version | support |
 |---------|:-------:|
-| ver >= 8.0 | O |
+| ver >= 10.5 | O |
 
 ## DataSaker 선행 작업을 진행하였나요?
 현재 환경에서 `DataSaker`의 선행 작업이 진행되지 않으셨다면 \
 `DataSaker` 선행 작업을 먼저 진행하여 주시기 바랍니다. \
 [DataSaker 선행작업](README.md)
 
-## MySQL Agent 설치하기
-### 1. MySQL 설정 변경
+## MariaDB Agent 설치하기
+### 1. MariaDB 설정 변경
 관제하려는 데이터베이스의 `performance_schema`활성화가 필요합니다.
 #### 활성화 확인
 ```shell
-mysql > SHOW GLOBAL VARIABLES LIKE 'performance_schema';
+MariaDB > SHOW GLOBAL VARIABLES LIKE 'performance_schema';
 +--------------------+-------+
 | Variable_name      | Value |
 +--------------------+-------+
@@ -39,7 +39,7 @@ Value 값이 OFF라면 `performance_schema` 활성화가 필요합니다.
 	UPDATE performance_schema.setup_consumers SET enabled='YES' WHERE name = 'thread_instrumentation';
 	```
 	테이블을 업데이트하는 방식은 다이나믹한 방식으로 영구적이지 않습니다.\
-	MySQL 서버를 재시작 하는 경우 다시 적용해야합니다.
+	MariaDB 서버를 재시작 하는 경우 다시 적용해야합니다.
 
 ##### Static
 * performance_schema.cnf
@@ -55,7 +55,7 @@ Value 값이 OFF라면 `performance_schema` 활성화가 필요합니다.
 	```
 	cnf를 적용하려면 데이터베이스를 재기동 해야하니 주의가 필요합니다.
 
-### 2. MySQL User 권한 설정
+### 2. MariaDB User 권한 설정
 `datasaker` 사용자를 생성하고 기본 권한을 부여합니다.
 ```shell
 CREATE USER 'datasaker'@'%' IDENTIFIED by '<PASSWORD>';
@@ -63,10 +63,10 @@ GRANT SELECT ON performance_schema.* TO 'datasaker'@'%';
 GRANT PROCESS, SLAVE MONITOR ON *.* TO 'datasaker'@'%';
 ```
 
-### 3. MySQL Agent 설정값 등록
+### 3. MariaDB Agent 설정값 등록
 #### values.yaml
 ```yaml
-mysqlAgent:
+mariaAgent:
   name:
   imgPolicy:
   imgVersion:
@@ -79,8 +79,8 @@ mysqlAgent:
 ```shell
 cat << EOF >> ~/datasaker/config.yaml
 
-mysqlAgent:
-  name: my-mysql
+mariaAgent:
+  name: my-maria
   imgPolicy: 'Always'
   imgVersion: 'latest'
   logLevel: 'INFO'
@@ -90,19 +90,19 @@ mysqlAgent:
     password: <your password>
     host: <db instance ip or domain>
     port: <db instance port>
-	dbname: <db schema name>
-	sslSkipVerfication: <certificate verification on the server during SSL connection>
-	sslCa: <Path to the CA file>
-	sslCert: <SSL certificate file path>
-	sslKey: <SSL key file path>
-	tls: <TLS Settings>
-	appendSession:
-	  scrapeInterval: <append session collection cycle>
-	  dbList:
-	  - dbname: <db schema name>
-	    longSessionStandard: <long session standard>
+    dbname: <db schema name>
+    sslSkipVerfication: <certificate verification on the server during SSL connection>
+    sslCa: <Path to the CA file>
+    sslCert: <SSL certificate file path>
+    sslKey: <SSL key file path>
+    tls: <TLS Settings>
+    appendSession:
+      scrapeInterval: <append session collection cycle>
+      dbList:
+      - dbname: <db schema name>
+        longSessionStandard: <long session standard>
 ```
-##### **mysqlAgent.instances**
+##### **mariaAgent.instances**
 | **Entity** | **Description** | **Default** | **Required** |
 |------------|-----------------|-------------|--------------|
 | username | 데이터베이스의 접속 권한을 가진 계정 정보 | N/A | **✓** |
@@ -116,18 +116,18 @@ mysqlAgent:
 | sslKey | SSL 키 파일 경로 | N/A | N/A |
 | tls | TLS 설정 | N/A | N/A |
 
-##### mysqlAgent.instances.appendSession
+##### mariaAgent.instances.appendSession
 | **Entity** | **Description** | **Default** | **Required** |
 |------------|-----------------|-------------|--------------|
 | scrapeInterval | append session 수집 주기 | N/A | N/A |
 
-##### mysqlAgent.instance.appendSession.dbList
+##### mariaAgent.instance.appendSession.dbList
 | **Entity** | **Description** | **Default** | **Required** |
 |------------|-----------------|-------------|--------------|
 | dbname | 데이터베이스의 schema 이름 | N/A | N/A |
 | longSessionStandard | long session 기준 시간 | N/A | N/A |
 
-### 4. MySQL Agent 활성화
+### 4. MariaDB Agent 활성화
 ```
 helm upgrade datasaker datasaker/agent-helm -n datasaker \ -f ~/datasaker/config.yaml
 ```

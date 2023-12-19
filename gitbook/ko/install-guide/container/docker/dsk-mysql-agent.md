@@ -39,7 +39,7 @@ Value 값이 OFF라면 `performance_schema` 활성화가 필요합니다.
 	UPDATE performance_schema.setup_consumers SET enabled='YES' WHERE name = 'thread_instrumentation';
 	```
 	테이블을 업데이트하는 방식은 다이나믹한 방식으로 영구적이지 않습니다.\
-	MariaDB 서버를 재시작 하는 경우 다시 적용해야합니다.
+	MySQL 서버를 재시작 하는 경우 다시 적용해야합니다.
 
 ##### Static
 * performance_schema.cnf
@@ -63,9 +63,12 @@ GRANT SELECT ON performance_schema.* TO 'datasaker'@'%';
 GRANT PROCESS, SLAVE MONITOR ON *.* TO 'datasaker'@'%';
 ```
 
-### 3. agent-config 설정
-#### agent-config.yml
-```yaml
+### 3. MySQL Agent 설정값 등록
+#### mysql-config.yml
+```shell
+cd ~
+mkdir .datasaker
+cat << EOF > ~/.datasaker/mysql-config.yml
 agent:
   metadata:
     agent_name:

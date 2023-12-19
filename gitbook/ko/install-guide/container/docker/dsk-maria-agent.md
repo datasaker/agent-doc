@@ -1,25 +1,25 @@
-# dsk-mysql-agent
+# dsk-maria-agent
 
-MySQL Agent는 MySQL의 모니터링 및 관리를 위한 도구입니다.
+MariaDB Agent는 MariaDB의 모니터링 및 관리를 위한 도구입니다.
 데이터베이스 운영 및 성능 향상을 위한 모니터링 기능을 제공합니다.
-이 문서에는 MySQL Agent의 설치, 설정에 대해 설명합니다.
+이 문서에는 MariaDB Agent의 설치, 설정에 대해 설명합니다.
 
 ## Support Version
 | version | support |
 |---------|:-------:|
-| ver >= 8.0 | O |
+| ver >= 10.5 | O |
 
 ## DataSaker 선행 작업을 진행하였나요?
 현재 환경에서는 `DataSaker`의 선행 작업이 진행되지 않으셨다면 \
 `DataSaker`선행 작업을 먼저 진행하여 주시기 바랍니다. \
 [DataSaker 선행작업](README.md)
 
-## MySQL Agent 설치하기
-### 1. MySQL 설정 변경
+## MariaDB Agent 설치하기
+### 1. MariaDB 설정 변경
 관제하려는 데이터베이스의 `performance_schema`활성화가 필요합니다.
 #### 활성화 확인
 ```shell
-mysql > SHOW GLOBAL VARIABLES LIKE 'performance_schema';
+MariaDB > SHOW GLOBAL VARIABLES LIKE 'performance_schema';
 +--------------------+-------+
 | Variable_name      | Value |
 +--------------------+-------+
@@ -39,12 +39,12 @@ Value 값이 OFF라면 `performance_schema` 활성화가 필요합니다.
 	UPDATE performance_schema.setup_consumers SET enabled='YES' WHERE name = 'thread_instrumentation';
 	```
 	테이블을 업데이트하는 방식은 다이나믹한 방식으로 영구적이지 않습니다.\
-	MySQL 서버를 재시작 하는 경우 다시 적용해야합니다.
+	MariaDB 서버를 재시작 하는 경우 다시 적용해야합니다.
 
 ##### Static
 * performance_schema.cnf
 	```
-	[mysqld]
+	[MariaDBd]
 	performance_schema=ON
 	performance_schema_consumer_events_stages_current=ON
 	performance_schema_consumer_events_statements_current=ON
@@ -55,7 +55,7 @@ Value 값이 OFF라면 `performance_schema` 활성화가 필요합니다.
 	```
 	cnf를 적용하려면 데이터베이스를 재기동 해야하니 주의가 필요합니다.
 
-### 2. MySQL User 권한 설정
+### 2. MariaDB User 권한 설정
 `datasaker` 사용자를 생성하고 기본 권한을 부여합니다.
 ```shell
 CREATE USER 'datasaker'@'%' IDENTIFIED by '<PASSWORD>';
@@ -63,18 +63,12 @@ GRANT SELECT ON performance_schema.* TO 'datasaker'@'%';
 GRANT PROCESS, SLAVE MONITOR ON *.* TO 'datasaker'@'%';
 ```
 
-### 3. 패키지 설치
+### 3. MariaDB Agent 설정값 등록
+#### maria-config.yml
 ```shell
-apt install dsk-mysql-agent
-```
-
-### 4. agent-config 설정
-```shell
-vi  /etc/datasaker/dsk-mysql-agent/agent-config.yml
-```
-
-#### agent-config.yml
-```yaml
+cd ~
+mkdir .datasaker
+cat << EOF > ~/.datasaker/maria-config.yml
 agent:
   metadata:
     agent_name:
@@ -99,7 +93,7 @@ agent:
 ##### **metadata**
 | **Settings** | **Description** | **Default** | **Required** |
 |--------------|-----------------|:-----------:|:------------:|
-| agent_name   | 에이전트 이름(별칭) | dsk-mysql-agent | N/A |
+| agent_name   | 에이전트 이름(별칭) | dsk-maria-agent | N/A |
 | cluster_id   | 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정 | unknown | N/A |
 
 ##### **instances**
@@ -132,7 +126,7 @@ agent:
 	```yaml
 	agent:
 	  metadata:
-	    agent_name: dsk-mysql-agent
+	    agent_name: dsk-maria-agent
 	    cluster_id: example-cluster
 	  instances:
 	  - username: datasaker
@@ -146,7 +140,7 @@ agent:
 	```yaml
 	agent:
 	  metadata:
-	    agent_name: dsk-mysql-agent
+	    agent_name: dsk-maria-agent
 	    cluster_id: example-cluster
 	  instances:
 	  - username: datasaker
@@ -166,7 +160,7 @@ agent:
 	```yaml
 	agent:
 	  metadata:
-	    agent_name: dsk-mysql-agent
+	    agent_name: dsk-maria-agent
 	    cluster_id: example-cluster
 	  instances:
 	  - username: datasaker
@@ -195,23 +189,19 @@ agent:
 	        long_session_standard: 3s
 	```
 
-### 5. 패키지 실행
-```shell
-systemctl enable dsk-mysql-agent --now
-```
-
-### 6. 패키지 실행 상태 확인
-```shell
-systemctl status dsk-mysql-agent
-```
-
-## MySQL Agent 제거하기
-### 1. 패키지 중단
-```shell
-systemctl stop dsk-mysql-agent
-```
-
-### 2. 패키지 제거
-```shell
-apt remove dsk-mysql-agent
-```
+### 4. MariaDB Agent 설치
+1. 데이터세이커가 사용할 로컬 디렉토리를 생성합니다.
+	```shell
+	mkdir -p /var/datasaker
+	chown -R datasaker:datasaker /var/datasaker/
+	```
+2. 도커 명령어를 서버에 입력합니다.
+	```shell
+	docker run -d --name dsk-maria-agent \
+	-v /var/datasaker/:/var/datasaker/ \
+	-v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro \
+	-v ~/.datasaker/maria-config.yml:/etc/datasaker/dsk-maria-agent/agent-config.yml:ro \
+	-e DSK_LOG_LEVEL=INFO \
+	-- restart=always \
+	datasaker/dsk-maria-agent
+	```

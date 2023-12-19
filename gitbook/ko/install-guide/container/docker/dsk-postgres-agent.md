@@ -1,174 +1,189 @@
 # dsk-postgres-agent
 
-## 도커 환경에 DataSaker PostgreSQL agent 설치하기
-
-`Postgres agent`는 `postgres-agent`와 `plan-postgres-agent`로 구성되어 있습니다.\
-이를 통해 Postgresql의 성능 지표,리리소스 사용량, 슬로우 쿼리 등 다양한 정보를 수집할 수 있습니다.\
-고객의 요구사항에 따라 `plan-postgres-agent`는 `on/off` 형태로 사용 할 수 있습니다.
+Postgres Agent는 PostgreSQL의 모니터링 및 관리를 위한 도구입니다.
+데이터베이스 운영 및 성능 향상을 위한 모니터링 기능을 제공합니다.
+이 문서에서는 Postgres Agent의 설치, 설정에 대해 설명합니다.
 
 ## Supported version
-
-| version     | support |
-| ----------- | ------- |
-| postgres 15 | X       |
-| postgres 14 | O       |
-| postgres 13 | X       |
-| postgres 12 | X       |
-| postgres 11 | X       |
-| postgres 10 | X       |
-| postgres 9  | X       |
-| postgres 8  | X       |
-
-## Agent 구성
-
-Postgres agent는 `postgres agent`와 `plan-postgres-agent`로 구성되어 있습니다.
-
-### postgres agent
-
-`postgres agent`는 데이터베이스의 상태를 실시간으로 수집합니다.\
-이를 통해 데이터베이스의 성능 지표, 리소스 사용량 등 다양한 정보를 수집할 수 있습니다.\
-수집된 데이터를 기반으로 데이터베이스의 성능 병목 현상을 파악하고, 대응할 수 있습니다.\
-고객의 요구사항에 맞게 에이전트 설정을 조정하여 최적의 결과를 제공해 드립니다.
-
-### plan-postgres agent
-
-`plan-postgres-agent`는 데이터베이스의 `active session`을 실시간으로 수집합니다.\
-이를 통해 데이터베이스의 슬로우 쿼리에 대한 정보를 수집할 수 있습니다.\
-슬로우 쿼리를 탐지하여 인덱스 생성, 쿼리 최적화 등의 방법으로 데이터베이스 성능을 개선할 수 있습니다.\
-고객의 요구사항에 맞게 에이전트 설정을 조정하여 최적의 결과를 제공해 드립니다.
+| version | support |
+|---------|:-------:|
+| ver >= 13 | O |
 
 ## DataSaker 선행 작업을 진행하였나요?
 
-현재 Docker 환경에 `DataSaker`의 선행 작업이 진행되지 않으셨다면 `DataSaker` 선행 작업을 먼저 진행하여 주시기 바랍니다. [DataSaker 선행 작업](README.md)
+현재 Docker 환경에 `DataSaker`의 선행 작업이 진행되지 않으셨다면 \
+`DataSaker` 선행 작업을 먼저 진행하여 주시기 바랍니다. \
+[DataSaker 선행 작업](README.md)
 
-## Postgres agent 설치하기
+## Postgres Agent 설치하기
+### 1. Postgres 설정 변경
+관제하려는 데이터베이스의 `pg_stat_statements` 활성화가 필요합니다.
+#### 활성화 확인
+```
+postgres=# show shared_preload_libraries;
 
-### 1. Postgres agent 설정 변경
+ shared_preload_libraries
+--------------------------
+ pg_stat_statements
+(1 row)
+```
+shared_preload_libraries에 `pg_stat_statements` 활성화가 필요합니다.
 
-관제하려는 데이터베이스 `pg_stat_statements` 모듈의 활성화 된 상태인지 확인 부탁드립니다.\
-[pg\_stat\_statements 참조사이트](https://www.postgresql.org/docs/14/pgstatstatements.html)
+#### 필수 설정
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| shared_preload_libraries | pg_stat_statements | `pg_stat_statements` extension을 이용하여 `pg_dsk_sql_stat.*` metric을 추출. |
+| track_activity_query_size | 4096 | `pg_stat_activity`, `pg_stat_statements`의 SQL 텍스트 길이를 증가. |
 
-### 2. Postgres User 권한 설정
+#### 선택 설정
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| pg_stat_statements.track | ALL | `stored producers`, `function` 내에서의 구문을 추척. |
+| pg_stat_statements.max | 10000 | `pg_stat_statements`의 추적 쿼리 증가 |
+| pg_stat_statements.track_utility | 0 | `PREPARE`, `EXPLAIN`같은 유틸리티 명령에 대한 추적을 비활성화 |
 
-`postgres agent`를 설치하기 위해서는 `postgres user`의 권한이 필요합니다.\
-`postgres user`의 권한을 확인하고, 권한이 없다면 권한을 부여해주세요.\
-필요한 User 권한은 다음과 같습니다.
-
-* `SELECT`
-* `UPDATE`
-* `DELETE`
-* `INSERT`
-
-[postgres user 권한 참조사이트](https://www.postgresql.org/docs/14/sql-grant.html)
-
-### 3. Postgres agent 설정값 등록
-
-#### 필수입력 사항 안내
-
-에이전트를 연결하기 위해서는 수집하고자 하는 PostgreSQL 서버의 주소, 데이터베이스, 유저 ID와 패스워드를 에이전트에 설정해야 합니다.
-
+### 2. PostgreSQL User 권한 설정
+`datasaker` 사용자를 생성하고 `pg_monitor` 및 기본 권한을 부여합니다.
 ```shell
- DSK_PG_USER=<user>
- DSK_PG_SOURCE_PASS=<password>
- DSK_PG_DB_NAME=<database>
- DSK_PG_HOST=<host>
- DSK_PG_PORT=<port>
+CREATE USER datasaker WITH password '<PASSWORD>';
+GRANT USAGE ON SCHEMA '<monitoring schema list>' TO datasaker
+GRANT pg_monitor TO datasaker;
 ```
 
-예를 들어, 주소가 `192.168.123.132`이고, 기본 포트 `5432`에 서비스중인 PostgreSQL를 수집하기 위해서는 터미널에 다음과 같이 설정할 수 있습니다.
-
-```shell
- DSK_PG_USER=postgres
- DSK_PG_SOURCE_PASS=postgres
- DSK_PG_DB_NAME=postgres
- DSK_PG_HOST=192.168.123.132
- DSK_PG_PORT=5432
-```
-
-#### Postgres agent 설정값 등록
-
-이제 터미널에 다음 명령어를 입력하여 dsk-postgres-agent와 dsk-plan-postgres-agent의 설정파일을 생성합니다.
-
+### 3. Postgres Agent 설정값 등록
+#### postgres-config.yml
 ```shell
 cd ~
 mkdir .datasaker
 cat << EOF > ~/.datasaker/postgres-config.yml
+
 agent:
   metadata:
-    agent_name: dsk-postgres-agent
-  option:
-    exporter_config:
-      command: /etc/datasaker/target-exporter
-      port: 9187
-    scrape_configs:
-      - job_name: dsk-postgres-agent
-        metrics_path: /metrics/short
-        url: localhost:9187
-      - job_name: dsk-postgres-agent-long
-        scrape_interval: 60s
-        scrape_timeout: 10s
-        metrics_path: /metrics/long
-        url: localhost:9187
-        filtering_configs:
-          rule: drop
-EOF
-
-cat << EOF > ~/.datasaker/plan-postgres-config.yml
-agent:
-  metadata:
-    agent_name: dsk-plan-postgres-agent
-  data_source_name:
-    user: ${DSK_PG_USER}
-    password: ${DSK_PG_SOURCE_PASS}
-    address: ${DSK_PG_HOST}
-    port: ${DSK_PG_PORT}
-    DBName: ${DSK_PG_DB_NAME}
-  explain:
-    scrape_interval: 5s
-    scrape_timeout: 5s
-    slow_query_standard: 1s
-EOF
+    agent_name: <agent alias>
+    cluster_id: <cluster name>
+  instances:
+  - username: <db account name>
+    password: <db account pass>
+    host: <db instance ip or domain>
+    port: <db instance port>
+    dbname: <db schema name>
+    sslmode: <certificate verification on the server during SSL connection>
+    ssl-ca: <Path to the CA file>
+    ssl-cert: <SSL certificate file path>
+    ssl-key: <SSL key file path>
+    append_session:
+      scrape_interval: <append session collection cycle>
+      db_list:
+      - dbname: <db schema name>
+        long_session_standard: <long session standard>
 ```
+##### **metadata**
+| **Settings** | **Description** | **Default** | **Required** |
+|--------------|-----------------|:-----------:|:------------:|
+| agent_name   | 에이전트 이름(별칭) | dsk-postgres-agent | N/A |
+| cluster_id   | 관제 대상이 되는 환경이 어떤 클러스터로 묶여있는지에 대한 설정 | unknown | N/A |
 
-| 설정값                           | 설명                       |
-| ----------------------------- | ------------------------ |
-| data\_source\_name.user       | DB 유저 명                  |
-| data\_source\_name.password   | DB 유저 비밀번호               |
-| data\_source\_name.address    | PostgreSQL 서버 접속 주소      |
-| data\_source\_name.port       | PostgreSQL 서버 접속 포트      |
-| data\_source\_name.DBName     | PostgreSQL 데이터베이스        |
-| explain.scrape\_interval      | activity session 수집하는 주기 |
-| explain.scrape\_timeout       | 수집 타임아웃                  |
-| explain.slow\_query\_standard | 슬로우 쿼리 기준 시간             |
+##### **instances**
+| **Settings** | **Description** | **Default** | **Required** |
+|--------------|-----------------|:-----------:|:------------:|
+| username     | 데이터베이스의 접속 권한을 가진 계정 정보 | N/A | **✓** |
+| password     | 데이터베이스의 접속 권한을 가진 계정 비밀번호 | N/A | **✓** |
+| host         | 데이터베이스의 주소 | N/A | **✓** |
+| port         | 데이터베이스의 포트번호 | N/A | **✓** |
+| sslmode      | SSL 활성화 유무 | disable | N/A |
+| ssl-ca       | CA 파일의 경로 | N/A | N/A |
+| ssl-cert     | SSL 인증서 파일 경로 | N/A | N/A |
+| ssl-key      | SSL 키 파일 경로 | N/A | N/A |
+| dbname       | 데이터베이스의 schema 이름 | N/A | **✓** |
 
-#### Postgres agent 설치
+##### **instances.append_session**
+| **Settings** | **Description** | **Default** | **Required** |
+|--------------|-----------------|:-----------:|:------------:|
+| scrape_interval | append session 수집 주기 | N/A | N/A |
 
-1. 데이터세이커가 사용할 로컬 디렉터리 생성합니다.
+##### **instances.apped_session.db_list**
+| **Settings** | **Description** | **Default** | **Required** |
+|--------------|-----------------|:-----------:|:------------:|
+| dbname       | 데이터베이스의 schema 이름 | N/A | N/A |
+| long_session_standard | long session 기준 시간 | N/A | N/A |
 
-```shell
- sudo mkdir -p /var/datasaker
- sudo chown -R datasaker:datasaker /var/datasaker/ 
-```
+##### example
+* One DB Instance
+	```yaml
+	agent:
+	  metadata:
+	    agent_name: dsk-postgres-agent
+	    cluster_id: example-cluster
+	  instances:
+	  - username: datasaker
+	    password: <account password>
+	    host: 127.0.0.1
+	    port: 5432
+	    dbname: example
+	```
+* One DB Instance, Append Session
+	```yaml
+	agent:
+	  metadata:
+	    agent_name: dsk-postgres-agent
+	    cluster_id: example-cluster
+	  instances:
+	  - username: datasaker
+	    password: <account password>
+	    host: 127.0.0.1
+	    port: 5432
+	    dbname: example
+	    append_session:
+	      scrape_interval: 3s
+	      db_list:
+	      - dbname: append1
+	        long_session_standard: 1s
+	```
 
+* Many DB Instance
+	```yaml
+	agent:
+	  metadata:
+	    agent_name: dsk-postgres-agent
+	    cluster_id: example-cluster
+	  instances:
+	  - username: datasaker
+	    password: <account password>
+	    host: 127.0.0.1
+	    port: 5432
+	    dbname: example
+	    append_session:
+	      scrape_interval: 3s
+	      db_list:
+	      - dbname: append1
+	        long_session_standard: 1s
+	  - username: datasaker
+	    password: <account password>
+	    host: 127.0.0.2
+	    port: 5432
+	    dbname: example
+	    append_session:
+	      scrape_interval: 3s
+	      db_list:
+	      - dbname: append1
+	        long_session_standard: 1s
+	      - dbname: append2
+	        long_session_standard: 3s
+	```
+
+### 4. Postgres Agent 설치
+1. 데이터세이커가 사용할 로컬 디렉토리를 생성합니다.
+    ```shell
+    mkdir -p /var/datasaker
+    chown -R datasaker:datasaker /var/datasaker/
+    ```
 2. 도커 명령어를 서버에 입력합니다.
-
-```shell
- DSK_PG_URI=${DSK_PG_HOST}:${DSK_PG_PORT}/${DSK_PG_DB_NAME}?sslmode=disable
- docker run -d --name dsk-postgres-agent\
-  -v /var/datasaker/:/var/datasaker/\
-  -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro\
-  -v ~/.datasaker/postgres-config.yml:/etc/datasaker/dsk-postgres-agent/agent-config.yml:ro\
-  -e DKS_LOG_LEVEL=info\
-  -e DATA_SOURCE_USER=${DSK_PG_USER}\
-  -e DATA_SOURCE_PASS=${DSK_PG_SOURCE_PASS}\
-  -e DATA_SOURCE_URI=${DSK_PG_URI}\
-  --restart=always\
-  datasaker/dsk-postgres-agent
-  docker run -d --name dsk-plan-postgres-agent\
-    -v /var/datasaker/:/var/datasaker/\
-    -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro\
-    -v ~/.datasaker/plan-postgres-config.yml:/etc/datasaker/dsk-plan-postgres-agent/agent-config.yml:ro\
-    -e DKS_LOG_LEVEL=info\
-    --restart=always\
-    datasaker/dsk-plan-postgres-agent
-```
+    ```shell
+    docker run -d --name dsk-postgres-agent \
+    -v /var/datasaker/:/var/datasaker/ \
+    -v ~/.datasaker/config.yml:/etc/datasaker/global-config.yml:ro \
+    -v ~/.datasaker/postgres-config.yml:/etc/datasaker/dsk-postgres-agent/agent-config.yml:ro \
+    -e DSK_LOG_LEVEL=INFO \
+    -- restart=always \
+    datasaker/dsk-postgres-agent
+    ```

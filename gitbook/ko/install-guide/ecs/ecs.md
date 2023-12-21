@@ -19,7 +19,7 @@ EC2 Lunch type은 빠른 시일 내 지원 예정입니다.
 ECS Fargate 내의 컨테이너들을 모니터링 하기 위해서, 데이터세이커 에이전트는 같은 **`task definition`** 내에 배포되어야 합니다.
 다음 단계를 따라 에이전트를 배포할 수 있습니다.
 
-### Web UI
+### Web UI로 배포하기
 
 #### 태스크 정의 만들기
 
@@ -36,7 +36,7 @@ web ui로 Agent를 배포하는 방법은 다음과 같습니다.
 
 Fargate를 Replica Service로 배포합니다. 에이전트는 이제 태스크 내에서 어플리케이션 컨테이너화 함께 동작하며, 컨테이너의 메트릭을 수집 할 것입니다.
 
-### CloudFormation
+### CloudFormation으로 배포하기
 
 다음 설정을 참고하세요
 

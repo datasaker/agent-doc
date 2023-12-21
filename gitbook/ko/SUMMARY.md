@@ -75,3 +75,5 @@
     <!-- * [dsk-plan-mysql-agent](install-guide/linux/ubuntu/dsk-plan-mysql-agent.md) -->
 * [Ansible Datasaker Role](install-guide/ansible/README.md)
   * [Ansible Datasaker Role](install-guide/ansible/ansible.md)
+* [ECS Datasaker Agent](install-guide/ecs/README.md)
+  * [ECS Datasaker Agent](install-guide/ecs/ecs.md)

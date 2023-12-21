@@ -26,27 +26,6 @@ EOF
 
 각 설정 값에 대한 자세한 설명은 다음과 같습니다.
 
-redisAgents:
-list: []
-# [required] redis를 구분할 수 있는 이름 (반드시 사용자가 명시해야 합니다.)
-#    - name: 'redis-1'
-# [optional] 배포할 워커 노드에 taint가 설정되어 있을 경우 taint를 추가합니다.
-#      tolerations: []
-# [optional] agent의 Image Policy를 설정합니다.
-#      imgPolicy: 'Always'
-# [optional] agent의 Image 태그를 설정합니다.
-#      imgVersion: 'latest'
-# [optional] agent에서 남기는 log level을 설정합니다. (debug > info > warn > error > panic > fatal)
-#      logLevel: 'INFO'
-# [required] redis의 주소를 설정합니다. (address는 필수값입니다)
-#      address: IP:port or Domain
-# [optional] 기타 연결 정보를 입력합니다
-#      tls: false
-#      user: ""
-#      password: ""
-# [optional] redis exporter의 설정 arguments를 입력합니다.
-#      exporterArgs: []
-
 | 설정                        | 설명                                                        |
 |---------------------------|-----------------------------------------------------------|
 | `redisAgents[].name`      | `redis agent`를 구분할 수 있는 이름 (반드시 사용자가 명시해야 합니다.)           |

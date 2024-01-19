@@ -2,19 +2,19 @@
 
 데이터세이커 ECS 에이전트는 ecs의 스탯 정보와 메타데이터 정보를 통해 컨테이너 별 자원 사용량을 실시간으로 수집합니다. 이를 통해 CPU, 메모리 사용량, 네트워크 트래픽 등의 성능 지표들을 확인 할 수 있습니다.
 
-## 모니터링 대상
-
-현재 데이터세이커는 Fargate Lunch type만을 지원하고 있습니다. 모니터링 대상은 태스크 내 컨테이너입니다.
-
-EC2 Lunch type은 빠른 시일 내 지원 예정입니다.
+dsk-fargate-agent는 Fargate LunchType을 사용하는 ECS 클러스터에서만 사용할 수 있습니다.
+EC2 Lunch Type으로 배포된 어플리케이션과 서버의 성능을 확인하기 위해선 [다음](./ec2.md) 페이지를 확인해주세요.
 
 ## 사전 요구사항
 
-에이전트는 메트릭 데이터를 `gate.kr.datasaker.io:31302` 주소로 전송합니다. 해당 주소로 통신이 가능한지 확인해주세요.
+에이전트는 다음 주소로 데이터를 보낼 수 있어야 합니다. 해당 주소로 통신이 가능한지 확인해주세요.
+
+- `gate.kr.datasaker.io:31302`
+- `api.kr.datasaker.io`
 
 ## 설치 방법
 
-![ecs-fargate](../../../img/datasaker.png)
+![ecs-fargate](../../../img/ecs-fargate.png)
 
 ECS Fargate 내의 컨테이너들을 모니터링 하기 위해서, 데이터세이커 에이전트는 같은 **`task definition`** 내에 배포되어야 합니다.
 다음 단계를 따라 에이전트를 배포할 수 있습니다.
